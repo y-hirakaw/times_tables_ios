@@ -1,9 +1,18 @@
 import SwiftUI
 
+struct Point {
+    var value: Int = 0
+
+    mutating func increment() {
+        value += 1
+    }
+}
+
 struct ContentView: View {
     @State private var question: MultiplicationQuestion? = nil
     @State private var answer: String = ""
     @State private var resultMessage: String = ""
+    @State private var points = Point()
 
     var body: some View {
         VStack {
@@ -16,6 +25,7 @@ struct ContentView: View {
                 }
                 Text(resultMessage)
                     .foregroundColor(resultMessage == "Correct!" ? .green : .red)
+                Text("Points: \(points.value)")
             } else {
                 Text("Press the button to generate a question")
             }
@@ -36,6 +46,7 @@ struct ContentView: View {
         guard let question = question else { return }
         if Int(answer) == question.answer {
             resultMessage = "Correct!"
+            points.increment()
         } else {
             resultMessage = "Incorrect. Try again."
         }
