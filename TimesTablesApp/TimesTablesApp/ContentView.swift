@@ -1,54 +1,47 @@
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @State private var question: MultiplicationQuestion? = nil
+    @State private var answer: String = ""
+    @State private var resultMessage: String = ""
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        VStack {
+            if let question = question {
+                Text(question.question)
+                TextField("Answer", text: $answer)
+                    .keyboardType(.numberPad)
+                Button("Check Answer") {
+                    checkAnswer()
                 }
-                .onDelete(perform: deleteItems)
+                Text(resultMessage)
+                    .foregroundColor(resultMessage == "Correct!" ? .green : .red)
+            } else {
+                Text("Press the button to generate a question")
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+            Button(action: generateRandomQuestion) {
+                Label("Random Question", systemImage: "questionmark.circle")
             }
-        } detail: {
-            Text("Select an item")
         }
+        .padding()
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
+    private func generateRandomQuestion() {
+        question = MultiplicationQuestion.randomQuestion()
+        answer = ""
+        resultMessage = ""
     }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+    private func checkAnswer() {
+        guard let question = question else { return }
+        if Int(answer) == question.answer {
+            resultMessage = "Correct!"
+        } else {
+            resultMessage = "Incorrect. Try again."
         }
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
