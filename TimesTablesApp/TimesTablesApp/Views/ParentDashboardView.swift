@@ -298,7 +298,8 @@ class PINManager {
             kSecAttrService: service,
             kSecAttrAccount: pinKey,
             kSecValueData: data,
-            kSecAttrSynchronizable: kCFBooleanFalse
+            kSecAttrSynchronizable: kCFBooleanFalse,
+            kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly // アプリ削除時に消えるように設定
         ]
         
         // 既存のデータを削除
@@ -451,6 +452,13 @@ struct PINSetupView: View {
             
             Text("4桁のPINコードを設定してください")
                 .foregroundColor(.secondary)
+            
+            // 警告メッセージの追加
+            Text("※PINコードを忘れると管理画面へアクセスできなくなります。\n忘れないようにメモを取るなどの対策をしてください。")
+                .font(.footnote)
+                .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
             
             SecureField("PINコード (4桁)", text: $pin)
                 .keyboardType(.numberPad)

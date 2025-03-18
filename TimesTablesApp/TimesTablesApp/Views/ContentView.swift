@@ -89,7 +89,7 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
             }
             .padding()
-            .navigationTitle("九九チャレンジ")
+            .navigationTitle("九九メーター")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     // 親用管理画面へのリンク
