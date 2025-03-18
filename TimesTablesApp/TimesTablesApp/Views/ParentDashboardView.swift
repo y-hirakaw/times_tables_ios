@@ -6,6 +6,7 @@ struct ParentDashboardView: View {
     @Query private var pointHistory: [PointHistory]
     @Query private var pointSpending: [PointSpending]
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     @State private var showingPointsInput = false
     @State private var pointsToSpend = ""
@@ -17,10 +18,29 @@ struct ParentDashboardView: View {
     var body: some View {
         VStack {
             // ヘッダー
-            Text("親用管理画面")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding()
+            HStack {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                }
+                
+                Spacer()
+                
+                Text("親用管理画面")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                
+                Spacer()
+                
+                // バランスを取るための空のスペースを確保
+                Image(systemName: "xmark.circle.fill")
+                    .font(.title2)
+                    .foregroundColor(.clear)
+            }
+            .padding()
             
             // ポイント情報
             PointsSummaryView()
