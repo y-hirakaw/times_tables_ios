@@ -57,7 +57,7 @@ struct ContentView: View {
                 .padding()
                 
                 // Display difficult questions if any exist
-                if !difficultQuestions.isEmpty {
+                if (!difficultQuestions.isEmpty) {
                     Section {
                         Text("Your difficult questions:")
                             .font(.headline)
@@ -92,7 +92,10 @@ struct ContentView: View {
             .navigationTitle("九九チャレンジ")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: ParentDashboardView()) {
+                    // 親用管理画面へのリンク
+                    Button {
+                        showParentDashboard()
+                    } label: {
                         Label("親用管理画面", systemImage: "person.circle")
                     }
                 }
@@ -101,7 +104,24 @@ struct ContentView: View {
                 // アプリ起動時にユーザーポイントが存在しなければ作成
                 ensureUserPointsExists()
             }
+            // PIN認証用シート
+            .sheet(isPresented: $showingPINAuth) {
+                ParentAccessView(isAuthenticated: $isAuthenticated)
+            }
+            // 認証成功時に親用管理画面を表示
+            .fullScreenCover(isPresented: $isAuthenticated) {
+                ParentDashboardView()
+            }
         }
+    }
+    
+    // PIN認証関連のステート変数
+    @State private var showingPINAuth = false
+    @State private var isAuthenticated = false
+    
+    // 親用管理画面を表示する処理
+    private func showParentDashboard() {
+        showingPINAuth = true
     }
     
     /// ユーザーポイントが存在することを確認し、なければ作成

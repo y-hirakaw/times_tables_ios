@@ -20,6 +20,37 @@
     "+%lld" : {
 
     },
+    "4桁のPINコード" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4-digit PIN code"
+          }
+        }
+      }
+    },
+    "4桁のPINコードを設定してください" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please set a 4-digit PIN code"
+          }
+        }
+      }
+    },
+    "5回失敗したら画面を閉じる" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close after 5 failed attempts"
+          }
+        }
+      }
+    },
     "Answer" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -107,6 +138,79 @@
     "OK" : {
 
     },
+    "PINコード (4桁)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN code (4 digits)"
+          }
+        }
+      }
+    },
+    "PINコードが一致しません" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN codes do not match"
+          }
+        }
+      }
+    },
+    "PINコードが正しくありません" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect PIN code"
+          }
+        }
+      }
+    },
+    "PINコードの確認" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm PIN code"
+          }
+        }
+      }
+    },
+    "PINコードは4桁の数字である必要があります" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN code must be 4 digits"
+          }
+        }
+      }
+    },
+    "PINコードは数字のみ使用できます" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN code can only contain numbers"
+          }
+        }
+      }
+    },
+    "PINコードを入力してください" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your PIN code"
+          }
+        }
+      }
+    },
     "Points: %lld" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -175,7 +279,14 @@
       }
     },
     "キャンセル" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
     },
     "ボーナスポイント" : {
 
@@ -225,6 +336,16 @@
     "理由（おもちゃ交換など）" : {
 
     },
+    "確認" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    },
     "累計獲得ポイント" : {
 
     },
@@ -232,7 +353,44 @@
 
     },
     "親用管理画面" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access to Parent Dashboard"
+          }
+        }
+      }
+    },
+    "親用管理画面のセキュリティ設定" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parent Dashboard Security Settings"
+          }
+        }
+      }
+    },
+    "親用管理画面へのアクセス" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access to Parent Dashboard"
+          }
+        }
+      }
+    },
+    "設定" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
