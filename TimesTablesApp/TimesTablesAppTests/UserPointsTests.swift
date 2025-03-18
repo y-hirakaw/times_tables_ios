@@ -1,5 +1,6 @@
 import XCTest
 import Testing
+import SwiftData
 @testable import TimesTablesApp
 
 @MainActor
@@ -9,7 +10,8 @@ final class UserPointsTests: XCTestCase {
         // UserPointsの初期値テスト
         let points = UserPoints()
         
-        expect(points.totalPoints, equals: 0)
+        expect(points.totalEarnedPoints, equals: 0)
+        expect(points.availablePoints, equals: 0)
         expect(points.difficultQuestionBonuses.isEmpty, equals: true)
     }
     
@@ -18,10 +20,12 @@ final class UserPointsTests: XCTestCase {
         let points = UserPoints()
         
         points.addPoints(5)
-        expect(points.totalPoints, equals: 5)
+        expect(points.totalEarnedPoints, equals: 5)
+        expect(points.availablePoints, equals: 5)
         
         points.addPoints(3)
-        expect(points.totalPoints, equals: 8)
+        expect(points.totalEarnedPoints, equals: 8)
+        expect(points.availablePoints, equals: 8)
     }
     
     func testAddDifficultBonus() throws {
@@ -32,13 +36,15 @@ final class UserPointsTests: XCTestCase {
         // 最初のボーナス（基本ポイント1、ボーナス1）
         let firstEarned = points.addDifficultBonus(for: questionId, basePoints: 1)
         expect(firstEarned, equals: 2, "最初の苦手問題ボーナスは基本ポイント + ボーナス")
-        expect(points.totalPoints, equals: 2)
+        expect(points.totalEarnedPoints, equals: 2)
+        expect(points.availablePoints, equals: 2)
         expect(points.difficultQuestionBonuses[questionId], equals: 1)
         
         // 2回目のボーナス（基本ポイント1、ボーナス1）
         let secondEarned = points.addDifficultBonus(for: questionId, basePoints: 1)
         expect(secondEarned, equals: 2)
-        expect(points.totalPoints, equals: 4)
+        expect(points.totalEarnedPoints, equals: 4)
+        expect(points.availablePoints, equals: 4)
         expect(points.difficultQuestionBonuses[questionId], equals: 2)
         
         // 上限に達するまでボーナスを加算
@@ -65,6 +71,76 @@ final class UserPointsTests: XCTestCase {
         
         expect(points.difficultQuestionBonuses[question1], equals: 1)
         expect(points.difficultQuestionBonuses[question2], equals: 1)
-        expect(points.totalPoints, equals: 4)
+        expect(points.totalEarnedPoints, equals: 4)
+        expect(points.availablePoints, equals: 4)
+    }
+    
+    func testSpendPoints() throws {
+        // ポイント消費のテスト
+        let points = UserPoints()
+        
+        // 初期ポイントを追加
+        points.addPoints(10)
+        
+        // ポイントを使用
+        let success1 = points.spendPoints(5)
+        expect(success1, equals: true)
+        expect(points.availablePoints, equals: 5)
+        expect(points.totalEarnedPoints, equals: 10, "総獲得ポイントは変わらない")
+        
+        // ポイントが足りない場合
+        let success2 = points.spendPoints(10)
+        expect(success2, equals: false)
+        expect(points.availablePoints, equals: 5, "失敗時はポイントは減らない")
+        
+        // 残りのポイントを全て使用
+        let success3 = points.spendPoints(5)
+        expect(success3, equals: true)
+        expect(points.availablePoints, equals: 0)
+    }
+    
+    func testResetPoints() throws {
+        // ポイントリセットのテスト
+        let points = UserPoints()
+        
+        // 初期ポイントを追加
+        points.addPoints(20)
+        expect(points.availablePoints, equals: 20)
+        
+        // リセット
+        points.resetPoints()
+        expect(points.availablePoints, equals: 0)
+        expect(points.totalEarnedPoints, equals: 20, "総獲得ポイントは変わらない")
+    }
+    
+    func testPointHistoryWithModelContext() throws {
+        // ModelContextを使った履歴テスト
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: UserPoints.self, PointHistory.self, PointSpending.self, configurations: config)
+        let context = container.mainContext
+        
+        let points = UserPoints()
+        context.insert(points)
+        
+        // ポイント追加と履歴記録
+        points.addPoints(5, context: context)
+        points.addDifficultBonus(for: "7x8", basePoints: 2, context: context)
+        
+        // 履歴の確認
+        let descriptor = FetchDescriptor<PointHistory>()
+        let histories = try context.fetch(descriptor)
+        
+        expect(histories.count, equals: 3) // 基本5ポイント、基本2ポイント、ボーナスポイントの3つ
+        expect(histories.reduce(0) { $0 + $1.pointsEarned }, equals: 9) // 合計9ポイント獲得
+        
+        // ポイント消費と履歴記録
+        points.spendPoints(3, reason: "テスト消費", context: context)
+        
+        let spendingDescriptor = FetchDescriptor<PointSpending>()
+        let spendings = try context.fetch(spendingDescriptor)
+        
+        expect(spendings.count, equals: 1)
+        expect(spendings[0].pointsSpent, equals: 3)
+        expect(spendings[0].reason, equals: "テスト消費")
     }
 }

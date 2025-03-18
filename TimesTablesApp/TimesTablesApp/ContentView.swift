@@ -103,9 +103,9 @@ struct ContentView: View {
         }
     }
     
-    /// 現在のポイントを取得
+    /// 現在の使用可能ポイントを取得
     private func getCurrentPoints() -> Int {
-        return userPoints.first?.totalPoints ?? 0
+        return userPoints.first?.availablePoints ?? 0
     }
 
     /// ランダムな掛け算問題を生成する
@@ -192,11 +192,11 @@ struct ContentView: View {
         
         if isDifficult {
             // 苦手問題の場合はボーナスポイント計算
-            let earnedPoints = points.addDifficultBonus(for: question.identifier, basePoints: basePoints)
+            let earnedPoints = points.addDifficultBonus(for: question.identifier, basePoints: basePoints, context: modelContext)
             resultMessage = "正解！ +\(earnedPoints)ポイント"
         } else {
             // 通常問題の場合は基本ポイントのみ
-            points.addPoints(basePoints)
+            points.addPoints(basePoints, context: modelContext)
             resultMessage = "正解！ +\(basePoints)ポイント"
         }
         
@@ -274,7 +274,8 @@ struct ContentView: View {
         // ポイント情報も表示
         print("■ ユーザーポイント情報")
         if let points = userPoints.first {
-            print("合計ポイント: \(points.totalPoints)")
+            print("累計獲得ポイント: \(points.totalEarnedPoints)")
+            print("使用可能ポイント: \(points.availablePoints)")
             print("最終更新: \(points.lastUpdated)")
             print("苦手問題ボーナス履歴: \(points.difficultQuestionBonuses)")
         } else {
@@ -286,3 +287,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
