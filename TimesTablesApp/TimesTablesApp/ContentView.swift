@@ -11,9 +11,9 @@ struct Point {
 
 struct ContentView: View {
     @State private var question: MultiplicationQuestion? = nil
-    @State private var answer: String = ""
     @State private var resultMessage: String = ""
     @State private var points = Point()
+    @State private var answerChoices: [Int] = []
     /// 苦手問題のリストをSwiftDataから取得
     @Query private var difficultQuestions: [DifficultQuestion]
     /// SwiftDataのモデルコンテキスト
@@ -23,20 +23,44 @@ struct ContentView: View {
         VStack {
             if let question = question {
                 Text(question.question)
-                TextField("Answer", text: $answer)
-                    .keyboardType(.numberPad)
-                Button("Check Answer") {
-                    checkAnswer()
+                    .font(.title)
+                    .padding()
+                
+                // 選択肢ボタンのグリッド
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                    ForEach(answerChoices, id: \.self) { choice in
+                        Button(action: {
+                            checkAnswer(selectedAnswer: choice)
+                        }) {
+                            Text("\(choice)")
+                                .font(.title2)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue.opacity(0.2))
+                                .cornerRadius(10)
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                    }
                 }
+                .padding()
+                
                 Text(resultMessage)
-                    .foregroundColor(resultMessage == "Correct!" ? .green : .red)
-                Text("Points: \(points.value)")
+                    .foregroundColor(resultMessage == "正解！" ? .green : .red)
+                    .font(.headline)
+                    .padding()
+                
+                Text("獲得ポイント: \(points.value)")
             } else {
-                Text("Press the button to generate a question")
+                Text("ボタンを押して問題を表示しよう！")
+                    .font(.title)
+                    .padding()
             }
+            
             Button(action: generateRandomQuestion) {
-                Label("Random Question", systemImage: "questionmark.circle")
+                Label("ランダム問題", systemImage: "questionmark.circle")
             }
+            .buttonStyle(.borderedProminent)
+            .padding()
             
             // Display difficult questions if any exist
             if !difficultQuestions.isEmpty {
@@ -76,20 +100,63 @@ struct ContentView: View {
     /// ランダムな掛け算問題を生成する
     private func generateRandomQuestion() {
         question = MultiplicationQuestion.randomQuestion()
-        answer = ""
+        generateAnswerChoices()
         resultMessage = ""
+    }
+    
+    /// 選択肢をランダムに生成する
+    private func generateAnswerChoices() {
+        guard let question = question else { return }
+        
+        // 正解を含む
+        var choices = [question.answer]
+        
+        // 選択肢の数をランダムに決定（6〜8個）
+        let numberOfChoices = Int.random(in: 6...8)
+        
+        // 正解の近辺の数値と他のランダムな数値を追加
+        while choices.count < numberOfChoices {
+            let randomChoice: Int
+            
+            // 50%の確率で近い値、50%の確率で完全なランダム値
+            if Bool.random() {
+                // 正解の近辺の値（±10の範囲）
+                let offset = Int.random(in: -10...10)
+                randomChoice = max(1, question.answer + offset) // 1未満にならないようにする
+            } else {
+                // 完全なランダム値（1〜100の範囲）
+                randomChoice = Int.random(in: 1...100)
+            }
+            
+            // 重複を避ける
+            if !choices.contains(randomChoice) {
+                choices.append(randomChoice)
+            }
+        }
+        
+        // 選択肢をシャッフル
+        answerChoices = choices.shuffled()
     }
 
     /// ユーザーの回答を確認する
-    private func checkAnswer() {
+    private func checkAnswer(selectedAnswer: Int) {
         guard let question = question else { return }
-        if Int(answer) == question.answer {
-            resultMessage = "Correct!"
+        
+        if selectedAnswer == question.answer {
+            resultMessage = "正解！"
             points.increment()
             updateCorrectAttempt(for: question)
+            // 少し待ってから新しい問題を生成
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                generateRandomQuestion()
+            }
         } else {
-            resultMessage = "Incorrect. Try again."
+            resultMessage = "不正解。正解は \(question.answer) です。"
             recordIncorrectAnswer(for: question)
+            // 少し待ってから新しい問題を生成
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                generateRandomQuestion()
+            }
         }
     }
     

@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld" : {
+
+    },
     "%lld × %lld" : {
       "localizations" : {
         "en" : {
@@ -12,6 +15,7 @@
       }
     },
     "Answer" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -28,6 +32,7 @@
       }
     },
     "Check Answer" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -94,6 +99,7 @@
       }
     },
     "Points: %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -110,6 +116,7 @@
       }
     },
     "Press the button to generate a question" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -126,6 +133,7 @@
       }
     },
     "Random Question" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -156,6 +164,15 @@
           }
         }
       }
+    },
+    "ボタンを押して問題を表示しよう！" : {
+
+    },
+    "ランダム問題" : {
+
+    },
+    "獲得ポイント: %lld" : {
+
     },
     "苦手問題をデバッグ表示" : {
 
