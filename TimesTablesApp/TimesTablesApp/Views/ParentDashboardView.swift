@@ -267,10 +267,50 @@ struct PointsInputView: View {
 // PINコードの管理クラス
 class PINManager {
     private static let pinKey = "parentDashboardPIN"
+    private static let service = "com.timestables.app.parentPin"
+    
+    // KeyChainへのアクセス関数
+    private static func saveToKeychain(pin: String) -> Bool {
+        guard let data = pin.data(using: .utf8) else { return false }
+        
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: pinKey,
+            kSecValueData: data,
+            kSecAttrSynchronizable: kCFBooleanFalse
+        ]
+        
+        // 既存のデータを削除
+        SecItemDelete(query as CFDictionary)
+        
+        // 新しいデータを保存
+        let status = SecItemAdd(query as CFDictionary, nil)
+        return status == errSecSuccess
+    }
+    
+    private static func loadFromKeychain() -> String? {
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: pinKey,
+            kSecReturnData: kCFBooleanTrue,
+            kSecMatchLimit: kSecMatchLimitOne,
+            kSecAttrSynchronizable: kCFBooleanFalse
+        ]
+        
+        var dataTypeRef: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+        
+        if status == errSecSuccess, let data = dataTypeRef as? Data, let pin = String(data: data, encoding: .utf8) {
+            return pin
+        }
+        return nil
+    }
     
     // PINが設定されているかチェック
     static func isPINSet() -> Bool {
-        return UserDefaults.standard.string(forKey: pinKey) != nil
+        return loadFromKeychain() != nil
     }
     
     // PINを設定
@@ -279,13 +319,12 @@ class PINManager {
             return false
         }
         
-        UserDefaults.standard.set(pin, forKey: pinKey)
-        return true
+        return saveToKeychain(pin: pin)
     }
     
     // PINを検証
     static func verifyPin(_ pin: String) -> Bool {
-        guard let savedPin = UserDefaults.standard.string(forKey: pinKey) else {
+        guard let savedPin = loadFromKeychain() else {
             return false
         }
         
@@ -294,7 +333,14 @@ class PINManager {
     
     // PINをリセット（デバッグ用）
     static func resetPin() {
-        UserDefaults.standard.removeObject(forKey: pinKey)
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: pinKey,
+            kSecAttrSynchronizable: kCFBooleanFalse
+        ]
+        
+        SecItemDelete(query as CFDictionary)
     }
 }
 
