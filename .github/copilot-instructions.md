@@ -93,3 +93,4 @@ xcodebuild -scheme ParentFeel \
 
 # その他
 * チャット内の回答は日本語でお願いします。
+* @mainが定義されているファイルは`TimesTablesAppApp.swift`です

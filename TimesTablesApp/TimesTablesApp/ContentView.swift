@@ -63,6 +63,12 @@ struct ContentView: View {
                 }
                 .padding()
             }
+            
+            Button("苦手問題をデバッグ表示") {
+                logDifficultQuestions()
+            }
+            .padding()
+            .buttonStyle(.borderedProminent)
         }
         .padding()
     }
@@ -122,6 +128,38 @@ struct ContentView: View {
     /// - Returns: 対応するDifficultQuestionオブジェクト（存在しない場合はnil）
     private func findDifficultQuestion(for question: MultiplicationQuestion) -> DifficultQuestion? {
         return difficultQuestions.first { $0.identifier == question.identifier }
+    }
+    
+    /// 苦手問題をコンソールにログ出力する
+    private func logDifficultQuestions() {
+        let questions = DifficultQuestion.getAllDifficultQuestions(context: modelContext)
+        print("■ 苦手問題一覧 (計\(questions.count)件)")
+        print("==============================")
+        
+        if questions.isEmpty {
+            print("保存されている苦手問題はありません")
+            
+            // データベースの状態を詳しくデバッグ
+            print("ModelContextの状態を確認します...")
+            try? modelContext.save()
+            print("ModelContextの保存を実行しました")
+            
+            // テスト用に問題を追加
+            print("テスト用に苦手問題を追加します...")
+            DifficultQuestion.recordIncorrectAnswer(firstNumber: 7, secondNumber: 8, context: modelContext)
+            
+            // 再度取得して確認
+            let updatedQuestions = DifficultQuestion.getAllDifficultQuestions(context: modelContext)
+            print("再確認: 苦手問題一覧 (計\(updatedQuestions.count)件)")
+            for (index, question) in updatedQuestions.enumerated() {
+                print("\(index + 1). \(question.debugDescription())")
+            }
+        } else {
+            for (index, question) in questions.enumerated() {
+                print("\(index + 1). \(question.debugDescription())")
+                print("------------------------------")
+            }
+        }
     }
 }
 

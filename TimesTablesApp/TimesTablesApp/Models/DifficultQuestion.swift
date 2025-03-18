@@ -58,4 +58,70 @@ final class DifficultQuestion {
     var isDifficult: Bool {
         return totalAttempts >= 3 && incorrectPercentage > 30
     }
+    
+    /// 保存されている全ての苦手問題を取得
+    /// - Parameter context: ModelContext
+    /// - Returns: 苦手問題の配列
+    static func getAllDifficultQuestions(context: ModelContext) -> [DifficultQuestion] {
+        let descriptor = FetchDescriptor<DifficultQuestion>()
+        do {
+            let questions = try context.fetch(descriptor)
+            return questions
+        } catch {
+            print("苦手問題の取得に失敗しました: \(error)")
+            return []
+        }
+    }
+    
+    /// 問題が間違えられた時に呼び出すメソッド
+    /// 既存の苦手問題があれば更新し、無ければ新規作成する
+    /// - Parameters:
+    ///   - firstNumber: 掛けられる数
+    ///   - secondNumber: 掛ける数
+    ///   - context: ModelContext
+    static func recordIncorrectAnswer(firstNumber: Int, secondNumber: Int, context: ModelContext) {
+        let identifier = "\(firstNumber)x\(secondNumber)"
+        
+        // 既存の問題を検索
+        let descriptor = FetchDescriptor<DifficultQuestion>(
+            predicate: #Predicate { $0.identifier == identifier }
+        )
+        
+        do {
+            let existingQuestions = try context.fetch(descriptor)
+            if let existingQuestion = existingQuestions.first {
+                // 既存の問題があれば不正解カウントを増やす
+                existingQuestion.increaseIncorrectCount()
+                print("既存の苦手問題を更新: \(identifier)")
+            } else {
+                // 新しい問題を作成
+                let newQuestion = DifficultQuestion(
+                    identifier: identifier,
+                    firstNumber: firstNumber,
+                    secondNumber: secondNumber
+                )
+                context.insert(newQuestion)
+                print("新しい苦手問題を登録: \(identifier)")
+            }
+            
+            // 変更を保存
+            try context.save()
+        } catch {
+            print("苦手問題の保存に失敗: \(error)")
+        }
+    }
+    
+    /// デバッグ情報を文字列で取得
+    func debugDescription() -> String {
+        return """
+        問題: \(identifier)
+          - 計算式: \(firstNumber) × \(secondNumber) = \(firstNumber * secondNumber)
+          - 不正解回数: \(incorrectCount)
+          - 正解回数: \(correctCount)
+          - 総回答数: \(totalAttempts)
+          - 不正解率: \(String(format: "%.1f%%", incorrectPercentage))
+          - 最後に間違えた日: \(lastIncorrectDate)
+          - 「苦手」判定: \(isDifficult ? "はい" : "いいえ")
+        """
+    }
 }
