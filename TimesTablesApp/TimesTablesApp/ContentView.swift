@@ -1,21 +1,14 @@
 import SwiftUI
 import SwiftData
 
-struct Point {
-    var value: Int = 0
-
-    mutating func increment() {
-        value += 1
-    }
-}
-
 struct ContentView: View {
     @State private var question: MultiplicationQuestion? = nil
     @State private var resultMessage: String = ""
-    @State private var points = Point()
     @State private var answerChoices: [Int] = []
     /// 苦手問題のリストをSwiftDataから取得
     @Query private var difficultQuestions: [DifficultQuestion]
+    /// ユーザーポイントの取得
+    @Query private var userPoints: [UserPoints]
     /// SwiftDataのモデルコンテキスト
     @Environment(\.modelContext) private var modelContext
     
@@ -45,11 +38,11 @@ struct ContentView: View {
                 .padding()
                 
                 Text(resultMessage)
-                    .foregroundColor(resultMessage == "正解！" ? .green : .red)
+                    .foregroundColor(resultMessage.contains("正解") ? .green : .red)
                     .font(.headline)
                     .padding()
                 
-                Text("獲得ポイント: \(points.value)")
+                Text("獲得ポイント: \(getCurrentPoints())")
             } else {
                 Text("ボタンを押して問題を表示しよう！")
                     .font(.title)
@@ -95,6 +88,24 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
         }
         .padding()
+        .onAppear {
+            // アプリ起動時にユーザーポイントが存在しなければ作成
+            ensureUserPointsExists()
+        }
+    }
+    
+    /// ユーザーポイントが存在することを確認し、なければ作成
+    private func ensureUserPointsExists() {
+        if userPoints.isEmpty {
+            let newPoints = UserPoints()
+            modelContext.insert(newPoints)
+            try? modelContext.save()
+        }
+    }
+    
+    /// 現在のポイントを取得
+    private func getCurrentPoints() -> Int {
+        return userPoints.first?.totalPoints ?? 0
     }
 
     /// ランダムな掛け算問題を生成する
@@ -143,9 +154,11 @@ struct ContentView: View {
         guard let question = question else { return }
         
         if selectedAnswer == question.answer {
-            resultMessage = "正解！"
-            points.increment()
+            // 正解の場合
+            let isDifficult = isDifficultQuestion(question)
+            addPointsForCorrectAnswer(for: question, isDifficult: isDifficult)
             updateCorrectAttempt(for: question)
+            
             // 少し待ってから新しい問題を生成
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 generateRandomQuestion()
@@ -158,6 +171,36 @@ struct ContentView: View {
                 generateRandomQuestion()
             }
         }
+    }
+    
+    /// 問題が苦手問題かどうかを判定
+    private func isDifficultQuestion(_ question: MultiplicationQuestion) -> Bool {
+        if let existingRecord = findDifficultQuestion(for: question) {
+            return existingRecord.isDifficult
+        }
+        return false
+    }
+    
+    /// 正解時のポイント加算
+    private func addPointsForCorrectAnswer(for question: MultiplicationQuestion, isDifficult: Bool) {
+        guard let points = userPoints.first else {
+            ensureUserPointsExists()
+            return
+        }
+        
+        let basePoints = 1 // 基本ポイント
+        
+        if isDifficult {
+            // 苦手問題の場合はボーナスポイント計算
+            let earnedPoints = points.addDifficultBonus(for: question.identifier, basePoints: basePoints)
+            resultMessage = "正解！ +\(earnedPoints)ポイント"
+        } else {
+            // 通常問題の場合は基本ポイントのみ
+            points.addPoints(basePoints)
+            resultMessage = "正解！ +\(basePoints)ポイント"
+        }
+        
+        try? modelContext.save()
     }
     
     /// 不正解だった問題を記録する
@@ -226,6 +269,16 @@ struct ContentView: View {
                 print("\(index + 1). \(question.debugDescription())")
                 print("------------------------------")
             }
+        }
+        
+        // ポイント情報も表示
+        print("■ ユーザーポイント情報")
+        if let points = userPoints.first {
+            print("合計ポイント: \(points.totalPoints)")
+            print("最終更新: \(points.lastUpdated)")
+            print("苦手問題ボーナス履歴: \(points.difficultQuestionBonuses)")
+        } else {
+            print("ポイント情報が存在しません")
         }
     }
 }

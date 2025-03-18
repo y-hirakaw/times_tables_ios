@@ -9,7 +9,7 @@ struct TimesTablesAppApp: App {
     init() {
         do {
             // 明示的なModelContainerの設定
-            let schema = Schema([DifficultQuestion.self])
+            let schema = Schema([DifficultQuestion.self, UserPoints.self])
             let modelConfiguration = ModelConfiguration(
                 schema: schema,
                 isStoredInMemoryOnly: false, // 永続化するためfalseに設定
