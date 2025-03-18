@@ -13,84 +13,94 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     
     var body: some View {
-        VStack {
-            if let question = question {
-                Text(question.question)
-                    .font(.title)
-                    .padding()
-                
-                // 選択肢ボタンのグリッド
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                    ForEach(answerChoices, id: \.self) { choice in
-                        Button(action: {
-                            checkAnswer(selectedAnswer: choice)
-                        }) {
-                            Text("\(choice)")
-                                .font(.title2)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.blue.opacity(0.2))
-                                .cornerRadius(10)
+        NavigationStack {
+            VStack {
+                if let question = question {
+                    Text(question.question)
+                        .font(.title)
+                        .padding()
+                    
+                    // 選択肢ボタンのグリッド
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                        ForEach(answerChoices, id: \.self) { choice in
+                            Button(action: {
+                                checkAnswer(selectedAnswer: choice)
+                            }) {
+                                Text("\(choice)")
+                                    .font(.title2)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.blue.opacity(0.2))
+                                    .cornerRadius(10)
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
                         }
-                        .buttonStyle(BorderlessButtonStyle())
                     }
+                    .padding()
+                    
+                    Text(resultMessage)
+                        .foregroundColor(resultMessage.contains("正解") ? .green : .red)
+                        .font(.headline)
+                        .padding()
+                    
+                    Text("獲得ポイント: \(getCurrentPoints())")
+                } else {
+                    Text("ボタンを押して問題を表示しよう！")
+                        .font(.title)
+                        .padding()
                 }
+                
+                Button(action: generateRandomQuestion) {
+                    Label("ランダム問題", systemImage: "questionmark.circle")
+                }
+                .buttonStyle(.borderedProminent)
                 .padding()
                 
-                Text(resultMessage)
-                    .foregroundColor(resultMessage.contains("正解") ? .green : .red)
-                    .font(.headline)
-                    .padding()
-                
-                Text("獲得ポイント: \(getCurrentPoints())")
-            } else {
-                Text("ボタンを押して問題を表示しよう！")
-                    .font(.title)
-                    .padding()
-            }
-            
-            Button(action: generateRandomQuestion) {
-                Label("ランダム問題", systemImage: "questionmark.circle")
-            }
-            .buttonStyle(.borderedProminent)
-            .padding()
-            
-            // Display difficult questions if any exist
-            if !difficultQuestions.isEmpty {
-                Section {
-                    Text("Your difficult questions:")
-                        .font(.headline)
-                        .padding(.top)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(difficultQuestions.filter { $0.isDifficult }) { diffQuestion in
-                                VStack {
-                                    Text("\(diffQuestion.firstNumber) × \(diffQuestion.secondNumber)")
-                                        .font(.title3)
-                                    Text("Incorrect: \(diffQuestion.incorrectCount)")
-                                        .font(.caption)
+                // Display difficult questions if any exist
+                if !difficultQuestions.isEmpty {
+                    Section {
+                        Text("Your difficult questions:")
+                            .font(.headline)
+                            .padding(.top)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(difficultQuestions.filter { $0.isDifficult }) { diffQuestion in
+                                    VStack {
+                                        Text("\(diffQuestion.firstNumber) × \(diffQuestion.secondNumber)")
+                                            .font(.title3)
+                                        Text("Incorrect: \(diffQuestion.incorrectCount)")
+                                            .font(.caption)
+                                    }
+                                    .padding(8)
+                                    .background(Color.red.opacity(0.1))
+                                    .cornerRadius(8)
                                 }
-                                .padding(8)
-                                .background(Color.red.opacity(0.1))
-                                .cornerRadius(8)
                             }
                         }
                     }
+                    .padding()
+                }
+                
+                Button("苦手問題をデバッグ表示") {
+                    logDifficultQuestions()
                 }
                 .padding()
-            }
-            
-            Button("苦手問題をデバッグ表示") {
-                logDifficultQuestions()
+                .buttonStyle(.borderedProminent)
             }
             .padding()
-            .buttonStyle(.borderedProminent)
-        }
-        .padding()
-        .onAppear {
-            // アプリ起動時にユーザーポイントが存在しなければ作成
-            ensureUserPointsExists()
+            .navigationTitle("九九チャレンジ")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: ParentDashboardView()) {
+                        Label("親用管理画面", systemImage: "person.circle")
+                    }
+                }
+            }
+            .onAppear {
+                // アプリ起動時にユーザーポイントが存在しなければ作成
+                ensureUserPointsExists()
+            }
         }
     }
     
