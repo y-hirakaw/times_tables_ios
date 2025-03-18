@@ -21,5 +21,6 @@ struct TimesTablesAppApp: App {
             ContentView()
         }
         .modelContainer(sharedModelContainer)
+        .modelContainer(for: DifficultQuestion.self)
     }
 }
