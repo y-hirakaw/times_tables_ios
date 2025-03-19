@@ -124,4 +124,41 @@ final class DifficultQuestion {
           - 「苦手」判定: \(isDifficult ? "はい" : "いいえ")
         """
     }
+    
+    /// 指定した日付時点での苦手問題の数を計算
+    /// - Parameters:
+    ///   - date: 基準日
+    ///   - questions: DifficultQuestionのリスト
+    /// - Returns: その日時点での苦手問題の数
+    static func getDifficultQuestionsCountAt(date: Date, questions: [DifficultQuestion]) -> Int {
+        // 指定日以前に不正解だった問題のみをフィルタリング
+        let questionsBeforeDate = questions.filter { $0.lastIncorrectDate <= date }
+        
+        // その中から苦手判定の問題をカウント
+        let difficultCount = questionsBeforeDate.filter { question in
+            // 問題の状態を特定日時点で再計算
+            // 注：この実装は簡略化されており、厳密には正解数も時系列で考慮する必要がある
+            return question.incorrectPercentage > 30 && question.totalAttempts >= 3
+        }.count
+        
+        return difficultCount
+    }
+    
+    /// 指定した期間内に改善された問題（苦手判定から通常判定になった問題）を取得
+    /// - Parameters:
+    ///   - days: 何日前からのデータを見るか
+    ///   - questions: DifficultQuestionのリスト
+    /// - Returns: 改善された問題のリスト
+    static func getImprovedQuestions(within days: Int, questions: [DifficultQuestion]) -> [DifficultQuestion] {
+        let calendar = Calendar.current
+        guard let startDate = calendar.date(byAdding: .day, value: -days, to: Date()) else {
+            return []
+        }
+        
+        return questions.filter { question in
+            // 期間内に回答があり、かつ現在は苦手判定ではない問題
+            let hasRecentAttempts = question.lastIncorrectDate >= startDate || question.correctCount > 0
+            return hasRecentAttempts && !question.isDifficult && question.totalAttempts >= 3
+        }
+    }
 }

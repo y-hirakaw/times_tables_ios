@@ -3,30 +3,36 @@ import SwiftData
 
 @main
 struct TimesTablesAppApp: App {
-    // 明示的にModelContainerを作成し、適切に設定する
-    let modelContainer: ModelContainer
-    
-    init() {
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            DifficultQuestion.self,
+            UserPoints.self,
+            PointHistory.self,
+            PointSpending.self
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
         do {
-            // 明示的なModelContainerの設定
-            let schema = Schema([DifficultQuestion.self, UserPoints.self, PointHistory.self, PointSpending.self])
-            let modelConfiguration = ModelConfiguration(
-                schema: schema,
-                isStoredInMemoryOnly: false, // 永続化するためfalseに設定
-                allowsSave: true             // 保存を許可
-            )
-            
-            modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
-            print("SwiftData ModelContainer初期化完了")
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
-            fatalError("SwiftData ModelContainerの初期化に失敗: \(error)")
+            fatalError("Could not create ModelContainer: \(error)")
         }
-    }
-    
+    }()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                ContentView()
+                    .tabItem {
+                        Label("九九チャレンジ", systemImage: "person.fill.questionmark")
+                    }
+                
+                StatsView()
+                    .tabItem {
+                        Label("学習統計", systemImage: "chart.pie.fill")
+                    }
+            }
+            .modelContainer(sharedModelContainer)
         }
-        .modelContainer(modelContainer) // 明示的に作成したcontainerを使用
     }
 }
