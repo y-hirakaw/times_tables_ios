@@ -100,63 +100,102 @@ struct StatsView: View {
 // 得意・苦手の比率を表示する円グラフ
 struct ProficiencyPieChart: View {
     let difficultQuestions: [DifficultQuestion]
+    @State private var showingLegend = false
     
     var body: some View {
         let (proficientCount, difficultCount, undeterminedCount) = calculateProficiencyStats()
         
-        Chart {
-            SectorMark(
-                angle: .value("問題数", proficientCount),
-                innerRadius: .ratio(0.5),
-                angularInset: 1.5
-            )
-            .foregroundStyle(Color.green)
-            .annotation(position: .overlay) {
-                if proficientCount > 0 {
-                    Text("\(proficientCount)")
-                        .font(.headline)
-                        .foregroundStyle(.white)
+        ZStack(alignment: .topTrailing) {
+            Chart {
+                SectorMark(
+                    angle: .value("問題数", proficientCount),
+                    innerRadius: .ratio(0.5),
+                    angularInset: 1.5
+                )
+                .foregroundStyle(Color.green)
+                .annotation(position: .overlay) {
+                    if proficientCount > 0 {
+                        Text("\(proficientCount)")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                    }
+                }
+                
+                SectorMark(
+                    angle: .value("問題数", difficultCount),
+                    innerRadius: .ratio(0.5),
+                    angularInset: 1.5
+                )
+                .foregroundStyle(Color.red)
+                .annotation(position: .overlay) {
+                    if difficultCount > 0 {
+                        Text("\(difficultCount)")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                    }
+                }
+                
+                SectorMark(
+                    angle: .value("問題数", undeterminedCount),
+                    innerRadius: .ratio(0.5),
+                    angularInset: 1.5
+                )
+                .foregroundStyle(Color.gray)
+                .annotation(position: .overlay) {
+                    if undeterminedCount > 0 {
+                        Text("\(undeterminedCount)")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             
-            SectorMark(
-                angle: .value("問題数", difficultCount),
-                innerRadius: .ratio(0.5),
-                angularInset: 1.5
-            )
-            .foregroundStyle(Color.red)
-            .annotation(position: .overlay) {
-                if difficultCount > 0 {
-                    Text("\(difficultCount)")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                }
+            Button(action: {
+                showingLegend.toggle()
+            }) {
+                Image(systemName: "questionmark.circle.fill")
+                    .font(.title2)
+                    .foregroundColor(.blue)
             }
-            
-            SectorMark(
-                angle: .value("問題数", undeterminedCount),
-                innerRadius: .ratio(0.5),
-                angularInset: 1.5
-            )
-            .foregroundStyle(Color.gray)
-            .annotation(position: .overlay) {
-                if undeterminedCount > 0 {
-                    Text("\(undeterminedCount)")
+            .padding(8)
+            .popover(isPresented: $showingLegend, arrowEdge: .top) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("グラフの説明")
                         .font(.headline)
-                        .foregroundStyle(.white)
+                        .padding(.bottom, 4)
+                    
+                    HStack {
+                        Circle()
+                            .fill(Color.green)
+                            .frame(width: 16, height: 16)
+                        Text("得意: \(proficientCount)問")
+                        Text("(正解率70%以上)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    HStack {
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 16, height: 16)
+                        Text("苦手: \(difficultCount)問")
+                        Text("(正解率70%未満)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    HStack {
+                        Circle()
+                            .fill(Color.gray)
+                            .frame(width: 16, height: 16)
+                        Text("未回答: \(undeterminedCount)問")
+                    }
                 }
+                .padding()
+                .presentationCompactAdaptation(.popover)
             }
         }
-        .chartLegend(position: .bottom, alignment: .center, spacing: 20) {
-            HStack(spacing: 20) {
-                Label("得意: \(proficientCount)", systemImage: "checkmark.circle.fill")
-                    .foregroundStyle(Color.green)
-                Label("苦手: \(difficultCount)", systemImage: "xmark.circle.fill")
-                    .foregroundStyle(Color.red)
-                Label("未判定: \(undeterminedCount)", systemImage: "circle.fill")
-                    .foregroundStyle(Color.gray)
-            }
-        }
+        // ボタンを追加したので、もともとの下部凡例は削除
     }
     
     // 得意・苦手・未判定の問題数を計算
