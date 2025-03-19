@@ -266,6 +266,7 @@
       }
     },
     "Your difficult questions:" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -281,12 +282,42 @@
         }
       }
     },
+    "あなたの苦手な問題:" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your difficult questions:"
+          }
+        }
+      }
+    },
     "キャンセル" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "チャレンジモード: OFF" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Challenge Mode: OFF"
+          }
+        }
+      }
+    },
+    "チャレンジモード: ON" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Challenge Mode: ON"
           }
         }
       }

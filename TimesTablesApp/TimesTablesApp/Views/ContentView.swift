@@ -11,6 +11,8 @@ struct ContentView: View {
     @Query private var userPoints: [UserPoints]
     /// SwiftDataのモデルコンテキスト
     @Environment(\.modelContext) private var modelContext
+    /// 苦手問題チャレンジモードの状態
+    @State private var isChallengeModeActive = false
     
     var body: some View {
         NavigationStack {
@@ -50,16 +52,27 @@ struct ContentView: View {
                         .padding()
                 }
                 
-                Button(action: generateRandomQuestion) {
-                    Label("ランダム問題", systemImage: "questionmark.circle")
+                HStack {
+                    Button(action: generateRandomQuestion) {
+                        Label("ランダム問題", systemImage: "questionmark.circle")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    
+                    Button(action: {
+                        isChallengeModeActive.toggle()
+                    }) {
+                        Label(isChallengeModeActive ? "チャレンジモード: ON" : "チャレンジモード: OFF", 
+                              systemImage: isChallengeModeActive ? "star.fill" : "star")
+                    }
+                    .buttonStyle(.bordered)
+                    .foregroundColor(isChallengeModeActive ? .orange : .gray)
                 }
-                .buttonStyle(.borderedProminent)
                 .padding()
                 
                 // Display difficult questions if any exist
                 if (!difficultQuestions.isEmpty) {
                     Section {
-                        Text("Your difficult questions:")
+                        Text("あなたの苦手な問題:")
                             .font(.headline)
                             .padding(.top)
                         
@@ -82,11 +95,11 @@ struct ContentView: View {
                     .padding()
                 }
                 
-                Button("苦手問題をデバッグ表示") {
-                    logDifficultQuestions()
-                }
-                .padding()
-                .buttonStyle(.borderedProminent)
+//                Button("苦手問題をデバッグ表示") {
+//                    logDifficultQuestions()
+//                }
+//                .padding()
+//                .buttonStyle(.borderedProminent)
             }
             .padding()
             .navigationTitle("九九メーター")
@@ -140,7 +153,20 @@ struct ContentView: View {
 
     /// ランダムな掛け算問題を生成する
     private func generateRandomQuestion() {
-        question = MultiplicationQuestion.randomQuestion()
+        if isChallengeModeActive && !difficultQuestions.isEmpty && Bool.random() {
+            // 50%の確率で苦手問題から選択
+            let difficultOnes = difficultQuestions.filter { $0.isDifficult }
+            if !difficultOnes.isEmpty {
+                let randomDifficult = difficultOnes.randomElement()!
+                question = MultiplicationQuestion(firstNumber: randomDifficult.firstNumber, 
+                                                secondNumber: randomDifficult.secondNumber)
+            } else {
+                question = MultiplicationQuestion.randomQuestion()
+            }
+        } else {
+            // 通常のランダム問題
+            question = MultiplicationQuestion.randomQuestion()
+        }
         generateAnswerChoices()
         resultMessage = ""
     }
