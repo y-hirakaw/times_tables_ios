@@ -22,7 +22,7 @@ struct TimesTablesAppApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                ContentView()
+                MultiplicationView()
                     .tabItem {
                         Label("九九チャレンジ", systemImage: "person.fill.questionmark")
                     }

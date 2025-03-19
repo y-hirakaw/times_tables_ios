@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct MultiplicationView: View {
     @State private var question: MultiplicationQuestion? = nil
     @State private var resultMessage: String = ""
     @State private var answerChoices: [Int] = []
@@ -13,6 +13,8 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     /// 苦手問題チャレンジモードの状態
     @State private var isChallengeModeActive = false
+    /// 回答中かどうかを示す状態
+    @State private var isAnswering = false
     
     var body: some View {
         NavigationStack {
@@ -36,6 +38,8 @@ struct ContentView: View {
                                     .cornerRadius(10)
                             }
                             .buttonStyle(BorderlessButtonStyle())
+                            .disabled(isAnswering) // 回答中はボタンを無効化
+                            .opacity(isAnswering ? 0.6 : 1.0) // 視覚的なフィードバックを追加
                         }
                     }
                     .padding()
@@ -57,6 +61,7 @@ struct ContentView: View {
                         Label("ランダム問題", systemImage: "questionmark.circle")
                     }
                     .buttonStyle(.borderedProminent)
+                    .disabled(isAnswering) // 回答中はボタンを無効化
                     
                     Button(action: {
                         isChallengeModeActive.toggle()
@@ -66,6 +71,7 @@ struct ContentView: View {
                     }
                     .buttonStyle(.bordered)
                     .foregroundColor(isChallengeModeActive ? .orange : .gray)
+                    .disabled(isAnswering) // 回答中はボタンを無効化
                 }
                 .padding()
                 
@@ -75,7 +81,6 @@ struct ContentView: View {
                         Text("あなたの苦手な問題:")
                             .font(.headline)
                             .padding(.top)
-                        
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
                                 ForEach(difficultQuestions.filter { $0.isDifficult }) { diffQuestion in
@@ -91,15 +96,9 @@ struct ContentView: View {
                                 }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
                 }
-                
-//                Button("苦手問題をデバッグ表示") {
-//                    logDifficultQuestions()
-//                }
-//                .padding()
-//                .buttonStyle(.borderedProminent)
             }
             .padding()
             .navigationTitle("九九メーター")
@@ -150,9 +149,12 @@ struct ContentView: View {
     private func getCurrentPoints() -> Int {
         return userPoints.first?.availablePoints ?? 0
     }
-
+    
     /// ランダムな掛け算問題を生成する
     private func generateRandomQuestion() {
+        // 回答状態をリセット
+        isAnswering = false
+        
         if isChallengeModeActive && !difficultQuestions.isEmpty && Bool.random() {
             // 50%の確率で苦手問題から選択
             let difficultOnes = difficultQuestions.filter { $0.isDifficult }
@@ -175,7 +177,7 @@ struct ContentView: View {
     private func generateAnswerChoices() {
         guard let question = question else { return }
         
-        // 正解を含む
+        // 正解を含む選択肢のリストを作成
         var choices = [question.answer]
         
         // 選択肢の数をランダムに決定（6〜8個）
@@ -208,6 +210,12 @@ struct ContentView: View {
     /// ユーザーの回答を確認する
     private func checkAnswer(selectedAnswer: Int) {
         guard let question = question else { return }
+        
+        // すでに回答中の場合は処理をスキップ
+        if isAnswering { return }
+        
+        // 回答中フラグを設定して、ボタンを無効化
+        isAnswering = true
         
         if selectedAnswer == question.answer {
             // 正解の場合
@@ -274,7 +282,6 @@ struct ContentView: View {
             )
             modelContext.insert(newDifficultQuestion)
         }
-        
         // 変更を保存
         try? modelContext.save()
     }
@@ -304,7 +311,6 @@ struct ContentView: View {
         
         if questions.isEmpty {
             print("保存されている苦手問題はありません")
-            
             // データベースの状態を詳しくデバッグ
             print("ModelContextの状態を確認します...")
             try? modelContext.save()
@@ -339,8 +345,3 @@ struct ContentView: View {
         }
     }
 }
-
-#Preview {
-    ContentView()
-}
-
