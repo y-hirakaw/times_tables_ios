@@ -47,20 +47,20 @@
 
 * ビルドは以下のコマンドで行ってください。
 ```
-xcodebuild -scheme ParentFeel \
+xcodebuild -scheme TimesTablesApp \
   -configuration Debug \
-  -workspace ParentFeel/ParentFeel.xcodeproj/project.xcworkspace \
+  -project TimesTablesApp/TimesTablesApp.xcodeproj \
   -destination 'id=B3F517A2-0287-4161-9C05-0C71FA26DF92' \
   -allowProvisioningUpdates build | xcbeautify
 ```
 * テストの実行は以下のコマンドで行ってください。
 ```
-xcodebuild -scheme ParentFeel \
+xcodebuild -scheme TimesTablesApp \
   -configuration Debug \
-  -workspace ParentFeel/ParentFeel.xcodeproj/project.xcworkspace \
+  -workspace TimesTablesApp/TimesTablesApp.xcodeproj/project.xcworkspace \
   -destination 'id=B3F517A2-0287-4161-9C05-0C71FA26DF92' \
   -destination-timeout 60 \
-  -only-testing:ParentFeelTests test \
+  -only-testing:TimesTablesAppTests test \
   -verbose | xcbeautify
 ```
 
