@@ -2,10 +2,11 @@ import SwiftUI
 import SwiftData
 import Charts
 
-// 得意・苦手の比率を表示する円グラフ
+// とくい・にがての ひりつを ひょうじする まるグラフ
 struct ProficiencyPieChart: View {
     let difficultQuestions: [DifficultQuestion]
     @State private var showingLegend = false
+    @State private var animateChart = false
     
     var body: some View {
         let (proficientCount, difficultCount, undeterminedCount) = calculateProficiencyStats()
@@ -13,45 +14,54 @@ struct ProficiencyPieChart: View {
         ZStack(alignment: .topTrailing) {
             Chart {
                 SectorMark(
-                    angle: .value("問題数", proficientCount),
+                    angle: .value("もんだいすう", proficientCount),
                     innerRadius: .ratio(0.5),
                     angularInset: 1.5
                 )
-                .foregroundStyle(Color.green)
+                .foregroundStyle(Color.green.gradient)
                 .annotation(position: .overlay) {
                     if proficientCount > 0 {
                         Text("\(proficientCount)")
-                            .font(.headline)
+                            .font(.headline.bold())
                             .foregroundStyle(.white)
+                            .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: 1)
                     }
                 }
                 
                 SectorMark(
-                    angle: .value("問題数", difficultCount),
+                    angle: .value("もんだいすう", difficultCount),
                     innerRadius: .ratio(0.5),
                     angularInset: 1.5
                 )
-                .foregroundStyle(Color.red)
+                .foregroundStyle(Color.red.gradient)
                 .annotation(position: .overlay) {
                     if difficultCount > 0 {
                         Text("\(difficultCount)")
-                            .font(.headline)
+                            .font(.headline.bold())
                             .foregroundStyle(.white)
+                            .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: 1)
                     }
                 }
                 
                 SectorMark(
-                    angle: .value("問題数", undeterminedCount),
+                    angle: .value("もんだいすう", undeterminedCount),
                     innerRadius: .ratio(0.5),
                     angularInset: 1.5
                 )
-                .foregroundStyle(Color.gray)
+                .foregroundStyle(Color.gray.gradient)
                 .annotation(position: .overlay) {
                     if undeterminedCount > 0 {
                         Text("\(undeterminedCount)")
-                            .font(.headline)
+                            .font(.headline.bold())
                             .foregroundStyle(.white)
+                            .shadow(color: .black.opacity(0.3), radius: 1, x: 0, y: 1)
                     }
+                }
+            }
+            .scaleEffect(animateChart ? 1.0 : 0.8)
+            .onAppear {
+                withAnimation(.spring(response: 0.8, dampingFraction: 0.6)) {
+                    animateChart = true
                 }
             }
             
@@ -61,59 +71,80 @@ struct ProficiencyPieChart: View {
                 Image(systemName: "questionmark.circle.fill")
                     .font(.title2)
                     .foregroundColor(.blue)
+                    .shadow(color: .white.opacity(0.5), radius: 2, x: 0, y: 0)
             }
             .padding(8)
             .popover(isPresented: $showingLegend, arrowEdge: .top) {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("グラフの説明")
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("グラフの せつめい")
                         .font(.headline)
+                        .foregroundColor(.indigo)
                         .padding(.bottom, 4)
                     
-                    HStack {
+                    HStack(spacing: 12) {
                         Circle()
                             .fill(Color.green)
-                            .frame(width: 16, height: 16)
-                        Text("得意: \(proficientCount)問")
-                        Text("(正解率70%以上)")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                            .frame(width: 20, height: 20)
+                            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("とくい: \(proficientCount)もん")
+                                .font(.subheadline)
+                            Text("（せいかいりつ 70%いじょう）")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     
-                    HStack {
+                    HStack(spacing: 12) {
                         Circle()
                             .fill(Color.red)
-                            .frame(width: 16, height: 16)
-                        Text("苦手: \(difficultCount)問")
-                        Text("(正解率70%未満)")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                            .frame(width: 20, height: 20)
+                            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("にがて: \(difficultCount)もん")
+                                .font(.subheadline)
+                            Text("（せいかいりつ 70%みまん）")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     
-                    HStack {
+                    HStack(spacing: 12) {
                         Circle()
                             .fill(Color.gray)
-                            .frame(width: 16, height: 16)
-                        Text("未回答: \(undeterminedCount)問")
+                            .frame(width: 20, height: 20)
+                            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+                        
+                        Text("みかいとう: \(undeterminedCount)もん")
+                            .font(.subheadline)
                     }
                 }
                 .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.white)
+                        .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
+                )
+                .padding(8)
                 .presentationCompactAdaptation(.popover)
             }
         }
     }
     
-    // 得意・苦手・未判定の問題数を計算
+    // とくい・にがて・みはんていの もんだいすうを けいさん
     private func calculateProficiencyStats() -> (proficient: Int, difficult: Int, undetermined: Int) {
-        // 九九の問題は全部で81問あるが、1×1から9×9の81問中、意味のある問題は1×1から9×9の計81問
+        // 九九の もんだいは ぜんぶで 81もん
         let totalPossibleQuestions = 81
         
-        // 回答済みの問題の内、苦手でないものは「得意」とみなす
+        // かいとうずみの もんだいの うち、にがてでないものは「とくい」とみなす
         let difficultCount = difficultQuestions.filter { $0.isDifficult }.count
         
-        // 回答済みだが苦手判定に至らない問題（回答数3未満または正解率70%以上）
+        // かいとうずみだが にがてはんていに いたらない もんだい（かいとうすう 3みまん または せいかいりつ 70%いじょう）
         let notDifficultCount = difficultQuestions.filter { !$0.isDifficult }.count
         
-        // まだ回答していない問題
+        // まだ かいとうしていない もんだい
         let undeterminedCount = totalPossibleQuestions - difficultQuestions.count
         
         return (notDifficultCount, difficultCount, undeterminedCount)

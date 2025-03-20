@@ -7,10 +7,10 @@
     "?" : {
 
     },
-    "(正解率70%以上)" : {
+    "（せいかいりつ 70%いじょう）" : {
 
     },
-    "(正解率70%未満)" : {
+    "（せいかいりつ 70%みまん）" : {
 
     },
     "%lld" : {
@@ -329,6 +329,16 @@
         }
       }
     },
+    "がくしゅう とうけい" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learning Statistics"
+          }
+        }
+      }
+    },
     "キャンセル" : {
       "localizations" : {
         "en" : {
@@ -339,10 +349,30 @@
         }
       }
     },
-    "グラフタイプ" : {
+    "グラフの せつめい" : {
 
     },
-    "グラフの説明" : {
+    "こんしゅう よくなった もんだい" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Improved Problems This Week"
+          }
+        }
+      }
+    },
+    "さいきん よくなった もんだいは ありません" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No recently improved problems"
+          }
+        }
+      }
+    },
+    "せいかいりつ: %lld%%" : {
 
     },
     "チャレンジOFF" : {
@@ -387,11 +417,72 @@
         }
       }
     },
+    "データが たりません" : {
+
+    },
     "データがありません" : {
 
     },
-    "データが不足しています" : {
+    "とくい・にがて" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strengths & Weaknesses"
+          }
+        }
+      }
+    },
+    "とくい・にがてな もんだいの わりあい" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ratio of Strong and Weak Problems"
+          }
+        }
+      }
+    },
+    "とくい: %lldもん" : {
 
+    },
+    "とくいな もんだい:" : {
+
+    },
+    "にがて: %lldもん" : {
+
+    },
+    "にがてな もんだい:" : {
+
+    },
+    "にがての すうじ" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult Numbers"
+          }
+        }
+      }
+    },
+    "にがてもんだいが %lldもん ふえています" : {
+
+    },
+    "にがてもんだいが %lldもん へりました！" : {
+
+    },
+    "にがてもんだいすう" : {
+
+    },
+    "にがてもんだいの すうの うごき" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly Trend of Difficult Problems"
+          }
+        }
+      }
     },
     "ボーナスポイント" : {
 
@@ -419,7 +510,7 @@
     "ポイント獲得履歴はありません" : {
 
     },
-    "ほか %lld 問" : {
+    "ほか %lld もん" : {
 
     },
     "ボタンをおして もんだいを見よう！" : {
@@ -443,8 +534,15 @@
         }
       }
     },
-    "まだ解答データがありません" : {
-
+    "まだ こたえたもんだいが ありません" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No answered problems yet"
+          }
+        }
+      }
     },
     "まちがえた かいすう:" : {
       "extractionState" : "stale",
@@ -460,6 +558,12 @@
     "まちがえた かいすう: %lld" : {
 
     },
+    "まちがえる りつ: %lld%%" : {
+
+    },
+    "みかいとう: %lldもん" : {
+
+    },
     "もんだい" : {
       "localizations" : {
         "en" : {
@@ -469,6 +573,22 @@
           }
         }
       }
+    },
+    "もんだいすう" : {
+
+    },
+    "もんだいの できぐあい" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problem Proficiency"
+          }
+        }
+      }
+    },
+    "ようび" : {
+
     },
     "ランダム もんだい" : {
       "localizations" : {
@@ -491,10 +611,8 @@
         }
       }
     },
-    "不正解率: %lld%%" : {
-
-    },
     "九九チャレンジ" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -504,7 +622,7 @@
         }
       }
     },
-    "今週改善した問題" : {
+    "九九ティブ" : {
 
     },
     "使用可能ポイント" : {
@@ -524,12 +642,6 @@
         }
       }
     },
-    "問題の習熟度" : {
-
-    },
-    "問題数" : {
-
-    },
     "基本ポイント" : {
 
     },
@@ -540,24 +652,6 @@
 
     },
     "履歴タイプ" : {
-
-    },
-    "得意・苦手問題の割合" : {
-
-    },
-    "得意・苦手比率" : {
-
-    },
-    "得意: %lld問" : {
-
-    },
-    "得意な問題:" : {
-
-    },
-    "曜日" : {
-
-    },
-    "未回答: %lld問" : {
 
     },
     "正解率: %lld%%" : {
@@ -586,27 +680,6 @@
       }
     },
     "累計獲得ポイント" : {
-
-    },
-    "苦手: %lld問" : {
-
-    },
-    "苦手な問題:" : {
-
-    },
-    "苦手問題が%lld問増えています" : {
-
-    },
-    "苦手問題が%lld問減りました！" : {
-
-    },
-    "苦手問題の推移" : {
-
-    },
-    "苦手問題数" : {
-
-    },
-    "苦手問題数の週間推移" : {
 
     },
     "親用管理画面" : {

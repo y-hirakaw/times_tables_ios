@@ -2,83 +2,126 @@ import SwiftUI
 import SwiftData
 import Charts
 
-// 苦手問題の週間推移を表示する棒グラフ
+// にがてもんだいの しゅうかんすいいを ひょうじする ぼうグラフ
 struct WeeklyDifficultQuestionChart: View {
     let difficultQuestions: [DifficultQuestion]
+    @State private var animateChart = false
     
     var body: some View {
         let weeklyData = calculateWeeklyStats()
         
         if weeklyData.isEmpty {
-            Text("データが不足しています")
-                .foregroundColor(.secondary)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack {
+                Image(systemName: "chart.bar.xaxis")
+                    .font(.system(size: 50))
+                    .foregroundColor(.gray.opacity(0.5))
+                    .padding()
+                
+                Text("データが たりません")
+                    .foregroundColor(.secondary)
+                    .font(.title3)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
-            Chart {
-                ForEach(weeklyData) { dataPoint in
-                    BarMark(
-                        x: .value("曜日", dataPoint.dayName),
-                        y: .value("苦手問題数", dataPoint.difficultCount)
-                    )
-                    .foregroundStyle(Color.orange.gradient)
-                }
-            }
-            .chartXAxis {
-                AxisMarks { _ in
-                    AxisValueLabel()
-                }
-            }
-            .chartYAxis {
-                AxisMarks {
-                    AxisGridLine()
-                    AxisValueLabel()
-                }
-            }
-            
-            // 先週と比較した苦手問題の増減
-            let currentWeekCount = weeklyData.last?.difficultCount ?? 0
-            let firstWeekCount = weeklyData.first?.difficultCount ?? 0
-            
-            if currentWeekCount != firstWeekCount {
-                HStack {
-                    if currentWeekCount < firstWeekCount {
-                        Image(systemName: "arrow.down.circle.fill")
-                            .foregroundColor(.green)
-                        Text("苦手問題が\(firstWeekCount - currentWeekCount)問減りました！")
-                            .foregroundColor(.green)
-                    } else {
-                        Image(systemName: "arrow.up.circle.fill")
-                            .foregroundColor(.orange)
-                        Text("苦手問題が\(currentWeekCount - firstWeekCount)問増えています")
-                            .foregroundColor(.orange)
+            VStack {
+                Chart {
+                    ForEach(weeklyData) { dataPoint in
+                        BarMark(
+                            x: .value("ようび", dataPoint.dayName),
+                            y: .value("にがてもんだいすう", dataPoint.difficultCount)
+                        )
+                        .foregroundStyle(dataPoint.dayName == weeklyData.last?.dayName ? Color.blue.gradient : Color.orange.gradient)
+                        .cornerRadius(6)
+                        .annotation(position: .top) {
+                            Text("\(dataPoint.difficultCount)")
+                                .font(.caption.bold())
+                                .foregroundStyle(Color.secondary)
+                        }
                     }
                 }
-                .font(.callout)
-                .padding(.top)
+                .chartXAxis {
+                    AxisMarks { _ in
+                        AxisValueLabel()
+                            .font(.system(.callout, design: .rounded))
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks {
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5, dash: [5, 3]))
+                        AxisValueLabel()
+                            .font(.system(.caption, design: .rounded))
+                    }
+                }
+                .scaleEffect(y: animateChart ? 1.0 : 0.2)
+                .opacity(animateChart ? 1.0 : 0.5)
+                .animation(.easeOut(duration: 1.0), value: animateChart)
+                .onAppear {
+                    animateChart = true
+                }
+                
+                // せんしゅうと くらべた にがてもんだいの ぞうげん
+                let currentWeekCount = weeklyData.last?.difficultCount ?? 0
+                let firstWeekCount = weeklyData.first?.difficultCount ?? 0
+                
+                if currentWeekCount != firstWeekCount {
+                    HStack(spacing: 12) {
+                        if currentWeekCount < firstWeekCount {
+                            Image(systemName: "arrow.down.circle.fill")
+                                .foregroundColor(.green)
+                                .font(.title3)
+                            
+                            Text("にがてもんだいが \(firstWeekCount - currentWeekCount)もん へりました！")
+                                .foregroundColor(.green)
+                                .font(.callout.bold())
+                                .padding(.vertical, 6)
+                                .padding(.horizontal, 12)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.green.opacity(0.15))
+                                )
+                        } else {
+                            Image(systemName: "arrow.up.circle.fill")
+                                .foregroundColor(.orange)
+                                .font(.title3)
+                            
+                            Text("にがてもんだいが \(currentWeekCount - firstWeekCount)もん ふえています")
+                                .foregroundColor(.orange)
+                                .font(.callout.bold())
+                                .padding(.vertical, 6)
+                                .padding(.horizontal, 12)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.orange.opacity(0.15))
+                                )
+                        }
+                    }
+                    .padding(.top, 12)
+                    .padding(.horizontal)
+                }
             }
         }
     }
     
-    // 週間データを計算
+    // しゅうかんデータを けいさん
     private func calculateWeeklyStats() -> [WeeklyDataPoint] {
         let calendar = Calendar.current
         
-        // 今日の日付から7日前までのデータを用意
+        // きょうの ひづけから 7にちまえまでの データを よういする
         var weeklyData: [WeeklyDataPoint] = []
         
-        // 日本語の曜日表示
-        let dayNames = ["日", "月", "火", "水", "木", "金", "土"]
+        // にほんごの ようび ひょうじ
+        let dayNames = ["にち", "げつ", "か", "すい", "もく", "きん", "ど"]
         
         for dayOffset in (0..<7).reversed() {
             guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: Date()) else {
                 continue
             }
             
-            // この日付時点での苦手問題カウント
+            // この ひづけ じてんでの にがてもんだい カウント
             let difficultCount = DifficultQuestion.getDifficultQuestionsCountAt(date: date, questions: difficultQuestions)
             
-            // 曜日を取得
-            let weekday = calendar.component(.weekday, from: date) - 1 // 0 = 日曜日
+            // ようびを しゅとく
+            let weekday = calendar.component(.weekday, from: date) - 1 // 0 = にちようび
             let dayName = dayNames[weekday]
             
             weeklyData.append(WeeklyDataPoint(day: date, dayName: dayName, difficultCount: difficultCount))
@@ -87,7 +130,7 @@ struct WeeklyDifficultQuestionChart: View {
         return weeklyData
     }
     
-    // グラフ用のデータ構造
+    // グラフようの データこうぞう
     struct WeeklyDataPoint: Identifiable {
         let id = UUID()
         let day: Date
