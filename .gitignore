@@ -63,3 +63,4 @@ fastlane/test_output
 
 buildServer.json
 .DS_Store
+GoogleService-Info.plist
