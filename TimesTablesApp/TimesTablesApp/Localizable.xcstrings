@@ -4,6 +4,9 @@
     "-%lld" : {
 
     },
+    "?" : {
+
+    },
     "(正解率70%以上)" : {
 
     },
@@ -27,6 +30,12 @@
 
     },
     "+%lld" : {
+
+    },
+    "×" : {
+
+    },
+    "=" : {
 
     },
     "4桁のPINコード" : {
@@ -112,6 +121,7 @@
       }
     },
     "Incorrect: %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -314,7 +324,28 @@
     "グラフの説明" : {
 
     },
+    "チャレンジOFF" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Challenge OFF"
+          }
+        }
+      }
+    },
+    "チャレンジON" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Challenge ON"
+          }
+        }
+      }
+    },
     "チャレンジモード: OFF" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -325,6 +356,7 @@
       }
     },
     "チャレンジモード: ON" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -343,6 +375,20 @@
     "ボーナスポイント" : {
 
     },
+    "ポイント:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points:"
+          }
+        }
+      }
+    },
+    "ポイント: %lld" : {
+
+    },
     "ポイント消費" : {
 
     },
@@ -356,22 +402,40 @@
 
     },
     "ボタンを押して問題を表示しよう！" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press the button to show a question!"
+          }
+        }
+      }
     },
     "まだ解答データがありません" : {
 
     },
     "ランダム問題" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random Question"
+          }
+        }
+      }
     },
     "不正解率: %lld%%" : {
 
     },
     "九九チャレンジ" : {
-
-    },
-    "九九ティブ" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Times Tables Challenge"
+          }
+        }
+      }
     },
     "今週改善した問題" : {
 
@@ -381,6 +445,16 @@
     },
     "最近、改善された問題はありません" : {
 
+    },
+    "問題" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Question"
+          }
+        }
+      }
     },
     "問題の習熟度" : {
 
@@ -425,9 +499,6 @@
 
     },
     "消費履歴" : {
-
-    },
-    "獲得ポイント: %lld" : {
 
     },
     "獲得履歴" : {
@@ -509,6 +580,20 @@
           }
         }
       }
+    },
+    "間違えた回数:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mistakes:"
+          }
+        }
+      }
+    },
+    "間違えた回数: %lld" : {
+
     },
     "頑張って %lld 問が改善されました！" : {
 
