@@ -24,7 +24,7 @@ struct TimesTablesAppApp: App {
             TabView {
                 MultiplicationView()
                     .tabItem {
-                        Label("九九チャレンジ", systemImage: "person.fill.questionmark")
+                        Label("九九ティブ", systemImage: "person.fill.questionmark")
                     }
                 
                 StatsView()

@@ -52,7 +52,7 @@ struct MultiplicationView: View {
                         // ポイント表示カード
                         pointsCard
                         
-                        // 問題表示エリア
+                        // もんだい表示エリア
                         if let question = viewState.question {
                             questionView(question)
                         } else {
@@ -72,20 +72,20 @@ struct MultiplicationView: View {
                         // 操作ボタンエリア
                         controlButtons
                         
-                        // 苦手問題リスト
+                        // にがてなもんだいリスト
                         difficultQuestionsView
                     }
                     .padding()
                 }
             }
-            .navigationTitle("九九チャレンジ")
+            .navigationTitle("九九ティブ")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    // 親用管理画面へのリンク
+                    // おやよう かんり がめんへのリンク
                     Button {
                         viewState.showParentDashboard()
                     } label: {
-                        Label("親用管理画面", systemImage: "person.circle")
+                        Label("おやよう かんり がめん", systemImage: "person.circle")
                             .foregroundColor(.indigo)
                     }
                 }
@@ -101,7 +101,7 @@ struct MultiplicationView: View {
             .sheet(isPresented: $viewState.showingPINAuth) {
                 ParentAccessView(isAuthenticated: $viewState.isAuthenticated)
             }
-            // 認証成功時に親用管理画面を表示
+            // 認証成功時におやよう かんり がめんを表示
             .fullScreenCover(isPresented: $viewState.isAuthenticated) {
                 ParentDashboardView()
             }
@@ -129,10 +129,10 @@ struct MultiplicationView: View {
         )
     }
     
-    // 問題表示ビュー
+    // もんだい表示ビュー
     private func questionView(_ question: MultiplicationQuestion) -> some View {
         VStack(spacing: 15) {
-            Text("問題")
+            Text("もんだい")
                 .font(.headline)
                 .foregroundColor(.secondary)
             
@@ -189,7 +189,7 @@ struct MultiplicationView: View {
                         .shadow(color: .black.opacity(0.1), radius: 5)
                 )
             
-            Text("ボタンを押して問題を表示しよう！")
+            Text("ボタンをおして もんだいを見よう！")
                 .font(.title2)
                 .bold()
                 .foregroundColor(.indigo)
@@ -296,7 +296,7 @@ struct MultiplicationView: View {
             Button(action: { viewState.generateRandomQuestion() }) {
                 HStack {
                     Image(systemName: "dice.fill")
-                    Text("ランダム問題")
+                    Text("ランダム もんだい")
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -334,14 +334,14 @@ struct MultiplicationView: View {
         .padding(.vertical)
     }
     
-    // 苦手問題表示ビュー
+    // にがてなもんだい表示ビュー
     private var difficultQuestionsView: some View {
         let difficultOnes = viewState.getDifficultOnes()
         
         return Group {
             if !difficultOnes.isEmpty {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("あなたの苦手な問題:")
+                    Text("あなたのにがてな もんだい:")
                         .font(.headline)
                         .foregroundColor(.indigo)
                         .padding(.horizontal)
@@ -355,7 +355,7 @@ struct MultiplicationView: View {
                                         .bold()
                                         .foregroundColor(.white)
                                     
-                                    Text("間違えた回数: \(diffQuestion.incorrectCount)")
+                                    Text("まちがえた かいすう: \(diffQuestion.incorrectCount)")
                                         .font(.caption)
                                         .foregroundColor(.white.opacity(0.9))
                                 }

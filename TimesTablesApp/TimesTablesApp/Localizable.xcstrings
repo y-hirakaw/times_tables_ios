@@ -298,12 +298,33 @@
         }
       }
     },
-    "あなたの苦手な問題:" : {
+    "あなたのにがてな もんだい:" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your difficult questions:"
+          }
+        }
+      }
+    },
+    "あなたの苦手な問題:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your difficult questions:"
+          }
+        }
+      }
+    },
+    "おやよう かんり がめん" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parent Dashboard"
           }
         }
       }
@@ -401,7 +422,18 @@
     "ほか %lld 問" : {
 
     },
+    "ボタンをおして もんだいを見よう！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press the button to show a question!"
+          }
+        }
+      }
+    },
     "ボタンを押して問題を表示しよう！" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -414,7 +446,42 @@
     "まだ解答データがありません" : {
 
     },
+    "まちがえた かいすう:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mistakes:"
+          }
+        }
+      }
+    },
+    "まちがえた かいすう: %lld" : {
+
+    },
+    "もんだい" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Question"
+          }
+        }
+      }
+    },
+    "ランダム もんだい" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random Question"
+          }
+        }
+      }
+    },
     "ランダム問題" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -447,6 +514,7 @@
 
     },
     "問題" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -591,9 +659,6 @@
           }
         }
       }
-    },
-    "間違えた回数: %lld" : {
-
     },
     "頑張って %lld 問が改善されました！" : {
 
