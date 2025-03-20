@@ -259,12 +259,13 @@ struct MultiplicationView: View {
             .bold()
             .padding()
             .frame(maxWidth: .infinity)
+            .foregroundColor(viewState.resultMessage.contains("正解") ? .green : .white)
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .fill(
                         viewState.resultMessage.contains("正解") 
                         ? Color.green.opacity(0.2) 
-                        : Color.red.opacity(0.2)
+                        : Color.red.opacity(0.8)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
@@ -272,7 +273,7 @@ struct MultiplicationView: View {
                                 viewState.resultMessage.contains("正解") 
                                 ? Color.green 
                                 : Color.red,
-                                lineWidth: 2
+                                lineWidth: viewState.resultMessage.contains("正解") ? 3 : 4
                             )
                     )
             )
@@ -280,6 +281,8 @@ struct MultiplicationView: View {
                 Group {
                     if animateCorrect {
                         ConfettiView()
+                    } else if animateWrong {
+                        WrongAnswerView()
                     }
                 }
             )
@@ -287,7 +290,10 @@ struct MultiplicationView: View {
                 (animateCorrect || animateWrong) ? 1.05 : 1.0
             )
             .animation(.spring(response: 0.3), value: animateCorrect || animateWrong)
-            .foregroundColor(viewState.resultMessage.contains("正解") ? .green : .red)
+            .shadow(
+                color: viewState.resultMessage.contains("正解") ? .green.opacity(0.3) : .red.opacity(0.5),
+                radius: 5, x: 0, y: 2
+            )
     }
     
     // 操作ボタンエリア
@@ -339,7 +345,7 @@ struct MultiplicationView: View {
         let difficultOnes = viewState.getDifficultOnes()
         
         return Group {
-            if !difficultOnes.isEmpty {
+            if (!difficultOnes.isEmpty) {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("あなたのにがてな もんだい:")
                         .font(.headline)
@@ -421,6 +427,42 @@ struct ConfettiPiece: View {
                     self.yPosition = Double.random(in: 100...200)
                     self.rotation = Double.random(in: 0...360)
                     self.scale = 0.1
+                }
+            }
+    }
+}
+
+// 不正解アニメーション用のカスタムビュー
+struct WrongAnswerView: View {
+    var body: some View {
+        ZStack {
+            ForEach(0..<10) { _ in
+                WrongAnswerPiece()
+            }
+        }
+    }
+}
+
+struct WrongAnswerPiece: View {
+    @State private var xPosition = Double.random(in: -150...150)
+    @State private var yPosition = Double.random(in: -150...150)
+    @State private var rotation = Double.random(in: 0...360)
+    @State private var scale = Double.random(in: 0.5...1.5)
+    
+    var body: some View {
+        Image(systemName: "xmark.circle.fill")
+            .foregroundColor(.red)
+            .font(.system(size: 20))
+            .position(x: xPosition, y: yPosition)
+            .rotationEffect(.degrees(rotation))
+            .scaleEffect(scale)
+            .opacity(0.7)
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.8)) {
+                    self.xPosition += Double.random(in: -50...50)
+                    self.yPosition += Double.random(in: -50...50)
+                    self.rotation += Double.random(in: -90...90)
+                    self.scale = 0.2
                 }
             }
     }
