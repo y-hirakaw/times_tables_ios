@@ -108,7 +108,7 @@ struct MultiplicationView: View {
                 }
             }
             .padding()
-            .navigationTitle("九九メーター")
+            .navigationTitle("九九ティブ")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     // 親用管理画面へのリンク
