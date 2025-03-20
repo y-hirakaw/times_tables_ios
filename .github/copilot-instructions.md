@@ -13,21 +13,29 @@
 * 1-4. 間違えた問題の記録（「苦手」認定のため）
 * 1-5. 苦手な問題が50%確率で出題されるチャンレンジモード
 
+実装箇所: Views/MultiplicationView.swift
+
 ## 2. ポイントシステム
 
 * 2-1. 正解したらポイントGET
 * 2-2. 苦手な問題のポイントUP（最初は固定でもOK）
+
+実装箇所: Views/MultiplicationView.swift
 
 ## 3. 親の管理画面
 
 * 3-1. 子どものポイントを確認できる
 * 3-2. ポイントのリセット or 交換（指定ポイントの消費）
 
+実装箇所: Views/ParentDashboardView/ParentDashboardView.swift
+
 ## 4. 学習統計画面
 
 * 4-1. 得意・苦手の円グラフ
 * 4-2. 苦手な問題一覧
 * 4-3. 週単位での苦手問題推移の棒グラフ
+
+実装箇所: Views/StatsView/StatsView.swift
 
 # 今後実装予定の機能
 
