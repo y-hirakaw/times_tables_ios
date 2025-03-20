@@ -1,8 +1,10 @@
 import SwiftUI
 import SwiftData
+import FirebaseCore
 
 @main
 struct TimesTablesAppApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             DifficultQuestion.self,

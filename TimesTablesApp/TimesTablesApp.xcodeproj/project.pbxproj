@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		66A6E88F2D8C02CE00BB5167 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 66A6E88E2D8C02CE00BB5167 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		66A6E8912D8C02CE00BB5167 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 66A6E8902D8C02CE00BB5167 /* FirebaseCore */; };
+		66A6E9202D8C074100BB5167 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 66A6E91F2D8C074100BB5167 /* FirebasePerformance */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		668D146B2D886E6900C5A044 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +58,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66A6E8912D8C02CE00BB5167 /* FirebaseCore in Frameworks */,
+				66A6E88F2D8C02CE00BB5167 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				66A6E9202D8C074100BB5167 /* FirebasePerformance in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,7 @@
 				668D145A2D886E6800C5A044 /* TimesTablesApp */,
 				668D146D2D886E6900C5A044 /* TimesTablesAppTests */,
 				668D14772D886E6900C5A044 /* TimesTablesAppUITests */,
+				66A6E91E2D8C074100BB5167 /* Frameworks */,
 				668D14592D886E6800C5A044 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +100,13 @@
 				668D14742D886E6900C5A044 /* TimesTablesAppUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		66A6E91E2D8C074100BB5167 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +129,9 @@
 			);
 			name = TimesTablesApp;
 			packageProductDependencies = (
+				66A6E88E2D8C02CE00BB5167 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				66A6E8902D8C02CE00BB5167 /* FirebaseCore */,
+				66A6E91F2D8C074100BB5167 /* FirebasePerformance */,
 			);
 			productName = TimesTablesApp;
 			productReference = 668D14582D886E6800C5A044 /* TimesTablesApp.app */;
@@ -196,6 +216,9 @@
 			);
 			mainGroup = 668D144F2D886E6800C5A044;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				66A6E88D2D8C02CE00BB5167 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 668D14592D886E6800C5A044 /* Products */;
 			projectDirPath = "";
@@ -413,6 +436,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.hray.TimesTablesApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -445,6 +469,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.hray.TimesTablesApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -565,6 +590,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		66A6E88D2D8C02CE00BB5167 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		66A6E88E2D8C02CE00BB5167 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66A6E88D2D8C02CE00BB5167 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		66A6E8902D8C02CE00BB5167 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66A6E88D2D8C02CE00BB5167 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		66A6E91F2D8C074100BB5167 /* FirebasePerformance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66A6E88D2D8C02CE00BB5167 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebasePerformance;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 668D14502D886E6800C5A044 /* Project object */;
 }
