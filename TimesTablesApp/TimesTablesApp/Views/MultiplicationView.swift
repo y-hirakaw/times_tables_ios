@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import AVFoundation
 
 struct MultiplicationView: View {
     // ViewStateを利用するように変更
@@ -14,7 +15,14 @@ struct MultiplicationView: View {
     @State private var animateQuestion = false
     @State private var selectedAnswer: Int? = nil
     
-    // イニシャライザでViewStateを初期化
+    // 効果音設定
+    @State private var soundEnabled = true // デフォルトでON
+    
+    // オーディオプレイヤー
+    private let correctSoundPlayer: AVAudioPlayer?
+    private let wrongSoundPlayer: AVAudioPlayer?
+    
+    // イニシャライザでViewStateとオーディオプレイヤーを初期化
     init() {
         // 一時的なモデルコンテキストで初期化
         let schema = Schema([
@@ -26,6 +34,21 @@ struct MultiplicationView: View {
         let tempConfig = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         let tempContainer = try! ModelContainer(for: schema, configurations: [tempConfig])
         _viewState = StateObject(wrappedValue: MultiplicationViewState(modelContext: ModelContext(tempContainer)))
+        
+        // オーディオプレイヤーの初期化
+        if let correctSoundURL = Bundle.main.url(forResource: "Quiz-Correct_Answer02-2", withExtension: "mp3") {
+            correctSoundPlayer = try? AVAudioPlayer(contentsOf: correctSoundURL)
+            correctSoundPlayer?.prepareToPlay()
+        } else {
+            correctSoundPlayer = nil
+        }
+        
+        if let wrongSoundURL = Bundle.main.url(forResource: "Quiz-Wrong_Buzzer02-3", withExtension: "mp3") {
+            wrongSoundPlayer = try? AVAudioPlayer(contentsOf: wrongSoundURL)
+            wrongSoundPlayer?.prepareToPlay()
+        } else {
+            wrongSoundPlayer = nil
+        }
     }
     
     // カラーテーマ
@@ -71,6 +94,9 @@ struct MultiplicationView: View {
                         
                         // 操作ボタンエリア
                         controlButtons
+                        
+                        // 効果音トグルボタン
+                        soundToggleButton
                         
                         // にがてなもんだいリスト
                         difficultQuestionsView
@@ -214,11 +240,21 @@ struct MultiplicationView: View {
                     viewState.checkAnswer(selectedAnswer: choice)
                     
                     if let question = viewState.question, choice == question.answer {
+                        // 正解時の効果音を再生
+                        if soundEnabled {
+                            correctSoundPlayer?.play()
+                        }
+                        
                         animateCorrect = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                             animateCorrect = false
                         }
                     } else {
+                        // 不正解時の効果音を再生
+                        if soundEnabled {
+                            wrongSoundPlayer?.play()
+                        }
+                        
                         animateWrong = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                             animateWrong = false
@@ -338,6 +374,35 @@ struct MultiplicationView: View {
             .disabled(viewState.isAnswering)
         }
         .padding(.vertical)
+    }
+    
+    // 効果音設定トグルボタン
+    private var soundToggleButton: some View {
+        Button(action: {
+            soundEnabled.toggle()
+            // 押したときに効果音を鳴らして確認できるようにする
+            if soundEnabled {
+                correctSoundPlayer?.play()
+            }
+        }) {
+            HStack {
+                Image(systemName: soundEnabled ? "speaker.wave.3.fill" : "speaker.slash.fill")
+                Text(soundEnabled ? "効果音 ON" : "効果音 OFF")
+            }
+            .font(.headline)
+            .foregroundColor(soundEnabled ? .blue : .gray)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
+            .background(
+                Capsule()
+                    .fill(Color.white.opacity(0.8))
+                    .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+            )
+            .overlay(
+                Capsule()
+                    .stroke(soundEnabled ? Color.blue.opacity(0.5) : Color.gray.opacity(0.3), lineWidth: 1)
+            )
+        }
     }
     
     // にがてなもんだい表示ビュー

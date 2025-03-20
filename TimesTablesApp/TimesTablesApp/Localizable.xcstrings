@@ -735,6 +735,26 @@
     },
     "頑張って %lld 問が改善されました！" : {
 
+    },
+    "効果音 ON" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound ON"
+          }
+        }
+      }
+    },
+    "効果音 OFF" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound OFF"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
