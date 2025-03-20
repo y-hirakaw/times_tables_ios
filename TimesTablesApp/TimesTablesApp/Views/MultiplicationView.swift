@@ -259,21 +259,21 @@ struct MultiplicationView: View {
             .bold()
             .padding()
             .frame(maxWidth: .infinity)
-            .foregroundColor(viewState.resultMessage.contains("正解") ? .green : .white)
+            .foregroundColor(.white)
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .fill(
-                        viewState.resultMessage.contains("正解") 
-                        ? Color.green.opacity(0.2) 
-                        : Color.red.opacity(0.8)
+                        viewState.resultMessage.contains("不正解") 
+                        ? Color.red.opacity(0.8)
+                        : Color.green.opacity(0.7) 
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(
-                                viewState.resultMessage.contains("正解") 
-                                ? Color.green 
-                                : Color.red,
-                                lineWidth: viewState.resultMessage.contains("正解") ? 3 : 4
+                                viewState.resultMessage.contains("不正解") 
+                                ? Color.red
+                                : Color.green ,
+                                lineWidth: viewState.resultMessage.contains("不正解") ? 4 : 3
                             )
                     )
             )
@@ -291,7 +291,7 @@ struct MultiplicationView: View {
             )
             .animation(.spring(response: 0.3), value: animateCorrect || animateWrong)
             .shadow(
-                color: viewState.resultMessage.contains("正解") ? .green.opacity(0.3) : .red.opacity(0.5),
+                color: viewState.resultMessage.contains("不正解") ? .red.opacity(0.5) : .green.opacity(0.3),
                 radius: 5, x: 0, y: 2
             )
     }
