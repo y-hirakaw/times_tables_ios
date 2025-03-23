@@ -129,6 +129,9 @@ final class MultiplicationViewState: ObservableObject {
         resultMessage = "時間切れ！正解は \(question.answer) です。"
         recordIncorrectAnswer(for: question)
         
+        // 回答時間を記録（時間切れは10秒固定）
+        recordAnswerTime(for: question, answerTime: 10.0, isCorrect: false, isTimeout: true)
+        
         // 少し待ってから新しい問題を生成
         Task {
             try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
@@ -140,6 +143,34 @@ final class MultiplicationViewState: ObservableObject {
     private func calculateAnswerTime() -> Double? {
         guard let startTime = questionStartTime else { return nil }
         return Date().timeIntervalSince(startTime)
+    }
+    
+    /// 回答時間を記録する
+    /// - Parameters:
+    ///   - question: 問題
+    ///   - answerTime: 回答時間（秒）
+    ///   - isCorrect: 正解かどうか
+    ///   - isTimeout: 時間切れかどうか
+    private func recordAnswerTime(for question: MultiplicationQuestion, answerTime: Double, isCorrect: Bool, isTimeout: Bool = false) {
+        // 回答時間記録を作成
+        let record = AnswerTimeRecord(
+            date: Date(),
+            questionId: question.identifier,
+            answerTimeSeconds: answerTime,
+            isCorrect: isCorrect,
+            isTimeout: isTimeout
+        )
+        
+        // SwiftDataに保存
+        modelContext.insert(record)
+        try? modelContext.save()
+    }
+    
+    /// 問題の平均回答時間を取得する
+    /// - Parameter questionId: 問題識別子
+    /// - Returns: 平均回答時間（秒）、なければnil
+    func getAverageAnswerTime(for questionId: String) -> Double? {
+        return AnswerTimeRecord.getAverageTimeForQuestion(questionId, context: modelContext)
     }
     
     /// ランダムな掛け算問題を生成する
@@ -224,6 +255,9 @@ final class MultiplicationViewState: ObservableObject {
             addPointsForCorrectAnswer(for: question, isDifficult: isDifficult, answerTime: answerTime)
             updateCorrectAttempt(for: question)
             
+            // 回答時間を記録
+            recordAnswerTime(for: question, answerTime: answerTime, isCorrect: true)
+            
             // 解答時間のフィードバック
             let timeMessage = String(format: "%.1f秒", answerTime)
             resultMessage = "正解！ +\(isDifficult ? "ボーナス" : "1")ポイント (時間: \(timeMessage))"
@@ -234,14 +268,39 @@ final class MultiplicationViewState: ObservableObject {
                 generateRandomQuestion()
             }
         } else {
+            // 不正解の場合
             resultMessage = "不正解。正解は \(question.answer) です。"
             recordIncorrectAnswer(for: question)
+            
+            // 回答時間を記録
+            recordAnswerTime(for: question, answerTime: answerTime, isCorrect: false)
+            
             // 少し待ってから新しい問題を生成
             Task {
                 try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
                 generateRandomQuestion()
             }
         }
+    }
+    
+    /// 直近の回答時間記録を取得する
+    /// - Parameter limit: 取得する最大数
+    /// - Returns: 回答時間記録の配列
+    func getRecentAnswerTimeRecords(limit: Int = 10) -> [AnswerTimeRecord] {
+        return AnswerTimeRecord.getRecentRecords(limit: limit, context: modelContext)
+    }
+    
+    /// 日別の平均回答時間を取得する
+    /// - Parameter days: 過去何日分を取得するか
+    /// - Returns: 日付と平均回答時間のタプル配列
+    func getDailyAverageAnswerTimes(days: Int = 7) -> [(date: Date, average: Double)] {
+        return AnswerTimeRecord.getDailyAverages(days: days, context: modelContext)
+    }
+    
+    /// 全問題の平均回答時間を取得する
+    /// - Returns: 問題IDと平均回答時間の辞書
+    func getAllAverageAnswerTimes() -> [String: Double] {
+        return AnswerTimeRecord.getAverageAnswerTimes(context: modelContext)
     }
     
     /// 問題が苦手問題かどうかを判定

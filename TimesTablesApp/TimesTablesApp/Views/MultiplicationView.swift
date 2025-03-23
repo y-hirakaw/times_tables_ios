@@ -29,7 +29,8 @@ struct MultiplicationView: View {
             DifficultQuestion.self,
             UserPoints.self,
             PointHistory.self,
-            PointSpending.self
+            PointSpending.self,
+            AnswerTimeRecord.self // 回答時間記録モデルを追加
         ])
         let tempConfig = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         let tempContainer = try! ModelContainer(for: schema, configurations: [tempConfig])

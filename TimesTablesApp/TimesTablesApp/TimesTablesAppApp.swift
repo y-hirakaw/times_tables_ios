@@ -10,7 +10,8 @@ struct TimesTablesAppApp: App {
             DifficultQuestion.self,
             UserPoints.self,
             PointHistory.self,
-            PointSpending.self
+            PointSpending.self,
+            AnswerTimeRecord.self // 回答時間記録モデルを追加
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
