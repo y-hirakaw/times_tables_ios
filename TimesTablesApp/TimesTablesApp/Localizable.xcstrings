@@ -484,6 +484,9 @@
         }
       }
     },
+    "のこり時間: %@秒" : {
+
+    },
     "ボーナスポイント" : {
 
     },
@@ -631,6 +634,26 @@
     "最近、改善された問題はありません" : {
 
     },
+    "効果音 OFF" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound OFF"
+          }
+        }
+      }
+    },
+    "効果音 ON" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound ON"
+          }
+        }
+      }
+    },
     "問題" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -735,26 +758,6 @@
     },
     "頑張って %lld 問が改善されました！" : {
 
-    },
-    "効果音 ON" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sound ON"
-          }
-        }
-      }
-    },
-    "効果音 OFF" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sound OFF"
-          }
-        }
-      }
     }
   },
   "version" : "1.0"

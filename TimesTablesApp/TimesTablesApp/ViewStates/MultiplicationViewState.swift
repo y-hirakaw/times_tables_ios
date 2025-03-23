@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Combine
 
 @MainActor
 final class MultiplicationViewState: ObservableObject {
@@ -9,6 +10,12 @@ final class MultiplicationViewState: ObservableObject {
     @Published var answerChoices: [Int] = []
     @Published var isChallengeModeActive = false
     @Published var isAnswering = false
+    
+    // タイマー関連の状態
+    @Published var remainingTime: Double = 10.0 // 10秒の制限時間
+    @Published var isTimerRunning: Bool = false
+    private var timerCancellable: AnyCancellable?
+    private var questionStartTime: Date?
     
     // PIN認証関連の状態
     @Published var showingPINAuth = false
@@ -25,6 +32,12 @@ final class MultiplicationViewState: ObservableObject {
         loadData()
         // アプリ起動時にユーザーポイントが存在することを確認
         ensureUserPointsExists()
+    }
+    
+    deinit {
+        // deinit 内で直接タイマーを停止（クロージャなし）
+        timerCancellable?.cancel()
+        timerCancellable = nil
     }
     
     /// ModelContextを更新する
@@ -72,6 +85,63 @@ final class MultiplicationViewState: ObservableObject {
         return userPoints.first?.availablePoints ?? 0
     }
     
+    /// タイマーを開始する
+    private func startTimer() {
+        stopTimer() // 既存のタイマーをクリア
+        
+        remainingTime = 10.0 // タイマーをリセット
+        questionStartTime = Date() // 開始時間を記録
+        isTimerRunning = true
+        
+        // 0.1秒ごとにタイマーを更新
+        timerCancellable = Timer.publish(every: 0.1, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                
+                if self.remainingTime > 0 {
+                    self.remainingTime -= 0.1
+                    // 小数点以下の誤差を修正
+                    if self.remainingTime < 0.09 {
+                        self.remainingTime = 0
+                    }
+                } else {
+                    // 時間切れ
+                    self.handleTimeOut()
+                }
+            }
+    }
+    
+    /// タイマーを停止する
+    private func stopTimer() {
+        timerCancellable?.cancel()
+        timerCancellable = nil
+        isTimerRunning = false
+    }
+    
+    /// 時間切れの処理
+    private func handleTimeOut() {
+        guard let question = question, !isAnswering else { return }
+        
+        isAnswering = true
+        stopTimer()
+        
+        resultMessage = "時間切れ！正解は \(question.answer) です。"
+        recordIncorrectAnswer(for: question)
+        
+        // 少し待ってから新しい問題を生成
+        Task {
+            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
+            generateRandomQuestion()
+        }
+    }
+    
+    /// 解答時間を計算する（秒単位）
+    private func calculateAnswerTime() -> Double? {
+        guard let startTime = questionStartTime else { return nil }
+        return Date().timeIntervalSince(startTime)
+    }
+    
     /// ランダムな掛け算問題を生成する
     func generateRandomQuestion() {
         // 回答状態をリセット
@@ -93,6 +163,9 @@ final class MultiplicationViewState: ObservableObject {
         }
         generateAnswerChoices()
         resultMessage = ""
+        
+        // 問題生成後にタイマーを開始
+        startTimer()
     }
     
     /// 選択肢をランダムに生成する
@@ -139,15 +212,25 @@ final class MultiplicationViewState: ObservableObject {
         // 回答中フラグを設定して、ボタンを無効化
         isAnswering = true
         
+        // タイマーを停止
+        stopTimer()
+        
+        // 解答時間を計算（秒単位）
+        let answerTime = calculateAnswerTime() ?? 10.0
+        
         if selectedAnswer == question.answer {
             // 正解の場合
             let isDifficult = isDifficultQuestion(question)
-            addPointsForCorrectAnswer(for: question, isDifficult: isDifficult)
+            addPointsForCorrectAnswer(for: question, isDifficult: isDifficult, answerTime: answerTime)
             updateCorrectAttempt(for: question)
+            
+            // 解答時間のフィードバック
+            let timeMessage = String(format: "%.1f秒", answerTime)
+            resultMessage = "正解！ +\(isDifficult ? "ボーナス" : "1")ポイント (時間: \(timeMessage))"
             
             // 少し待ってから新しい問題を生成
             Task {
-                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1秒待機
+                try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5秒待機
                 generateRandomQuestion()
             }
         } else {
@@ -170,7 +253,7 @@ final class MultiplicationViewState: ObservableObject {
     }
     
     /// 正解時のポイント加算
-    private func addPointsForCorrectAnswer(for question: MultiplicationQuestion, isDifficult: Bool) {
+    private func addPointsForCorrectAnswer(for question: MultiplicationQuestion, isDifficult: Bool, answerTime: Double) {
         guard let points = userPoints.first else {
             ensureUserPointsExists()
             return
@@ -180,12 +263,12 @@ final class MultiplicationViewState: ObservableObject {
         
         if isDifficult {
             // 苦手問題の場合はボーナスポイント計算
-            let earnedPoints = points.addDifficultBonus(for: question.identifier, basePoints: basePoints, context: modelContext)
-            resultMessage = "正解！ +\(earnedPoints)ポイント"
+            _ = points.addDifficultBonus(for: question.identifier, basePoints: basePoints, context: modelContext)
+            // resultMessageはcheckAnswer内で設定するので、ここでは不要
         } else {
             // 通常問題の場合は基本ポイントのみ
             points.addPoints(basePoints, context: modelContext)
-            resultMessage = "正解！ +\(basePoints)ポイント"
+            // resultMessageはcheckAnswer内で設定するので、ここでは不要
         }
         
         try? modelContext.save()

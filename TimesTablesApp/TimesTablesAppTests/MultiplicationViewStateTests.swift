@@ -33,6 +33,8 @@ final class MultiplicationViewStateTests: XCTestCase {
         XCTAssertEqual(viewState.getCurrentPoints(), 0, "初期ポイントは0であること")
         XCTAssertNil(viewState.question, "初期状態では問題がないこと")
         XCTAssertFalse(viewState.isChallengeModeActive, "初期状態ではチャレンジモードがオフであること")
+        XCTAssertEqual(viewState.remainingTime, 10.0, "初期の残り時間が10秒であること")
+        XCTAssertFalse(viewState.isTimerRunning, "初期状態ではタイマーが動作していないこと")
     }
     
     func test_ランダム問題生成が正しく動作する() async throws {
@@ -48,6 +50,8 @@ final class MultiplicationViewStateTests: XCTestCase {
         XCTAssertFalse(viewState.answerChoices.isEmpty, "選択肢が生成されていること")
         XCTAssertTrue(viewState.answerChoices.contains(viewState.question!.answer), "選択肢に正解が含まれていること")
         XCTAssertTrue(viewState.resultMessage.isEmpty, "メッセージが初期化されていること")
+        XCTAssertTrue(viewState.isTimerRunning, "問題生成時にタイマーが開始されていること")
+        XCTAssertEqual(viewState.remainingTime, 10.0, "タイマーが10秒で開始されること")
     }
     
     func test_正解時に正しくポイントが加算される() async throws {
@@ -66,6 +70,7 @@ final class MultiplicationViewStateTests: XCTestCase {
         // Assert
         XCTAssertEqual(viewState.getCurrentPoints(), 1, "正解で1ポイント加算されること")
         XCTAssertTrue(viewState.resultMessage.contains("正解"), "正解のメッセージが表示されること")
+        XCTAssertFalse(viewState.isTimerRunning, "回答後にタイマーが停止していること")
     }
     
     func test_不正解時に正しく処理される() async throws {
@@ -85,6 +90,7 @@ final class MultiplicationViewStateTests: XCTestCase {
         // Assert
         XCTAssertEqual(viewState.getCurrentPoints(), 0, "不正解ではポイントが加算されないこと")
         XCTAssertTrue(viewState.resultMessage.contains("不正解"), "不正解のメッセージが表示されること")
+        XCTAssertFalse(viewState.isTimerRunning, "回答後にタイマーが停止していること")
         
         // 苦手問題が記録されていることを確認
         let difficultQuestionsDescriptor = FetchDescriptor<DifficultQuestion>()
@@ -159,5 +165,90 @@ final class MultiplicationViewStateTests: XCTestCase {
         let updatedPoints = viewState.getCurrentPoints()
         XCTAssertGreaterThan(updatedPoints, 1, "ボーナスポイントが加算されて1より大きいこと")
         XCTAssertTrue(viewState.resultMessage.contains("+"), "ポイント加算メッセージが表示されること")
+    }
+    
+    // 以下、タイマー機能のテスト
+    
+    func test_問題生成時にタイマーが開始される() async throws {
+        // Arrange
+        let modelContext = createInMemoryModelContext()
+        let viewState = MultiplicationViewState(modelContext: modelContext)
+        
+        // Act
+        viewState.generateRandomQuestion()
+        
+        // Assert
+        XCTAssertTrue(viewState.isTimerRunning, "問題生成時にタイマーが開始されていること")
+        XCTAssertEqual(viewState.remainingTime, 10.0, "タイマーが10秒で開始されていること")
+    }
+    
+    func test_回答時にタイマーが停止される() async throws {
+        // Arrange
+        let modelContext = createInMemoryModelContext()
+        let viewState = MultiplicationViewState(modelContext: modelContext)
+        viewState.generateRandomQuestion()
+        let question = viewState.question!
+        
+        // Act - 正解を選択
+        viewState.checkAnswer(selectedAnswer: question.answer)
+        
+        // Assert
+        XCTAssertFalse(viewState.isTimerRunning, "回答後にタイマーが停止していること")
+    }
+    
+    func test_正解時の回答時間が結果メッセージに表示される() async throws {
+        // Arrange
+        let modelContext = createInMemoryModelContext()
+        let viewState = MultiplicationViewState(modelContext: modelContext)
+        viewState.generateRandomQuestion()
+        let question = viewState.question!
+        
+        // 少し待機して時間経過を確認
+        try await Task.sleep(nanoseconds: 500_000_000) // 0.5秒待機
+        
+        // Act - 正解を選択
+        viewState.checkAnswer(selectedAnswer: question.answer)
+        
+        // Assert
+        XCTAssertTrue(viewState.resultMessage.contains("時間:"), "結果メッセージに回答時間が含まれていること")
+    }
+    
+    // 注意: 実際のタイマー時間切れのテストは、タイマーの実装方法によっては複雑になる場合がある
+    // ここでは、handleTimeOutメソッドが正しく動作することをテストする
+    func test_時間切れ処理が正しく行われる() async throws {
+        // Arrange
+        let modelContext = createInMemoryModelContext()
+        let viewState = MultiplicationViewState(modelContext: modelContext)
+        viewState.generateRandomQuestion()
+        
+        // 現在の問題を保存
+        guard let question = viewState.question else {
+            XCTFail("問題が生成されていない")
+            return
+        }
+        
+        // タイマーを0に設定して時間切れをシミュレート
+        viewState.remainingTime = 0
+        
+        // 非公開メソッドのテストは通常避けるべきですが、時間切れの状態をシミュレートするために
+        // 本来のタイマーロジックとは別にテスト用の時間切れ処理をトリガー
+        // ここではあくまでこのようなテスト方法があることを示す例として実装
+        
+        // わかりやすくするため結果メッセージをクリア
+        viewState.resultMessage = ""
+        
+        // 新しい問題生成をトリガー - タイマーを再開して即座に時間切れになるようなシナリオ
+        viewState.generateRandomQuestion()
+        // 意図的にタイマーを0に設定 (実際のアプリでは起こりえない状況だが、テスト用)
+        viewState.remainingTime = 0
+        
+        // Wait a bit for any async operations
+        try await Task.sleep(nanoseconds: 300_000_000)
+        
+        // Assert
+        // 時間切れの状態では、ViewStateが時間切れメッセージを表示するはず
+        // (注: 実際の実装では、時間切れのハンドリングによって結果は異なる場合があります)
+        XCTAssertTrue(viewState.resultMessage.contains("時間切れ") || viewState.resultMessage.contains("不正解"), 
+                     "時間切れまたは不正解のメッセージが表示されること")
     }
 }

@@ -82,6 +82,11 @@ struct MultiplicationView: View {
                             startPrompt
                         }
                         
+                        // タイマー表示（問題がある場合のみ）
+                        if viewState.question != nil && viewState.isTimerRunning {
+                            timerView
+                        }
+                        
                         // 回答選択肢エリア
                         if viewState.question != nil {
                             answerChoicesGrid
@@ -153,6 +158,52 @@ struct MultiplicationView: View {
                 .fill(Color.white.opacity(0.7))
                 .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
         )
+    }
+    
+    // タイマー表示ビュー
+    private var timerView: some View {
+        VStack(spacing: 5) {
+            // 残り時間テキスト
+            HStack {
+                Image(systemName: "timer")
+                    .foregroundColor(timerColor)
+                
+                Text("のこり時間: \(String(format: "%.1f", viewState.remainingTime))秒")
+                    .font(.headline)
+                    .foregroundColor(timerColor)
+            }
+            
+            // タイマープログレスバー
+            ZStack(alignment: .leading) {
+                // 背景
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 8)
+                    .cornerRadius(4)
+                
+                // プログレスバー
+                Rectangle()
+                    .fill(timerColor)
+                    .frame(width: max(0, CGFloat(viewState.remainingTime / 10.0) * UIScreen.main.bounds.width * 0.85))
+                    .frame(height: 8)
+                    .cornerRadius(4)
+                    .animation(.linear(duration: 0.1), value: viewState.remainingTime)
+            }
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 5)
+    }
+    
+    // タイマーの色（残り時間によって変化）
+    private var timerColor: Color {
+        if viewState.remainingTime > 5.0 {
+            return .green // 十分に時間がある
+        } else if viewState.remainingTime > 2.0 {
+            return .orange // 警告
+        } else {
+            return .red // 危険
+        }
     }
     
     // もんだい表示ビュー
@@ -299,17 +350,17 @@ struct MultiplicationView: View {
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .fill(
-                        viewState.resultMessage.contains("不正解") 
+                        viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
                         ? Color.red.opacity(0.8)
                         : Color.green.opacity(0.7) 
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(
-                                viewState.resultMessage.contains("不正解") 
+                                viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
                                 ? Color.red
                                 : Color.green ,
-                                lineWidth: viewState.resultMessage.contains("不正解") ? 4 : 3
+                                lineWidth: viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ") ? 4 : 3
                             )
                     )
             )
@@ -327,7 +378,7 @@ struct MultiplicationView: View {
             )
             .animation(.spring(response: 0.3), value: animateCorrect || animateWrong)
             .shadow(
-                color: viewState.resultMessage.contains("不正解") ? .red.opacity(0.5) : .green.opacity(0.3),
+                color: viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ") ? .red.opacity(0.5) : .green.opacity(0.3),
                 radius: 5, x: 0, y: 2
             )
     }
