@@ -83,7 +83,7 @@
 xcodebuild -scheme TimesTablesApp \
   -configuration Debug \
   -project TimesTablesApp/TimesTablesApp.xcodeproj \
-  -destination 'id=B3F517A2-0287-4161-9C05-0C71FA26DF92' \
+  -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
   -allowProvisioningUpdates build | xcbeautify
 ```
 * テストの実行は以下のコマンドで行ってください。
@@ -91,7 +91,7 @@ xcodebuild -scheme TimesTablesApp \
 xcodebuild -scheme TimesTablesApp \
   -configuration Debug \
   -workspace TimesTablesApp/TimesTablesApp.xcodeproj/project.xcworkspace \
-  -destination 'id=B3F517A2-0287-4161-9C05-0C71FA26DF92' \
+  -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
   -destination-timeout 60 \
   -only-testing:TimesTablesAppTests test \
   -verbose | xcbeautify
