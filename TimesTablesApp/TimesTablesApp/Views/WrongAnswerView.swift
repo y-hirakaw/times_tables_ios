@@ -19,7 +19,7 @@ struct WrongAnswerPiece: View {
     @State private var scale = Double.random(in: 0.5...1.5)
 
     var body: some View {
-        Image(systemName: "xmark.circle.fillxxxxxxxxxxxxx")
+        Image(systemName: "xmark.circle.fill")
             .foregroundColor(.red)
             .font(.system(size: 20))
             .position(x: xPosition, y: yPosition)
