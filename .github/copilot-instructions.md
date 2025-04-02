@@ -97,21 +97,8 @@ xcodebuild -scheme TimesTablesApp \
   -verbose | xcbeautify
 ```
 
-# PRのレビューコメント取得について
-
-以下の方法で取得してください。
-
-```
-% gh api repos/{owner}/{repo}/pulls/{pull_number}/reviews
-% gh api repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments
-```
-
-{owner}=y-hirakaw
-{repo}=times_tables_ios
-
 # PR作成について
 
-* ghコマンドはインストール済みです。
 * 以下のフォーマットで対応内容をPRに書いてください。
 
 ```
