@@ -67,16 +67,16 @@ struct MultiplicationView: View {
                             startPrompt
                         }
 
+                        if !viewState.resultMessage.isEmpty {
+                            resultMessageView
+                        }
+
                         if viewState.question != nil && viewState.isTimerRunning {
                             timerView
                         }
 
                         if viewState.question != nil {
                             answerChoicesGrid
-                        }
-
-                        if !viewState.resultMessage.isEmpty {
-                            resultMessageView
                         }
 
                         controlButtons
