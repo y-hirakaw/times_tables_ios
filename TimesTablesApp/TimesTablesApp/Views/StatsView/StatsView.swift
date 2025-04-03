@@ -25,6 +25,9 @@ struct StatsView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
+                        // 問題解答のサマリー表示
+                        QuestionSummaryView()
+                        
                         // グラフタイプ切り替えボタン
                         GraphTypeSelector(selectedChartType: $selectedChartType)
                             .padding(.horizontal)
