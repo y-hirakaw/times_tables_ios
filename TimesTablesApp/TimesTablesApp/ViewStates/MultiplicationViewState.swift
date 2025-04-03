@@ -119,6 +119,20 @@ final class MultiplicationViewState: ObservableObject {
         isTimerRunning = false
     }
     
+    /// 問題をキャンセルする（ゲームを停止する）
+    func cancelQuestion() {
+        // 進行中の回答をキャンセル
+        isAnswering = false
+        // タイマーを停止
+        stopTimer()
+        // 問題をリセット
+        question = nil
+        // 結果メッセージをクリア
+        resultMessage = ""
+        // 選択肢をクリア
+        answerChoices = []
+    }
+    
     /// 時間切れの処理
     private func handleTimeOut() {
         guard let question = question, !isAnswering else { return }
