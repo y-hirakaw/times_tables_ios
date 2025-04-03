@@ -342,46 +342,67 @@ struct MultiplicationView: View {
     }
 
     private var controlButtons: some View {
-        HStack(spacing: 20) {
-            Button(action: { viewState.generateRandomQuestion() }) {
-                HStack {
-                    Image(systemName: "dice.fill")
-                    Text("ランダム もんだい")
+        VStack(spacing: 15) {
+            HStack(spacing: 20) {
+                Button(action: { viewState.generateRandomQuestion() }) {
+                    HStack {
+                        Image(systemName: "dice.fill")
+                        Text("ランダム もんだい")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.blue.opacity(0.8))
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    )
                 }
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color.blue.opacity(0.8))
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                )
-            }
-            .disabled(viewState.isAnswering)
+                .disabled(viewState.isAnswering)
 
-            Button(action: { viewState.toggleChallengeMode() }) {
-                HStack {
-                    Image(systemName: viewState.isChallengeModeActive ? "star.fill" : "star")
-                    Text(viewState.isChallengeModeActive ? "チャレンジON" : "チャレンジOFF")
+                Button(action: { viewState.toggleChallengeMode() }) {
+                    HStack {
+                        Image(systemName: viewState.isChallengeModeActive ? "star.fill" : "star")
+                        Text(viewState.isChallengeModeActive ? "チャレンジON" : "チャレンジOFF")
+                    }
+                    .font(.headline)
+                    .foregroundColor(viewState.isChallengeModeActive ? .white : .orange)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(viewState.isChallengeModeActive ? Color.orange.opacity(0.8) : Color.white.opacity(0.8))
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.orange, lineWidth: viewState.isChallengeModeActive ? 0 : 2)
+                    )
                 }
-                .font(.headline)
-                .foregroundColor(viewState.isChallengeModeActive ? .white : .orange)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(viewState.isChallengeModeActive ? Color.orange.opacity(0.8) : Color.white.opacity(0.8))
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color.orange, lineWidth: viewState.isChallengeModeActive ? 0 : 2)
-                )
+                .disabled(viewState.isAnswering)
             }
-            .disabled(viewState.isAnswering)
+            
+            // 停止ボタン - 問題が表示されているときのみ表示
+            if viewState.question != nil {
+                Button(action: { viewState.cancelQuestion() }) {
+                    HStack {
+                        Image(systemName: "stop.circle.fill")
+                        Text("もんだいを やめる")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.red.opacity(0.8))
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    )
+                }
+                .disabled(viewState.isAnswering)
+            }
         }
-        .padding(.vertical)
     }
 
     private var soundToggleButton: some View {
