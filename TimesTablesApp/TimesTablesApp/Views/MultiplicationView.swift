@@ -2,48 +2,37 @@ import SwiftUI
 import SwiftData
 import AVFoundation
 
+/// メインの九九チャレンジ画面を表示するView
 struct MultiplicationView: View {
-    // ViewStateを利用するように変更
     @StateObject private var viewState: MultiplicationViewState
-    
-    // SwiftDataの参照
     @Environment(\.modelContext) private var modelContext
-    
-    // アニメーション用の状態変数
     @State private var animateCorrect = false
     @State private var animateWrong = false
     @State private var animateQuestion = false
     @State private var selectedAnswer: Int? = nil
-    
-    // 効果音設定
-    @State private var soundEnabled = true // デフォルトでON
-    
-    // オーディオプレイヤー
+    @State private var soundEnabled = true
     private let correctSoundPlayer: AVAudioPlayer?
     private let wrongSoundPlayer: AVAudioPlayer?
-    
-    // イニシャライザでViewStateとオーディオプレイヤーを初期化
+
     init() {
-        // 一時的なモデルコンテキストで初期化
         let schema = Schema([
             DifficultQuestion.self,
             UserPoints.self,
             PointHistory.self,
             PointSpending.self,
-            AnswerTimeRecord.self // 回答時間記録モデルを追加
+            AnswerTimeRecord.self
         ])
         let tempConfig = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         let tempContainer = try! ModelContainer(for: schema, configurations: [tempConfig])
         _viewState = StateObject(wrappedValue: MultiplicationViewState(modelContext: ModelContext(tempContainer)))
-        
-        // オーディオプレイヤーの初期化
+
         if let correctSoundURL = Bundle.main.url(forResource: "Quiz-Correct_Answer02-2", withExtension: "mp3") {
             correctSoundPlayer = try? AVAudioPlayer(contentsOf: correctSoundURL)
             correctSoundPlayer?.prepareToPlay()
         } else {
             correctSoundPlayer = nil
         }
-        
+
         if let wrongSoundURL = Bundle.main.url(forResource: "Quiz-Wrong_Buzzer02-3", withExtension: "mp3") {
             wrongSoundPlayer = try? AVAudioPlayer(contentsOf: wrongSoundURL)
             wrongSoundPlayer?.prepareToPlay()
@@ -51,60 +40,47 @@ struct MultiplicationView: View {
             wrongSoundPlayer = nil
         }
     }
-    
-    // カラーテーマ
+
     private let gradientBackground = LinearGradient(
         colors: [Color.blue.opacity(0.3), Color.purple.opacity(0.2)],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
-    
+
     private let buttonColors: [Color] = [
         .blue, .green, .orange, .pink, .purple, .red, .yellow, .indigo, .mint
     ]
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
-                // 背景グラデーション
                 gradientBackground
                     .ignoresSafeArea()
-                
-                // メインコンテンツ
+
                 ScrollView {
                     VStack(spacing: 20) {
-                        // ポイント表示カード
                         pointsCard
-                        
-                        // もんだい表示エリア
+
                         if let question = viewState.question {
                             questionView(question)
                         } else {
                             startPrompt
                         }
-                        
-                        // タイマー表示（問題がある場合のみ）
+
                         if viewState.question != nil && viewState.isTimerRunning {
                             timerView
                         }
-                        
-                        // 回答選択肢エリア
+
                         if viewState.question != nil {
                             answerChoicesGrid
                         }
-                        
-                        // 結果メッセージ
+
                         if !viewState.resultMessage.isEmpty {
                             resultMessageView
                         }
-                        
-                        // 操作ボタンエリア
+
                         controlButtons
-                        
-                        // 効果音トグルボタン
                         soundToggleButton
-                        
-                        // にがてなもんだいリスト
                         difficultQuestionsView
                     }
                     .padding()
@@ -113,7 +89,6 @@ struct MultiplicationView: View {
             .navigationTitle("九九ティブ")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    // おやよう かんり がめんへのリンク
                     Button {
                         viewState.showParentDashboard()
                     } label: {
@@ -123,30 +98,24 @@ struct MultiplicationView: View {
                 }
             }
             .onAppear {
-                // Viewが表示されたら実際のModelContextをViewStateに設定
                 viewState.updateModelContext(modelContext)
-                
-                // アプリ起動時にユーザーポイントが存在しなければ作成
                 viewState.ensureUserPointsExists()
             }
-            // PIN認証用シート
             .sheet(isPresented: $viewState.showingPINAuth) {
                 ParentAccessView(isAuthenticated: $viewState.isAuthenticated)
             }
-            // 認証成功時におやよう かんり がめんを表示
             .fullScreenCover(isPresented: $viewState.isAuthenticated) {
                 ParentDashboardView()
             }
         }
     }
-    
-    // ポイント表示カード
+
     private var pointsCard: some View {
         HStack {
             Image(systemName: "star.fill")
                 .foregroundColor(.yellow)
                 .font(.title)
-            
+
             Text("ポイント: \(viewState.getCurrentPoints())")
                 .font(.title3)
                 .bold()
@@ -160,30 +129,25 @@ struct MultiplicationView: View {
                 .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
         )
     }
-    
-    // タイマー表示ビュー
+
     private var timerView: some View {
         VStack(spacing: 5) {
-            // 残り時間テキスト
             HStack {
                 Image(systemName: "timer")
                     .foregroundColor(timerColor)
-                
+
                 Text("のこり時間: \(String(format: "%.1f", viewState.remainingTime))秒")
                     .font(.headline)
                     .foregroundColor(timerColor)
             }
-            
-            // タイマープログレスバー
+
             ZStack(alignment: .leading) {
-                // 背景
                 Rectangle()
                     .fill(Color.gray.opacity(0.3))
                     .frame(maxWidth: .infinity)
                     .frame(height: 8)
                     .cornerRadius(4)
-                
-                // プログレスバー
+
                 Rectangle()
                     .fill(timerColor)
                     .frame(width: max(0, CGFloat(viewState.remainingTime / 10.0) * UIScreen.main.bounds.width * 0.85))
@@ -195,44 +159,42 @@ struct MultiplicationView: View {
         .padding(.horizontal)
         .padding(.bottom, 5)
     }
-    
-    // タイマーの色（残り時間によって変化）
+
     private var timerColor: Color {
         if viewState.remainingTime > 5.0 {
-            return .green // 十分に時間がある
+            return .green
         } else if viewState.remainingTime > 2.0 {
-            return .orange // 警告
+            return .orange
         } else {
-            return .red // 危険
+            return .red
         }
     }
-    
-    // もんだい表示ビュー
+
     private func questionView(_ question: MultiplicationQuestion) -> some View {
         VStack(spacing: 15) {
             Text("もんだい")
                 .font(.headline)
                 .foregroundColor(.secondary)
-            
+
             HStack(spacing: 20) {
                 Text("\(question.firstNumber)")
                     .font(.system(size: 50, weight: .bold))
                     .foregroundColor(.blue)
                     .scaleEffect(animateQuestion ? 1.1 : 1.0)
-                
+
                 Text("×")
                     .font(.system(size: 40, weight: .bold))
                     .foregroundColor(.indigo)
-                
+
                 Text("\(question.secondNumber)")
                     .font(.system(size: 50, weight: .bold))
                     .foregroundColor(.purple)
                     .scaleEffect(animateQuestion ? 1.1 : 1.0)
-                
+
                 Text("=")
                     .font(.system(size: 40, weight: .bold))
                     .foregroundColor(.indigo)
-                
+
                 Text("?")
                     .font(.system(size: 50, weight: .bold))
                     .foregroundColor(.orange)
@@ -253,8 +215,7 @@ struct MultiplicationView: View {
                 .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
         )
     }
-    
-    // 開始プロンプト
+
     private var startPrompt: some View {
         VStack {
             Image(systemName: "lightbulb.fill")
@@ -266,7 +227,7 @@ struct MultiplicationView: View {
                         .fill(Color.white.opacity(0.8))
                         .shadow(color: .black.opacity(0.1), radius: 5)
                 )
-            
+
             Text("ボタンをおして もんだいを見よう！")
                 .font(.title2)
                 .bold()
@@ -282,31 +243,28 @@ struct MultiplicationView: View {
                 .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
         )
     }
-    
-    // 選択肢グリッド
+
     private var answerChoicesGrid: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
             ForEach(Array(viewState.answerChoices.enumerated()), id: \.element) { index, choice in
                 Button(action: {
                     selectedAnswer = choice
                     viewState.checkAnswer(selectedAnswer: choice)
-                    
+
                     if let question = viewState.question, choice == question.answer {
-                        // 正解時の効果音を再生
                         if soundEnabled {
                             correctSoundPlayer?.play()
                         }
-                        
+
                         animateCorrect = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                             animateCorrect = false
                         }
                     } else {
-                        // 不正解時の効果音を再生
                         if soundEnabled {
                             wrongSoundPlayer?.play()
                         }
-                        
+
                         animateWrong = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                             animateWrong = false
@@ -339,8 +297,7 @@ struct MultiplicationView: View {
         }
         .padding(.vertical)
     }
-    
-    // 結果メッセージビュー
+
     private var resultMessageView: some View {
         Text(LocalizedStringKey(viewState.resultMessage))
             .font(.title3)
@@ -353,14 +310,14 @@ struct MultiplicationView: View {
                     .fill(
                         viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
                         ? Color.red.opacity(0.8)
-                        : Color.green.opacity(0.7) 
+                        : Color.green.opacity(0.7)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(
                                 viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
                                 ? Color.red
-                                : Color.green ,
+                                : Color.green,
                                 lineWidth: viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ") ? 4 : 3
                             )
                     )
@@ -383,8 +340,7 @@ struct MultiplicationView: View {
                 radius: 5, x: 0, y: 2
             )
     }
-    
-    // 操作ボタンエリア
+
     private var controlButtons: some View {
         HStack(spacing: 20) {
             Button(action: { viewState.generateRandomQuestion() }) {
@@ -403,7 +359,7 @@ struct MultiplicationView: View {
                 )
             }
             .disabled(viewState.isAnswering)
-            
+
             Button(action: { viewState.toggleChallengeMode() }) {
                 HStack {
                     Image(systemName: viewState.isChallengeModeActive ? "star.fill" : "star")
@@ -427,12 +383,10 @@ struct MultiplicationView: View {
         }
         .padding(.vertical)
     }
-    
-    // 効果音設定トグルボタン
+
     private var soundToggleButton: some View {
         Button(action: {
             soundEnabled.toggle()
-            // 押したときに効果音を鳴らして確認できるようにする
             if soundEnabled {
                 correctSoundPlayer?.play()
             }
@@ -456,11 +410,10 @@ struct MultiplicationView: View {
             )
         }
     }
-    
-    // にがてなもんだい表示ビュー
+
     private var difficultQuestionsView: some View {
         let difficultOnes = viewState.getDifficultOnes()
-        
+
         return Group {
             if (!difficultOnes.isEmpty) {
                 VStack(alignment: .leading, spacing: 10) {
@@ -468,7 +421,7 @@ struct MultiplicationView: View {
                         .font(.headline)
                         .foregroundColor(.indigo)
                         .padding(.horizontal)
-                    
+
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
                             ForEach(difficultOnes) { diffQuestion in
@@ -477,7 +430,7 @@ struct MultiplicationView: View {
                                         .font(.title3)
                                         .bold()
                                         .foregroundColor(.white)
-                                    
+
                                     Text("まちがえた かいすう: \(diffQuestion.incorrectCount)")
                                         .font(.caption)
                                         .foregroundColor(.white.opacity(0.9))
@@ -507,80 +460,5 @@ struct MultiplicationView: View {
                 )
             }
         }
-    }
-}
-
-// 正解アニメーション用のカスタムビュー
-struct ConfettiView: View {
-    let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple, .pink]
-    
-    var body: some View {
-        ZStack {
-            ForEach(0..<30) { i in
-                ConfettiPiece(color: colors[i % colors.count])
-            }
-        }
-    }
-}
-
-struct ConfettiPiece: View {
-    @State private var xPosition = Double.random(in: -150...150)
-    @State private var yPosition = Double.random(in: -150...150)
-    @State private var rotation = Double.random(in: 0...360)
-    @State private var scale = Double.random(in: 0.5...1.5)
-    
-    let color: Color
-    
-    var body: some View {
-        Rectangle()
-            .fill(color)
-            .frame(width: 8, height: 8)
-            .position(x: xPosition, y: yPosition)
-            .rotationEffect(.degrees(rotation))
-            .scaleEffect(scale)
-            .opacity(0.7)
-            .onAppear {
-                withAnimation(.easeOut(duration: 1.0)) {
-                    self.yPosition = Double.random(in: 100...200)
-                    self.rotation = Double.random(in: 0...360)
-                    self.scale = 0.1
-                }
-            }
-    }
-}
-
-// 不正解アニメーション用のカスタムビュー
-struct WrongAnswerView: View {
-    var body: some View {
-        ZStack {
-            ForEach(0..<10) { _ in
-                WrongAnswerPiece()
-            }
-        }
-    }
-}
-
-struct WrongAnswerPiece: View {
-    @State private var xPosition = Double.random(in: -150...150)
-    @State private var yPosition = Double.random(in: -150...150)
-    @State private var rotation = Double.random(in: 0...360)
-    @State private var scale = Double.random(in: 0.5...1.5)
-    
-    var body: some View {
-        Image(systemName: "xmark.circle.fill")
-            .foregroundColor(.red)
-            .font(.system(size: 20))
-            .position(x: xPosition, y: yPosition)
-            .rotationEffect(.degrees(rotation))
-            .scaleEffect(scale)
-            .opacity(0.7)
-            .onAppear {
-                withAnimation(.easeOut(duration: 0.8)) {
-                    self.xPosition += Double.random(in: -50...50)
-                    self.yPosition += Double.random(in: -50...50)
-                    self.rotation += Double.random(in: -90...90)
-                    self.scale = 0.2
-                }
-            }
     }
 }
