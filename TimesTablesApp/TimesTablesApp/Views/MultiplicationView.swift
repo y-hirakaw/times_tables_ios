@@ -104,6 +104,9 @@ struct MultiplicationView: View {
             .sheet(isPresented: $viewState.showingPINAuth) {
                 ParentAccessView(isAuthenticated: $viewState.isAuthenticated)
             }
+            .sheet(isPresented: $viewState.showingTableSelection) {
+                tableSelectionView
+            }
             .fullScreenCover(isPresented: $viewState.isAuthenticated) {
                 ParentDashboardView()
             }
@@ -361,6 +364,25 @@ struct MultiplicationView: View {
                 }
                 .disabled(viewState.isAnswering)
 
+                Button(action: { viewState.showTableSelection() }) {
+                    HStack {
+                        Image(systemName: "list.number")
+                        Text("だんで もんだい")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.purple.opacity(0.8))
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    )
+                }
+                .disabled(viewState.isAnswering)
+            }
+            
+            HStack(spacing: 20) {
                 Button(action: { viewState.toggleChallengeMode() }) {
                     HStack {
                         Image(systemName: viewState.isChallengeModeActive ? "star.fill" : "star")
@@ -381,6 +403,23 @@ struct MultiplicationView: View {
                     )
                 }
                 .disabled(viewState.isAnswering)
+                
+                // 現在の選択中の段を表示（選択されている場合のみ）
+                if let selectedTable = viewState.selectedTable {
+                    HStack {
+                        Image(systemName: "checkmark.circle.fill")
+                        Text("\(selectedTable)の だん")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.green.opacity(0.8))
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    )
+                }
             }
             
             // 停止ボタン - 問題が表示されているときのみ表示
@@ -479,6 +518,64 @@ struct MultiplicationView: View {
                         .fill(Color.white.opacity(0.7))
                         .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                 )
+            }
+        }
+    }
+
+    // 段選択画面
+    private var tableSelectionView: some View {
+        NavigationStack {
+            ZStack {
+                gradientBackground
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 20) {
+                    Text("だんを えらんでね")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.indigo)
+                        .padding()
+                    
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                        ForEach(1...9, id: \.self) { table in
+                            Button(action: {
+                                viewState.selectTable(table)
+                            }) {
+                                VStack {
+                                    Text("\(table)")
+                                        .font(.system(size: 32, weight: .bold))
+                                        .foregroundColor(.white)
+                                    
+                                    Text("の だん")
+                                        .font(.headline)
+                                        .foregroundColor(.white.opacity(0.9))
+                                }
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(buttonColors[(table - 1) % buttonColors.count])
+                                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color.white.opacity(0.6), lineWidth: 2)
+                                )
+                            }
+                        }
+                    }
+                    .padding()
+                }
+                .padding()
+            }
+            .navigationTitle("だんを えらぶ")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("とじる") {
+                        viewState.showingTableSelection = false
+                    }
+                }
             }
         }
     }

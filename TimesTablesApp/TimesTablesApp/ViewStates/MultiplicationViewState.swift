@@ -11,6 +11,10 @@ final class MultiplicationViewState: ObservableObject {
     @Published var isChallengeModeActive = false
     @Published var isAnswering = false
     
+    // 段選択関連の状態
+    @Published var showingTableSelection = false
+    @Published var selectedTable: Int? = nil
+    
     // タイマー関連の状態
     @Published var remainingTime: Double = 10.0 // 10秒の制限時間
     @Published var isTimerRunning: Bool = false
@@ -131,6 +135,8 @@ final class MultiplicationViewState: ObservableObject {
         resultMessage = ""
         // 選択肢をクリア
         answerChoices = []
+        // 選択された段をリセット
+        selectedTable = nil
     }
     
     /// 時間切れの処理
@@ -149,7 +155,12 @@ final class MultiplicationViewState: ObservableObject {
         // 少し待ってから新しい問題を生成
         Task {
             try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
-            generateRandomQuestion()
+            // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
+            if let selectedTable = selectedTable {
+                generateQuestionForTable(selectedTable)
+            } else {
+                generateRandomQuestion()
+            }
         }
     }
     
@@ -191,6 +202,9 @@ final class MultiplicationViewState: ObservableObject {
     func generateRandomQuestion() {
         // 回答状態をリセット
         isAnswering = false
+        
+        // ランダム問題を生成する場合は段の選択をリセット
+        selectedTable = nil
         
         if isChallengeModeActive && !difficultQuestions.isEmpty && Bool.random() {
             // 50%の確率で苦手問題から選択
@@ -279,7 +293,12 @@ final class MultiplicationViewState: ObservableObject {
             // 少し待ってから新しい問題を生成
             Task {
                 try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5秒待機
-                generateRandomQuestion()
+                // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
+                if let selectedTable = selectedTable {
+                    generateQuestionForTable(selectedTable)
+                } else {
+                    generateRandomQuestion()
+                }
             }
         } else {
             // 不正解の場合
@@ -292,7 +311,12 @@ final class MultiplicationViewState: ObservableObject {
             // 少し待ってから新しい問題を生成
             Task {
                 try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
-                generateRandomQuestion()
+                // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
+                if let selectedTable = selectedTable {
+                    generateQuestionForTable(selectedTable)
+                } else {
+                    generateRandomQuestion()
+                }
             }
         }
     }
@@ -395,5 +419,47 @@ final class MultiplicationViewState: ObservableObject {
     /// 苦手問題のフィルタリング
     func getDifficultOnes() -> [DifficultQuestion] {
         return difficultQuestions.filter { $0.isDifficult }
+    }
+    
+    /// 指定された段の問題を生成する
+    func generateQuestionForTable(_ table: Int) {
+        // 回答状態をリセット
+        isAnswering = false
+        
+        if isChallengeModeActive && !difficultQuestions.isEmpty && Bool.random() {
+            // チャレンジモードの場合でも、指定された段を優先する
+            let difficultOnes = difficultQuestions.filter { $0.isDifficult && $0.firstNumber == table }
+            if !difficultOnes.isEmpty {
+                let randomDifficult = difficultOnes.randomElement()!
+                question = MultiplicationQuestion(firstNumber: randomDifficult.firstNumber, 
+                                                secondNumber: randomDifficult.secondNumber)
+            } else {
+                // 指定された段の問題をランダムに生成
+                let number = Int.random(in: 1...9)
+                question = MultiplicationQuestion(firstNumber: table, secondNumber: number)
+            }
+        } else {
+            // 指定された段の問題をランダムに生成
+            let number = Int.random(in: 1...9)
+            question = MultiplicationQuestion(firstNumber: table, secondNumber: number)
+        }
+        
+        generateAnswerChoices()
+        resultMessage = ""
+        
+        // 問題生成後にタイマーを開始
+        startTimer()
+    }
+    
+    /// 段選択画面を表示
+    func showTableSelection() {
+        showingTableSelection = true
+    }
+    
+    /// 段を選択して問題を生成
+    func selectTable(_ table: Int) {
+        selectedTable = table
+        showingTableSelection = false
+        generateQuestionForTable(table)
     }
 }
