@@ -36,9 +36,12 @@ struct StatsView: View {
                         if selectedChartType == 0 {
                             // とくい・にがて比率のビュー
                             ProficiencyRatioView(difficultQuestions: difficultQuestions)
-                        } else {
+                        } else if selectedChartType == 1 {
                             // 週間推移のビュー
                             WeeklyTrendView(difficultQuestions: difficultQuestions)
+                        } else {
+                            // 段ごとの解答状況ビュー
+                            MultiplicationTableStatsView()
                         }
                     }
                     .padding(.vertical)

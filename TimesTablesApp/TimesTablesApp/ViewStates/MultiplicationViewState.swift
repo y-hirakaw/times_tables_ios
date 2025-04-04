@@ -281,7 +281,7 @@ final class MultiplicationViewState: ObservableObject {
             // 正解の場合
             let isDifficult = isDifficultQuestion(question)
             addPointsForCorrectAnswer(for: question, isDifficult: isDifficult, answerTime: answerTime)
-            updateCorrectAttempt(for: question)
+            recordCorrectAnswer(for: question)
             
             // 回答時間を記録
             recordAnswerTime(for: question, answerTime: answerTime, isCorrect: true)
@@ -393,12 +393,25 @@ final class MultiplicationViewState: ObservableObject {
     }
     
     /// 問題に正解した記録を更新する
-    private func updateCorrectAttempt(for question: MultiplicationQuestion) {
-        // この問題が記録に存在する場合、正解回数を更新
+    private func recordCorrectAnswer(for question: MultiplicationQuestion) {
+        // 既存の記録があるか確認
         if let existingRecord = findDifficultQuestion(for: question) {
             existingRecord.increaseCorrectCount()
-            try? modelContext.save()
+        } else {
+            // 新しい記録を作成（正解から始まる記録）
+            let newDifficultQuestion = DifficultQuestion(
+                identifier: question.identifier,
+                firstNumber: question.firstNumber,
+                secondNumber: question.secondNumber
+            )
+            // 正解で始まるので不正解カウントを0にして正解カウントを1に設定
+            newDifficultQuestion.incorrectCount = 0
+            newDifficultQuestion.correctCount = 1
+            modelContext.insert(newDifficultQuestion)
+            difficultQuestions.append(newDifficultQuestion)
         }
+        // 変更を保存
+        try? modelContext.save()
     }
     
     /// 指定された問題に対応する苦手問題の記録を検索する
