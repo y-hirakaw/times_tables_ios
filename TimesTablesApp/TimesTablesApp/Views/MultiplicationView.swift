@@ -11,6 +11,7 @@ struct MultiplicationView: View {
     @State private var animateQuestion = false
     @State private var selectedAnswer: Int? = nil
     @State private var soundEnabled = true
+    @State private var showingPointsHistory = false
     private let correctSoundPlayer: AVAudioPlayer?
     private let wrongSoundPlayer: AVAudioPlayer?
 
@@ -22,10 +23,26 @@ struct MultiplicationView: View {
             PointSpending.self,
             AnswerTimeRecord.self
         ])
-        let tempConfig = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let tempConfig = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         let tempContainer = try! ModelContainer(for: schema, configurations: [tempConfig])
-        _viewState = StateObject(wrappedValue: MultiplicationViewState(modelContext: ModelContext(tempContainer)))
+        let tempContext = ModelContext(tempContainer)
+        
+        // モデルコンテキストで必要なデータを事前に作成
+        let pointsDescriptor = FetchDescriptor<UserPoints>()
+        do {
+            let points = try tempContext.fetch(pointsDescriptor)
+            if points.isEmpty {
+                let newPoints = UserPoints(totalEarnedPoints: 0, availablePoints: 0)
+                tempContext.insert(newPoints)
+                try tempContext.save()
+            }
+        } catch {
+            print("初期ポイントデータの作成に失敗: \(error)")
+        }
+        
+        _viewState = StateObject(wrappedValue: MultiplicationViewState(modelContext: tempContext))
 
+        // サウンド初期化
         if let correctSoundURL = Bundle.main.url(forResource: "Quiz-Correct_Answer02-2", withExtension: "mp3") {
             correctSoundPlayer = try? AVAudioPlayer(contentsOf: correctSoundURL)
             correctSoundPlayer?.prepareToPlay()
@@ -98,8 +115,18 @@ struct MultiplicationView: View {
                 }
             }
             .onAppear {
+                // メインのModelContextを使ってデータを更新
                 viewState.updateModelContext(modelContext)
+                // userPointsの存在を確認して初期化
                 viewState.ensureUserPointsExists()
+                // 最新データを読み込み
+                viewState.refreshData()
+                
+                // 画面が表示されるたびにポイント表示を最新化
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    _ = viewState.getCurrentPoints()
+                    viewState.objectWillChange.send()
+                }
             }
             .sheet(isPresented: $viewState.showingPINAuth) {
                 ParentAccessView(isAuthenticated: $viewState.isAuthenticated)
@@ -114,23 +141,41 @@ struct MultiplicationView: View {
     }
 
     private var pointsCard: some View {
-        HStack {
-            Image(systemName: "star.fill")
-                .foregroundColor(.yellow)
-                .font(.title)
+        Button(action: {
+            showingPointsHistory = true
+        }) {
+            HStack {
+                Image(systemName: "star.fill")
+                    .foregroundColor(.yellow)
+                    .font(.title)
 
-            Text("ポイント: \(viewState.getCurrentPoints())")
-                .font(.title3)
-                .bold()
-                .foregroundColor(.indigo)
+                Text("ポイント: \(viewState.getCurrentPoints())")
+                    .font(.title3)
+                    .bold()
+                    .foregroundColor(.indigo)
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(Color.white.opacity(0.7))
+                    .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+            )
         }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white.opacity(0.7))
-                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
-        )
+        .sheet(isPresented: $showingPointsHistory) {
+            NavigationStack {
+                PointHistoryView()
+                    .navigationTitle("ポイントりれき")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("とじる") {
+                                showingPointsHistory = false
+                            }
+                        }
+                    }
+            }
+        }
     }
 
     private var timerView: some View {

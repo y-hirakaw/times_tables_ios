@@ -32,10 +32,10 @@ final class MultiplicationViewState: ObservableObject {
     
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
-        // 初期データをロード
-        loadData()
-        // アプリ起動時にユーザーポイントが存在することを確認
+        // ユーザーポイントが存在することを確認（先に実行）
         ensureUserPointsExists()
+        // その他のデータをロード
+        loadData()
     }
     
     deinit {
@@ -76,17 +76,41 @@ final class MultiplicationViewState: ObservableObject {
     
     /// ユーザーポイントが存在することを確認し、なければ作成
     func ensureUserPointsExists() {
-        if userPoints.isEmpty {
-            let newPoints = UserPoints()
+        let descriptor = FetchDescriptor<UserPoints>()
+        do {
+            let fetchedPoints = try modelContext.fetch(descriptor)
+            if fetchedPoints.isEmpty {
+                // ポイントが存在しない場合は新規作成
+                let newPoints = UserPoints(totalEarnedPoints: 0, availablePoints: 0)
+                modelContext.insert(newPoints)
+                try modelContext.save()
+                userPoints = [newPoints]
+                print("新しいユーザーポイントを作成しました")
+            } else {
+                // 既存のポイントを使用
+                userPoints = fetchedPoints
+                print("既存のユーザーポイントを読み込みました: \(fetchedPoints.first?.availablePoints ?? 0)")
+            }
+        } catch {
+            print("ユーザーポイントの確認に失敗しました: \(error)")
+            // エラーの場合は新規作成
+            let newPoints = UserPoints(totalEarnedPoints: 0, availablePoints: 0)
             modelContext.insert(newPoints)
             try? modelContext.save()
-            userPoints.append(newPoints)
+            userPoints = [newPoints]
         }
     }
     
     /// 現在の使用可能ポイントを取得
     func getCurrentPoints() -> Int {
-        return userPoints.first?.availablePoints ?? 0
+        // userPointsが空の場合、再度確認
+        if userPoints.isEmpty {
+            ensureUserPointsExists()
+        }
+        if let points = userPoints.first?.availablePoints {
+            return points
+        }
+        return 0
     }
     
     /// タイマーを開始する
