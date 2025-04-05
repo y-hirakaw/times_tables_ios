@@ -276,7 +276,7 @@ struct MultiplicationView: View {
                         .shadow(color: .black.opacity(0.1), radius: 5)
                 )
 
-            Text("ボタンをおして もんだいを見よう！")
+            Text("ボタンをおして もんだいをやろう！")
                 .font(.title2)
                 .bold()
                 .foregroundColor(.indigo)

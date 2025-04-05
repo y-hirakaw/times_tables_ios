@@ -29,6 +29,9 @@ struct PINEntryView: View {
                 .font(.title)
                 .padding(.top)
             
+            Text("この画面ではポイント獲得履歴とポイントの消費ができます。九九に正解するとポイントが貰えますので、何ポイントで何ができるなどルールを決めて使うなどに利用してください。")
+                .font(.caption2)
+            
             Text("PINコードを入力してください")
                 .foregroundColor(.secondary)
             
@@ -99,6 +102,9 @@ struct PINSetupView: View {
                 .font(.title)
                 .multilineTextAlignment(.center)
                 .padding(.top)
+            
+            Text("この画面ではポイント獲得履歴とポイントの消費ができます。九九に正解するとポイントが貰えますので、何ポイントで何ができるなどルールを決めて使うなどに利用してください。")
+                .font(.caption2)
             
             Text("4桁のPINコードを設定してください")
                 .foregroundColor(.secondary)
