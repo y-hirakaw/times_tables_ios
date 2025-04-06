@@ -1,5 +1,5 @@
 {
-  "sourceLanguage" : "en",
+  "sourceLanguage" : "ja",
   "strings" : {
     "-%lld" : {
 
@@ -21,7 +21,7 @@
     },
     "%lld × %lld" : {
       "localizations" : {
-        "en" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld × %2$lld"
@@ -31,7 +31,7 @@
     },
     "%lld × %lld のもんだい" : {
       "localizations" : {
-        "en" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld × %2$lld のもんだい"
