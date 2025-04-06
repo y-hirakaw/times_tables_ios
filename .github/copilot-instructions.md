@@ -84,21 +84,11 @@
 
 * ビルドは以下のコマンドで行ってください。
 ```
-xcodebuild -scheme TimesTablesApp \
-  -configuration Debug \
-  -project TimesTablesApp/TimesTablesApp.xcodeproj \
-  -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-  -allowProvisioningUpdates build | xcbeautify
+xcodebuild -scheme TimesTablesApp -configuration Debug -project TimesTablesApp/TimesTablesApp.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -allowProvisioningUpdates build | xcbeautify
 ```
 * テストの実行は以下のコマンドで行ってください。
 ```
-xcodebuild -scheme TimesTablesApp \
-  -configuration Debug \
-  -workspace TimesTablesApp/TimesTablesApp.xcodeproj/project.xcworkspace \
-  -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-  -destination-timeout 60 \
-  -only-testing:TimesTablesAppTests test \
-  -verbose | xcbeautify
+xcodebuild -scheme TimesTablesApp -configuration Debug -workspace TimesTablesApp/TimesTablesApp.xcodeproj/project.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -destination-timeout 60 -only-testing:TimesTablesAppTests test -verbose | xcbeautify
 ```
 
 # PR作成について
