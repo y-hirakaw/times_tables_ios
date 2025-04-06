@@ -392,6 +392,25 @@ struct MultiplicationView: View {
     private var controlButtons: some View {
         VStack(spacing: 15) {
             HStack(spacing: 20) {
+                Button(action: { viewState.startSequentialMode() }) {
+                    HStack {
+                        Image(systemName: "arrow.right")
+                        Text("だんじゅんばん もんだい")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.teal.opacity(0.8))
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    )
+                }
+                .disabled(viewState.isAnswering)
+            }
+            
+            HStack(spacing: 20) {
                 Button(action: { viewState.generateRandomQuestion() }) {
                     HStack {
                         Image(systemName: "dice.fill")
@@ -454,6 +473,9 @@ struct MultiplicationView: View {
                     HStack {
                         Image(systemName: "checkmark.circle.fill")
                         Text("\(selectedTable)の だん")
+                        if viewState.isSequentialMode {
+                            Text("(\(viewState.currentSequentialNumber-1)/9)")
+                        }
                     }
                     .font(.headline)
                     .foregroundColor(.white)
@@ -461,7 +483,7 @@ struct MultiplicationView: View {
                     .frame(maxWidth: .infinity)
                     .background(
                         RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.green.opacity(0.8))
+                            .fill(viewState.isSequentialMode ? Color.teal.opacity(0.8) : Color.green.opacity(0.8))
                             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
                     )
                 }

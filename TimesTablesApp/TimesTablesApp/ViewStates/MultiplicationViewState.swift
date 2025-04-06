@@ -15,6 +15,10 @@ final class MultiplicationViewState: ObservableObject {
     @Published var showingTableSelection = false
     @Published var selectedTable: Int? = nil
     
+    // 順番問題関連の状態
+    @Published var isSequentialMode = false
+    @Published var currentSequentialNumber = 1
+    
     // タイマー関連の状態
     @Published var remainingTime: Double = 10.0 // 10秒の制限時間
     @Published var isTimerRunning: Bool = false
@@ -161,6 +165,9 @@ final class MultiplicationViewState: ObservableObject {
         answerChoices = []
         // 選択された段をリセット
         selectedTable = nil
+        // 順番モードをリセット
+        isSequentialMode = false
+        currentSequentialNumber = 1
     }
     
     /// 時間切れの処理
@@ -317,8 +324,12 @@ final class MultiplicationViewState: ObservableObject {
             // 少し待ってから新しい問題を生成
             Task {
                 try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5秒待機
+                // 順番モードの場合は次の数字の問題を出題
+                if isSequentialMode, let selectedTable = selectedTable {
+                    generateNextSequentialQuestion(for: selectedTable)
+                }
                 // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
-                if let selectedTable = selectedTable {
+                else if let selectedTable = selectedTable {
                     generateQuestionForTable(selectedTable)
                 } else {
                     generateRandomQuestion()
@@ -335,8 +346,12 @@ final class MultiplicationViewState: ObservableObject {
             // 少し待ってから新しい問題を生成
             Task {
                 try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
+                // 順番モードの場合は次の数字の問題を出題
+                if isSequentialMode, let selectedTable = selectedTable {
+                    generateNextSequentialQuestion(for: selectedTable)
+                }
                 // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
-                if let selectedTable = selectedTable {
+                else if let selectedTable = selectedTable {
                     generateQuestionForTable(selectedTable)
                 } else {
                     generateRandomQuestion()
@@ -493,10 +508,54 @@ final class MultiplicationViewState: ObservableObject {
         showingTableSelection = true
     }
     
-    /// 段を選択して問題を生成
+    /// 段を選択して問題を生成（順番モードと通常モードの分岐）
     func selectTable(_ table: Int) {
         selectedTable = table
         showingTableSelection = false
-        generateQuestionForTable(table)
+        
+        if isSequentialMode {
+            // 順番モードの場合は最初から順番に出題
+            currentSequentialNumber = 1
+            generateNextSequentialQuestion(for: table)
+        } else {
+            // 通常モードの場合はランダムに出題
+            generateQuestionForTable(table)
+        }
+    }
+    
+    /// 順番モードを開始する
+    func startSequentialMode() {
+        showingTableSelection = true
+        isSequentialMode = true
+        currentSequentialNumber = 1
+    }
+    
+    /// 順番モードで次の問題を生成する
+    private func generateNextSequentialQuestion(for table: Int) {
+        // 最後の問題（9）まで解き終わったかチェック
+        if currentSequentialNumber > 9 {
+            // 順番モード終了
+            resultMessage = "おめでとう！\(table)の だんを すべて クリアしました！"
+            question = nil
+            stopTimer()
+            isSequentialMode = false
+            currentSequentialNumber = 1
+            isAnswering = false
+            return
+        }
+        
+        // 回答状態をリセット
+        isAnswering = false
+        
+        // 次の順番の問題を生成
+        question = MultiplicationQuestion(firstNumber: table, secondNumber: currentSequentialNumber)
+        
+        // 次の数字に進める
+        currentSequentialNumber += 1
+        
+        generateAnswerChoices()
+        
+        // 問題生成後にタイマーを開始
+        startTimer()
     }
 }
