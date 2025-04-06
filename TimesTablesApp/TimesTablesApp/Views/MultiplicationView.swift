@@ -219,6 +219,14 @@ struct MultiplicationView: View {
     }
 
     private func questionView(_ question: MultiplicationQuestion) -> some View {
+        if viewState.isHolePunchMode {
+            return holePunchQuestionView(question)
+        } else {
+            return standardQuestionView(question)
+        }
+    }
+
+    private func standardQuestionView(_ question: MultiplicationQuestion) -> some View {
         VStack(spacing: 15) {
             Text("もんだい")
                 .font(.headline)
@@ -264,10 +272,56 @@ struct MultiplicationView: View {
         )
     }
 
+    private func holePunchQuestionView(_ question: MultiplicationQuestion) -> some View {
+        VStack(spacing: 15) {
+            Text("もんだい")
+                .font(.headline)
+                .foregroundColor(.secondary)
+
+            HStack(spacing: 20) {
+                Text("\(question.firstNumber)")
+                    .font(.system(size: 50, weight: .bold))
+                    .foregroundColor(.blue)
+                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
+
+                Text("×")
+                    .font(.system(size: 40, weight: .bold))
+                    .foregroundColor(.indigo)
+
+                Text("□")
+                    .font(.system(size: 50, weight: .bold))
+                    .foregroundColor(.purple)
+                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
+
+                Text("=")
+                    .font(.system(size: 40, weight: .bold))
+                    .foregroundColor(.indigo)
+
+                Text("\(question.firstNumber * question.secondNumber)")
+                    .font(.system(size: 50, weight: .bold))
+                    .foregroundColor(.orange)
+                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
+            }
+            .padding()
+            .onAppear {
+                withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                    self.animateQuestion = true
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white.opacity(0.9))
+                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
+        )
+    }
+
     private var startPrompt: some View {
         VStack {
             Image(systemName: "lightbulb.fill")
-                .font(.system(size: 50))
+                .font(.system(size: 40))
                 .foregroundColor(.yellow)
                 .padding()
                 .background(
@@ -284,7 +338,7 @@ struct MultiplicationView: View {
                 .padding()
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 40)
+        .padding(.vertical, 16)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.white.opacity(0.9))
@@ -440,6 +494,25 @@ struct MultiplicationView: View {
                     .background(
                         RoundedRectangle(cornerRadius: 15)
                             .fill(Color.purple.opacity(0.8))
+                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                    )
+                }
+                .disabled(viewState.isAnswering)
+            }
+            
+            HStack(spacing: 20) {
+                Button(action: { viewState.generateHolePunchQuestion() }) {
+                    HStack {
+                        Image(systemName: "questionmark.square.fill")
+                        Text("むしくい もんだい")
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.cyan.opacity(0.8))
                             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
                     )
                 }

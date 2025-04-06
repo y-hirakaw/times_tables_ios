@@ -19,6 +19,9 @@ final class MultiplicationViewState: ObservableObject {
     @Published var isSequentialMode = false
     @Published var currentSequentialNumber = 1
     
+    // 虫食い問題関連の状態
+    @Published var isHolePunchMode = false
+    
     // タイマー関連の状態
     @Published var remainingTime: Double = 10.0 // 10秒の制限時間
     @Published var isTimerRunning: Bool = false
@@ -168,6 +171,8 @@ final class MultiplicationViewState: ObservableObject {
         // 順番モードをリセット
         isSequentialMode = false
         currentSequentialNumber = 1
+        // 虫食い問題モードをリセット
+        isHolePunchMode = false
     }
     
     /// 時間切れの処理
@@ -177,7 +182,10 @@ final class MultiplicationViewState: ObservableObject {
         isAnswering = true
         stopTimer()
         
-        resultMessage = "時間切れ！正解は \(question.answer) です。"
+        // 通常モードと虫食い問題モードで正解が異なる
+        let correctAnswer = isHolePunchMode ? question.secondNumber : question.answer
+        resultMessage = "時間切れ！正解は \(correctAnswer) です。"
+        
         recordIncorrectAnswer(for: question)
         
         // 回答時間を記録（時間切れは10秒固定）
@@ -186,10 +194,17 @@ final class MultiplicationViewState: ObservableObject {
         // 少し待ってから新しい問題を生成
         Task {
             try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
-            // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
-            if let selectedTable = selectedTable {
+            
+            // 虫食い問題モードの場合は次の虫食い問題を生成
+            if isHolePunchMode {
+                generateHolePunchQuestion()
+            }
+            // 段が選択されている場合はその段の問題を生成
+            else if let selectedTable = selectedTable {
                 generateQuestionForTable(selectedTable)
-            } else {
+            } 
+            // それ以外はランダム問題
+            else {
                 generateRandomQuestion()
             }
         }
@@ -233,6 +248,9 @@ final class MultiplicationViewState: ObservableObject {
     func generateRandomQuestion() {
         // 回答状態をリセット
         isAnswering = false
+        
+        // 虫食いモードをリセット
+        isHolePunchMode = false
         
         // ランダム問題を生成する場合は段の選択をリセット
         selectedTable = nil
@@ -292,69 +310,123 @@ final class MultiplicationViewState: ObservableObject {
         answerChoices = choices.shuffled()
     }
     
-    /// ユーザーの回答を確認する
+    /// 正解時に加算するポイントを計算する（苦手問題の場合はボーナスポイント）
+    private func calculatePointsForAnswer(for question: MultiplicationQuestion) -> Int {
+        if isDifficultQuestion(question) {
+            return 2  // 苦手問題ならボーナスポイント
+        }
+        return 1  // 通常のポイント
+    }
+    
+    /// 回答をチェックする（既存メソッドの拡張）
     func checkAnswer(selectedAnswer: Int) {
-        guard let question = question else { return }
+        guard let question = question, !isAnswering else { return }
         
-        // すでに回答中の場合は処理をスキップ
-        if isAnswering { return }
-        
-        // 回答中フラグを設定して、ボタンを無効化
+        // 回答中状態にする
         isAnswering = true
         
         // タイマーを停止
         stopTimer()
         
-        // 解答時間を計算（秒単位）
-        let answerTime = calculateAnswerTime() ?? 10.0
+        // 回答にかかった時間を計算
+        var answerTime: TimeInterval = 10.0
+        if let startTime = questionStartTime {
+            answerTime = Date().timeIntervalSince(startTime)
+        }
         
-        if selectedAnswer == question.answer {
+        // 正解かどうかをチェック（虫食い問題の場合は secondNumber が正解）
+        let isCorrect: Bool
+        if isHolePunchMode {
+            isCorrect = selectedAnswer == question.secondNumber
+        } else {
+            isCorrect = selectedAnswer == question.answer
+        }
+        
+        if isCorrect {
             // 正解の場合
+            // 苦手問題ならボーナスポイント
             let isDifficult = isDifficultQuestion(question)
-            addPointsForCorrectAnswer(for: question, isDifficult: isDifficult, answerTime: answerTime)
-            recordCorrectAnswer(for: question)
+            let pointsToAdd = isDifficult ? 2 : 1
             
-            // 回答時間を記録
-            recordAnswerTime(for: question, answerTime: answerTime, isCorrect: true)
+            // ポイント追加
+            addPoint(amount: pointsToAdd, reason: "問題正解")
             
             // 解答時間のフィードバック
-            let timeMessage = String(format: "%.1f秒", answerTime)
-            resultMessage = "正解！ +\(isDifficult ? "ボーナス" : "1")ポイント (時間: \(timeMessage))"
+            let timeMessage = String(format: "%.1f", answerTime)
+            resultMessage = "正解！ +\(isDifficult ? "ボーナス" : "1")ポイント (時間: \(timeMessage)秒)"
             
-            // 少し待ってから新しい問題を生成
-            Task {
-                try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5秒待機
-                // 順番モードの場合は次の数字の問題を出題
-                if isSequentialMode, let selectedTable = selectedTable {
-                    generateNextSequentialQuestion(for: selectedTable)
+            // 正解時間を記録
+            recordAnswerTime(for: question, answerTime: answerTime, isCorrect: true)
+            
+            // 苦手問題に正解した場合、正解カウントを増やす
+            if let difficultQuestion = findDifficultQuestion(for: question) {
+                difficultQuestion.increaseCorrectCount()
+                try? modelContext.save()
+            }
+            
+            // 次の問題を準備
+            if isSequentialMode && selectedTable != nil {
+                // 順番問題の場合は次の問題へ
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                    guard let self = self else { return }
+                    if let selectedTable = self.selectedTable {
+                        self.generateNextSequentialQuestion(for: selectedTable)
+                    }
+                    self.isAnswering = false
                 }
-                // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
-                else if let selectedTable = selectedTable {
-                    generateQuestionForTable(selectedTable)
-                } else {
-                    generateRandomQuestion()
+            } else {
+                // 通常問題の場合は次の問題への準備
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                    guard let self = self else { return }
+                    self.isAnswering = false
+                    
+                    // 虫食い問題モードの場合は次の虫食い問題を生成
+                    if self.isHolePunchMode {
+                        self.generateHolePunchQuestion()
+                    } else if let selectedTable = self.selectedTable {
+                        // 段が選択されている場合はその段の問題を生成
+                        self.generateQuestionForTable(selectedTable)
+                    } else {
+                        // それ以外はランダム問題
+                        self.generateRandomQuestion()
+                    }
                 }
             }
         } else {
             // 不正解の場合
-            resultMessage = "不正解。正解は \(question.answer) です。"
-            recordIncorrectAnswer(for: question)
+            let correctAnswer = isHolePunchMode ? question.secondNumber : question.answer
+            resultMessage = "不正解！正解は \(correctAnswer) です。もう一度チャレンジしてね。"
             
-            // 回答時間を記録
+            // 間違えた問題を記録
+            DifficultQuestion.recordIncorrectAnswer(
+                firstNumber: question.firstNumber,
+                secondNumber: question.secondNumber,
+                context: modelContext
+            )
+            
+            // 回答時間を記録（不正解）
             recordAnswerTime(for: question, answerTime: answerTime, isCorrect: false)
             
-            // 少し待ってから新しい問題を生成
-            Task {
-                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
-                // 順番モードの場合は次の数字の問題を出題
-                if isSequentialMode, let selectedTable = selectedTable {
-                    generateNextSequentialQuestion(for: selectedTable)
-                }
-                // 段が選択されている場合はその段の問題を生成、そうでなければランダム問題
-                else if let selectedTable = selectedTable {
-                    generateQuestionForTable(selectedTable)
+            // 最新の苦手問題データを読み込み
+            loadData()
+            
+            // 少し時間をおいて次の問題を表示
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+                guard let self = self else { return }
+                self.isAnswering = false
+                
+                // 虫食い問題モードの場合は次の虫食い問題を生成
+                if self.isHolePunchMode {
+                    self.generateHolePunchQuestion()
+                } else if isSequentialMode, let selectedTable = self.selectedTable {
+                    // 順番問題モードの場合は次の問題へ
+                    self.generateNextSequentialQuestion(for: selectedTable)
+                } else if let selectedTable = self.selectedTable {
+                    // 段が選択されている場合はその段の問題を生成
+                    self.generateQuestionForTable(selectedTable)
                 } else {
-                    generateRandomQuestion()
+                    // それ以外はランダム問題
+                    self.generateRandomQuestion()
                 }
             }
         }
@@ -478,6 +550,9 @@ final class MultiplicationViewState: ObservableObject {
         // 回答状態をリセット
         isAnswering = false
         
+        // 虫食いモードをリセット
+        isHolePunchMode = false
+        
         if isChallengeModeActive && !difficultQuestions.isEmpty && Bool.random() {
             // チャレンジモードの場合でも、指定された段を優先する
             let difficultOnes = difficultQuestions.filter { $0.isDifficult && $0.firstNumber == table }
@@ -528,6 +603,8 @@ final class MultiplicationViewState: ObservableObject {
         showingTableSelection = true
         isSequentialMode = true
         currentSequentialNumber = 1
+        // 虫食いモードをリセット
+        isHolePunchMode = false
     }
     
     /// 順番モードで次の問題を生成する
@@ -557,5 +634,79 @@ final class MultiplicationViewState: ObservableObject {
         
         // 問題生成後にタイマーを開始
         startTimer()
+    }
+    
+    /// 虫食い問題を生成する（かける数を答える問題）
+    func generateHolePunchQuestion() {
+        // 回答状態をリセット
+        isAnswering = false
+        
+        // モードをセット
+        isHolePunchMode = true
+        
+        // 段の選択をリセット
+        selectedTable = nil
+        
+        if isChallengeModeActive && !difficultQuestions.isEmpty && Bool.random() {
+            // 50%の確率で苦手問題から選択
+            let difficultOnes = difficultQuestions.filter { $0.isDifficult }
+            if !difficultOnes.isEmpty {
+                let randomDifficult = difficultOnes.randomElement()!
+                // 虫食い問題なので、問題の形式を変える（答えが2番目の数になる）
+                question = MultiplicationQuestion(firstNumber: randomDifficult.firstNumber, 
+                                                secondNumber: randomDifficult.secondNumber)
+            } else {
+                let firstNumber = Int.random(in: 1...9)
+                let secondNumber = Int.random(in: 1...9)
+                question = MultiplicationQuestion(firstNumber: firstNumber, secondNumber: secondNumber)
+            }
+        } else {
+            // 通常のランダム問題
+            let firstNumber = Int.random(in: 1...9)
+            let secondNumber = Int.random(in: 1...9)
+            question = MultiplicationQuestion(firstNumber: firstNumber, secondNumber: secondNumber)
+        }
+        
+        // 虫食い問題用の選択肢を生成（答えが2番目の数になる）
+        generateHolePunchAnswerChoices()
+        resultMessage = ""
+        
+        // 問題生成後にタイマーを開始
+        startTimer()
+    }
+    
+    /// 虫食い問題用の選択肢をランダムに生成する
+    private func generateHolePunchAnswerChoices() {
+        guard let question = question else { return }
+        
+        // 虫食い問題では、正解は2番目の数（secondNumber）
+        var choices = [question.secondNumber]
+        
+        // 選択肢の数をランダムに決定（6〜8個）
+        let numberOfChoices = Int.random(in: 6...8)
+        
+        // 1〜9の範囲の数字から選択肢を作成
+        while choices.count < numberOfChoices {
+            let randomChoice = Int.random(in: 1...9)
+            
+            // 重複を避ける
+            if !choices.contains(randomChoice) {
+                choices.append(randomChoice)
+            }
+        }
+        
+        // 選択肢をシャッフル
+        answerChoices = choices.shuffled()
+    }
+    
+    /// ポイントを加算する
+    private func addPoint(amount: Int, reason: String) {
+        guard let points = userPoints.first else {
+            ensureUserPointsExists()
+            return
+        }
+        
+        points.addPoints(amount, context: modelContext)
+        try? modelContext.save()
     }
 }
