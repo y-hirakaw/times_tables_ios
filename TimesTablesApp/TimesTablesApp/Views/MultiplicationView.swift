@@ -220,9 +220,9 @@ struct MultiplicationView: View {
 
     private func questionView(_ question: MultiplicationQuestion) -> some View {
         if viewState.isHolePunchMode {
-            return holePunchQuestionView(question)
+            return AnyView(holePunchQuestionView(question))
         } else {
-            return standardQuestionView(question)
+            return AnyView(standardQuestionView(question))
         }
     }
 
