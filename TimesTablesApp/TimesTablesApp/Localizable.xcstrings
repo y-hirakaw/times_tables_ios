@@ -2,25 +2,73 @@
   "sourceLanguage" : "ja",
   "strings" : {
     "-%lld" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "-%lld"
+          }
+        }
+      }
     },
     "?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "?"
+          }
+        }
+      }
     },
     "(%lld/9)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(%lld/9)"
+          }
+        }
+      }
     },
     "（せいかいりつ 70%いじょう）" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Accuracy 70% or higher)"
+          }
+        }
+      }
     },
     "（せいかいりつ 70%みまん）" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Accuracy less than 70%)"
+          }
+        }
+      }
     },
     "%lld" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
     },
     "%lld × %lld" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld × %2$lld"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
@@ -31,6 +79,12 @@
     },
     "%lld × %lld のもんだい" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problem %1$lld × %2$lld"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
@@ -40,25 +94,74 @@
       }
     },
     "%lld%%" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld%%"
+          }
+        }
+      }
     },
     "%lldの だん" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld times table"
+          }
+        }
+      }
     },
     "※PINコードを忘れると管理画面へアクセスできなくなります。\n忘れないようにメモを取るなどの対策をしてください。" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "※If you forget your PIN code, you will not be able to access the dashboard.\nPlease take measures such as taking notes so that you don't forget."
+          }
+        }
+      }
     },
     "+%lld" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+%lld"
+          }
+        }
+      }
     },
     "×" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "×"
+          }
+        }
+      }
     },
     "=" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "="
+          }
+        }
+      }
     },
     "□" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "□"
+          }
+        }
+      }
     },
     "4桁のPINコード" : {
       "localizations" : {
@@ -177,7 +280,14 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "PINコード (4桁)" : {
       "localizations" : {
@@ -362,7 +472,14 @@
       }
     },
     "かけ算の だんごとの せいかい・ふせいかい" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct and Incorrect Answers by Times Table"
+          }
+        }
+      }
     },
     "キャンセル" : {
       "localizations" : {
@@ -375,10 +492,24 @@
       }
     },
     "グラフの せつめい" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Graph Explanation"
+          }
+        }
+      }
     },
     "この画面ではポイント獲得履歴とポイントの消費ができます。九九に正解するとポイントが貰えますので、何ポイントで何ができるなどルールを決めて使うなどに利用してください。" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In this screen, you can view point earning history and use points. Points are earned by correctly answering multiplication problems. Please use this feature to set rules like what can be done with certain points."
+          }
+        }
+      }
     },
     "こんしゅう よくなった もんだい" : {
       "localizations" : {
@@ -401,28 +532,84 @@
       }
     },
     "せいかい" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct"
+          }
+        }
+      }
     },
     "せいかいりつ: %lld%%" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy rate: %lld%%"
+          }
+        }
+      }
     },
     "だんごと" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By times table"
+          }
+        }
+      }
     },
     "だんごとの せいかいりつ" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy by times table"
+          }
+        }
+      }
     },
     "だんじゅんばん もんだい" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sequential problems"
+          }
+        }
+      }
     },
     "だんで もんだい" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problems by table"
+          }
+        }
+      }
     },
     "だんを えらぶ" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select times table"
+          }
+        }
+      }
     },
     "だんを えらんでね" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select a times table"
+          }
+        }
+      }
     },
     "チャレンジOFF" : {
       "localizations" : {
@@ -467,13 +654,34 @@
       }
     },
     "データが たりません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not enough data"
+          }
+        }
+      }
     },
     "データがありません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No data available"
+          }
+        }
+      }
     },
     "といた かず" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number solved"
+          }
+        }
+      }
     },
     "とくい・にがて" : {
       "localizations" : {
@@ -496,19 +704,54 @@
       }
     },
     "とくい: %lldもん" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strong: %lld problems"
+          }
+        }
+      }
     },
     "とくいな もんだい:" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strong problems:"
+          }
+        }
+      }
     },
     "とじる" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
     },
     "にがて: %lldもん" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weak: %lld problems"
+          }
+        }
+      }
     },
     "にがてな もんだい:" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult problems:"
+          }
+        }
+      }
     },
     "にがての すうじ" : {
       "localizations" : {
@@ -521,13 +764,34 @@
       }
     },
     "にがてもんだいが %lldもん ふえています" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult problems increased by %lld"
+          }
+        }
+      }
     },
     "にがてもんだいが %lldもん へりました！" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult problems decreased by %lld!"
+          }
+        }
+      }
     },
     "にがてもんだいすう" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of difficult problems"
+          }
+        }
+      }
     },
     "にがてもんだいの すうの うごき" : {
       "localizations" : {
@@ -540,16 +804,44 @@
       }
     },
     "の だん" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " times table"
+          }
+        }
+      }
     },
     "のこり時間: %@秒" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time left: %@ sec"
+          }
+        }
+      }
     },
     "ふせいかい" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect"
+          }
+        }
+      }
     },
     "ボーナスポイント" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonus points"
+          }
+        }
+      }
     },
     "ポイント:" : {
       "extractionState" : "stale",
@@ -563,28 +855,84 @@
       }
     },
     "ポイント: %lld" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points: %lld"
+          }
+        }
+      }
     },
     "ポイントりれき" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points history"
+          }
+        }
+      }
     },
     "ポイントりれきはありません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No points history"
+          }
+        }
+      }
     },
     "ポイント消費" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use points"
+          }
+        }
+      }
     },
     "ポイント消費履歴はありません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No point usage history"
+          }
+        }
+      }
     },
     "ポイント獲得履歴はありません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No point earning history"
+          }
+        }
+      }
     },
     "ほか %lld もん" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld more problems"
+          }
+        }
+      }
     },
     "ボタンをおして もんだいをやろう！" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press the button to start!"
+          }
+        }
+      }
     },
     "ボタンをおして もんだいを見よう！" : {
       "extractionState" : "stale",
@@ -609,7 +957,14 @@
       }
     },
     "まだ かいとうした もんだいが ありません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No answered problems yet"
+          }
+        }
+      }
     },
     "まだ こたえたもんだいが ありません" : {
       "localizations" : {
@@ -622,7 +977,14 @@
       }
     },
     "まだ といていません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No problem yet"
+          }
+        }
+      }
     },
     "まちがえた かいすう:" : {
       "extractionState" : "stale",
@@ -636,16 +998,44 @@
       }
     },
     "まちがえた かいすう: %lld" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mistakes: %lld"
+          }
+        }
+      }
     },
     "まちがえる りつ: %lld%%" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error rate: %lld%%"
+          }
+        }
+      }
     },
     "みかいとう: %lldもん" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unanswered: %lld problems"
+          }
+        }
+      }
     },
     "むしくい もんだい" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill in the blank"
+          }
+        }
+      }
     },
     "もんだい" : {
       "localizations" : {
@@ -658,10 +1048,24 @@
       }
     },
     "もんだい かいとう サマリー" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problem solving summary"
+          }
+        }
+      }
     },
     "もんだいすう" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of problems"
+          }
+        }
+      }
     },
     "もんだいの できぐあい" : {
       "localizations" : {
@@ -674,10 +1078,24 @@
       }
     },
     "もんだいを やめる" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit problem"
+          }
+        }
+      }
     },
     "ようび" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day of week"
+          }
+        }
+      }
     },
     "ランダム もんだい" : {
       "localizations" : {
@@ -712,13 +1130,34 @@
       }
     },
     "九九ティブ" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Times Tables"
+          }
+        }
+      }
     },
     "使用可能ポイント" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Available points"
+          }
+        }
+      }
     },
     "最近、改善された問題はありません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No recently improved problems"
+          }
+        }
+      }
     },
     "効果音 OFF" : {
       "localizations" : {
@@ -752,37 +1191,114 @@
       }
     },
     "基本ポイント" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basic points"
+          }
+        }
+      }
     },
     "学習統計" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learning Statistics"
+          }
+        }
+      }
     },
     "実行" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Execute"
+          }
+        }
+      }
     },
     "履歴タイプ" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History type"
+          }
+        }
+      }
     },
     "正解率" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy rate"
+          }
+        }
+      }
     },
     "正解率: %lld%%" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy rate: %lld%%"
+          }
+        }
+      }
     },
     "段" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Table"
+          }
+        }
+      }
     },
     "消費ポイント" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points used"
+          }
+        }
+      }
     },
     "消費履歴" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usage history"
+          }
+        }
+      }
     },
     "獲得履歴" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Earning history"
+          }
+        }
+      }
     },
     "理由（おもちゃ交換など）" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reason (e.g. toy exchange)"
+          }
+        }
+      }
     },
     "確認" : {
       "localizations" : {
@@ -795,7 +1311,14 @@
       }
     },
     "累計獲得ポイント" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total points earned"
+          }
+        }
+      }
     },
     "親用管理画面" : {
       "localizations" : {
@@ -849,7 +1372,14 @@
       }
     },
     "頑張って %lld 問が改善されました！" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Great job! %lld problems have improved!"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
