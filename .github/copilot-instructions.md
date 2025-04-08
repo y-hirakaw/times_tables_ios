@@ -19,6 +19,8 @@
   * 解くまでにかかった時間の記録
 * 1-8. 段指定のランダム出題
 * 1-9. 獲得ポイントを一覧で見れる（親管理画面とは別）
+* 1-10. 段ごとに順番問題（Nx1~9まで順番出題）
+* 1-11. 虫食い問題（かける数の方を答える）
 
 実装箇所: Views/MultiplicationView.swift
 
@@ -48,8 +50,6 @@
 
 # 今後実装予定の機能
 
-* 段ごとに順番問題（Nx1~9まで順番出題）
-* 虫食い問題（かける数の方を答える）
 * ポイント獲得の調整
 * 年齢入力(生年月日ではない)
   * 年齢別の統計情報と自分の統計比較
@@ -84,21 +84,11 @@
 
 * ビルドは以下のコマンドで行ってください。
 ```
-xcodebuild -scheme TimesTablesApp \
-  -configuration Debug \
-  -project TimesTablesApp/TimesTablesApp.xcodeproj \
-  -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-  -allowProvisioningUpdates build | xcbeautify
+xcodebuild -scheme TimesTablesApp -configuration Debug -project TimesTablesApp/TimesTablesApp.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -allowProvisioningUpdates build | xcbeautify
 ```
 * テストの実行は以下のコマンドで行ってください。
 ```
-xcodebuild -scheme TimesTablesApp \
-  -configuration Debug \
-  -workspace TimesTablesApp/TimesTablesApp.xcodeproj/project.xcworkspace \
-  -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-  -destination-timeout 60 \
-  -only-testing:TimesTablesAppTests test \
-  -verbose | xcbeautify
+xcodebuild -scheme TimesTablesApp -configuration Debug -workspace TimesTablesApp/TimesTablesApp.xcodeproj/project.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -destination-timeout 60 -only-testing:TimesTablesAppTests test -verbose | xcbeautify
 ```
 
 # PR作成について
