@@ -3,8 +3,8 @@ import SwiftData
 import Charts
 
 struct MultiplicationTableStatsView: View {
-    @Query private var answerRecords: [AnswerTimeRecord]
-    @Query private var difficultQuestions: [DifficultQuestion]
+    @Environment(\.modelContext) private var modelContext
+    @StateObject private var viewState: MultiplicationTableStatsViewState
     
     // 表示する段の数
     private let tableRange = 1...9
@@ -12,6 +12,28 @@ struct MultiplicationTableStatsView: View {
     // カラーテーマ
     private let correctColor = Color.green.opacity(0.7)
     private let incorrectColor = Color.red.opacity(0.7)
+    
+    // 共有ModelContainerのヘルパー実装
+    private var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            DifficultQuestion.self,
+            AnswerTimeRecord.self
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
+    
+    init() {
+        // ViewStateの初期化
+        // 一時的なModelContextを使用して初期化
+        let tempContext = ModelContext(sharedModelContainer)
+        _viewState = StateObject(wrappedValue: MultiplicationTableStatsViewState(modelContext: tempContext))
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -23,7 +45,7 @@ struct MultiplicationTableStatsView: View {
             // 縦表示に変更
             ScrollView {
                 VStack(spacing: 12) {
-                    ForEach(tableRange, id: \.self) { table in
+                    ForEach(viewState.tableRange, id: \.self) { table in
                         tableStatCard(for: table)
                     }
                 }
@@ -39,8 +61,8 @@ struct MultiplicationTableStatsView: View {
                 .padding(.horizontal)
             
             Chart {
-                ForEach(tableRange, id: \.self) { table in
-                    let stats = getTableStats(table: table)
+                ForEach(viewState.tableRange, id: \.self) { table in
+                    let stats = viewState.getTableStats(table: table)
                     if stats.totalCount > 0 {
                         BarMark(
                             x: .value("段", "\(table)の段"),
@@ -78,17 +100,15 @@ struct MultiplicationTableStatsView: View {
                 .shadow(color: .gray.opacity(0.3), radius: 5)
         )
         .onAppear {
-            // デバッグ情報：データの数を確認
-            print("DifficultQuestions: \(difficultQuestions.count)")
-            for question in difficultQuestions {
-                print("問題: \(question.identifier), 正解数: \(question.correctCount), 不正解数: \(question.incorrectCount)")
-            }
+            // modelContextを注入
+            viewState.modelContext = modelContext
+            viewState.loadData()
         }
     }
     
     // 段ごとの統計カードを表示
     private func tableStatCard(for table: Int) -> some View {
-        let stats = getTableStats(table: table)
+        let stats = viewState.getTableStats(table: table)
         
         return HStack {
             // 段ラベル
@@ -175,35 +195,6 @@ struct MultiplicationTableStatsView: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.white)
                 .shadow(color: .gray.opacity(0.3), radius: 3)
-        )
-    }
-    
-    // 段ごとの統計情報を取得
-    private func getTableStats(table: Int) -> (totalCount: Int, correctCount: Int, incorrectCount: Int, correctPercentage: Double) {
-        var totalCorrect = 0
-        var totalIncorrect = 0
-        
-        // 段に関連するすべての問題を見つける - 全てのデータを走査してカウント
-        for question in difficultQuestions {
-            // この段の問題のみをフィルタリング
-            if question.firstNumber == table || question.secondNumber == table {
-                totalCorrect += question.correctCount
-                totalIncorrect += question.incorrectCount
-            }
-        }
-        
-        let totalCount = totalCorrect + totalIncorrect
-        
-        var correctPercentage: Double = 0
-        if totalCount > 0 {
-            correctPercentage = Double(totalCorrect) / Double(totalCount) * 100
-        }
-        
-        return (
-            totalCount: totalCount,
-            correctCount: totalCorrect,
-            incorrectCount: totalIncorrect,
-            correctPercentage: correctPercentage
         )
     }
 }
