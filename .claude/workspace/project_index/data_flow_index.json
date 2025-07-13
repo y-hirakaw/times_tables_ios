@@ -1,0 +1,94 @@
+{
+  "architecture_pattern": "SVVS (Store-View-ViewState)",
+  "data_flow": "Unidirectional: View → ViewState → Store → Data Layer",
+  
+  "store_layer": {
+    "component": "DataStore.swift",
+    "role": "Singleton data layer managing app state",
+    "responsibilities": [
+      "SwiftData persistence operations",
+      "User points management",
+      "Question tracking and analytics",
+      "Parent dashboard data",
+      "Statistics calculation"
+    ]
+  },
+  
+  "view_states": {
+    "MultiplicationViewState": {
+      "manages": "Main quiz interface state",
+      "interactions": [
+        "Question generation and validation",
+        "Point earning/spending logic",
+        "Answer time recording",
+        "Difficulty tracking"
+      ]
+    },
+    "MultiplicationTableStatsViewState": {
+      "manages": "Statistics and analytics state",
+      "interactions": [
+        "Performance data aggregation",
+        "Weekly trend calculations",
+        "Proficiency analysis",
+        "Chart data preparation"
+      ]
+    }
+  },
+  
+  "data_models_flow": {
+    "UserPoints": {
+      "operations": ["earn", "spend", "balance_check"],
+      "used_by": ["MultiplicationView", "ParentDashboard", "PointHistory"]
+    },
+    "DifficultQuestion": {
+      "operations": ["track_difficulty", "adaptive_selection"],
+      "used_by": ["MultiplicationView", "StatsView", "WeeklyDifficultQuestionChart"]
+    },
+    "AnswerTimeRecord": {
+      "operations": ["record_time", "calculate_averages"],
+      "used_by": ["QuestionSolvingView", "StatsView", "WeeklyTrendView"]
+    },
+    "PointHistory": {
+      "operations": ["log_earning", "retrieve_history"],
+      "used_by": ["PointHistoryView", "PointsEarnedHistoryView"]
+    },
+    "PointSpending": {
+      "operations": ["log_spending", "retrieve_history"],
+      "used_by": ["ParentDashboard", "PointsSpendingHistoryView"]
+    }
+  },
+  
+  "external_integrations": {
+    "firebase": {
+      "analytics": "User behavior tracking",
+      "performance": "App performance monitoring"
+    },
+    "avfoundation": {
+      "sound_feedback": "Correct/incorrect answer audio"
+    }
+  },
+  
+  "parent_controls": {
+    "pin_protection": "PINManager.swift",
+    "data_access": [
+      "Points earning/spending history",
+      "Learning statistics",
+      "Performance analytics",
+      "Points balance management"
+    ]
+  },
+  
+  "quiz_flow": {
+    "question_generation": "MultiplicationViewState → DataStore",
+    "answer_validation": "MultiplicationViewState → validation logic",
+    "point_earning": "MultiplicationViewState → DataStore → UserPoints",
+    "difficulty_tracking": "MultiplicationViewState → DataStore → DifficultQuestion",
+    "time_recording": "QuestionSolvingView → DataStore → AnswerTimeRecord"
+  },
+  
+  "localization_flow": {
+    "source": "Localizable.xcstrings",
+    "languages": ["Japanese (primary)", "English"],
+    "usage": "All UI text and error messages"
+  }
+}

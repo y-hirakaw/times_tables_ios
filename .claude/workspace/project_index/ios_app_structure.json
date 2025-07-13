@@ -1,0 +1,130 @@
+{
+  "project_name": "TimesTablesApp",
+  "description": "SwiftUI-based iOS application for learning multiplication tables (九九) in Japanese",
+  "architecture": "SVVS (Store-View-ViewState) Pattern with SwiftData persistence",
+  "main_entry_point": "TimesTablesApp/TimesTablesApp/TimesTablesAppApp.swift",
+  
+  "models": {
+    "description": "SwiftData models for persistence",
+    "files": {
+      "UserPoints.swift": "User point tracking and management",
+      "DifficultQuestion.swift": "Tracking difficult multiplication questions for adaptive learning",
+      "AnswerTimeRecord.swift": "Recording answer time statistics",
+      "MultiplicationQuestion.swift": "Core multiplication question model",
+      "PointHistory.swift": "Point earning history tracking",
+      "PointSpending.swift": "Point spending history tracking"
+    }
+  },
+  
+  "views": {
+    "description": "SwiftUI views following MVVM pattern",
+    "main_views": {
+      "MultiplicationView.swift": "Main quiz interface with different modes (Random, Sequential, Fill-in-blank)",
+      "QuestionSolvingView.swift": "Individual question solving interface",
+      "ConfettiView.swift": "Celebration animation view",
+      "WrongAnswerView.swift": "Wrong answer feedback view",
+      "PointHistoryView.swift": "Point history display"
+    },
+    "stats_views": {
+      "StatsView.swift": "Main statistics view",
+      "MultiplicationTableStatsView.swift": "Detailed multiplication table statistics",
+      "ProficiencyListView.swift": "List of proficiency levels",
+      "ProficiencyPieChart.swift": "Pie chart for proficiency visualization",
+      "ProficiencyRatioView.swift": "Proficiency ratio display",
+      "QuestionSummaryView.swift": "Question summary statistics",
+      "WeeklyTrendView.swift": "Weekly performance trends",
+      "WeeklyDifficultQuestionChart.swift": "Chart for weekly difficult questions",
+      "ImprovedQuestionsListView.swift": "List of improved questions",
+      "GraphTypeSelector.swift": "Graph type selection component"
+    },
+    "parent_dashboard": {
+      "ParentDashboardView.swift": "Main parent control panel",
+      "ParentAccessView.swift": "PIN-protected parent access",
+      "PointsInputView.swift": "Points input interface for parents",
+      "PointsEarnedHistoryView.swift": "Points earning history view",
+      "PointsSpendingHistoryView.swift": "Points spending history view",
+      "PointsSummaryView.swift": "Points summary dashboard",
+      "PINManager.swift": "PIN management utilities",
+      "DateUtils.swift": "Date utility functions"
+    }
+  },
+  
+  "view_states": {
+    "description": "State management classes (require @MainActor for tests)",
+    "files": {
+      "MultiplicationViewState.swift": "State management for main multiplication view",
+      "MultiplicationTableStatsViewState.swift": "State management for statistics view"
+    }
+  },
+  
+  "services": {
+    "description": "Business logic and data management services",
+    "files": {
+      "DataStore.swift": "Singleton data layer for app state management",
+      "SoundManager.swift": "Audio feedback management using AVFoundation"
+    }
+  },
+  
+  "theme": {
+    "description": "Design system components",
+    "files": {
+      "Colors.swift": "Color definitions",
+      "Typography.swift": "Typography system",
+      "Spacing.swift": "Spacing constants",
+      "ViewModifiers.swift": "Custom view modifiers"
+    }
+  },
+  
+  "configuration": {
+    "GameConstants.swift": "Game configuration constants"
+  },
+  
+  "resources": {
+    "audio": [
+      "Quiz-Correct_Answer02-2.mp3",
+      "Quiz-Wrong_Buzzer02-3.mp3"
+    ],
+    "localization": "Localizable.xcstrings (Japanese primary, English support)",
+    "assets": "Assets.xcassets (app icons, colors)"
+  },
+  
+  "tests": {
+    "unit_tests": {
+      "MultiplicationViewStateTests.swift": "ViewState testing (requires @MainActor)",
+      "UserPointsTests.swift": "User points model testing",
+      "TimesTablesAppTests.swift": "General app tests"
+    },
+    "ui_tests": {
+      "TimesTablesAppUITests.swift": "UI automation tests",
+      "TimesTablesAppUITestsLaunchTests.swift": "Launch screen tests"
+    }
+  },
+  
+  "features": {
+    "quiz_modes": [
+      "Random questions",
+      "Sequential (段ごと) mode",
+      "Fill-in-blank (虫食い) mode"
+    ],
+    "point_system": "Earning and spending tracking with parent controls",
+    "parent_dashboard": "PIN-protected parent access and controls",
+    "statistics": "Learning analytics and progress tracking",
+    "audio_feedback": "Sound effects for correct/incorrect answers",
+    "adaptive_learning": "Difficulty tracking and question adaptation",
+    "localization": "Japanese (primary) and English support"
+  },
+  
+  "dependencies": {
+    "firebase": ["Analytics", "Performance"],
+    "swiftdata": "Data persistence",
+    "avfoundation": "Audio playback",
+    "swiftui": "UI framework"
+  },
+  
+  "build_commands": {
+    "build": "xcodebuild -scheme TimesTablesApp -configuration Debug -project TimesTablesApp/TimesTablesApp.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -allowProvisioningUpdates build | xcbeautify",
+    "test": "xcodebuild -scheme TimesTablesApp -configuration Debug -workspace TimesTablesApp/TimesTablesApp.xcodeproj/project.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' -destination-timeout 60 -only-testing:TimesTablesAppTests test -verbose | xcbeautify",
+    "clean": "xcodebuild -scheme TimesTablesApp clean",
+    "release": "xcodebuild -scheme TimesTablesApp -configuration Release build"
+  }
+}
