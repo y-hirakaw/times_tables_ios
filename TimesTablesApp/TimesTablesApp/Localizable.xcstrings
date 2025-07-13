@@ -12,6 +12,7 @@
       }
     },
     "?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -113,6 +114,9 @@
         }
       }
     },
+    "%lld秒" : {
+
+    },
     "※PINコードを忘れると管理画面へアクセスできなくなります。\n忘れないようにメモを取るなどの対策をしてください。" : {
       "localizations" : {
         "en" : {
@@ -134,6 +138,7 @@
       }
     },
     "×" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -144,6 +149,7 @@
       }
     },
     "=" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -154,6 +160,7 @@
       }
     },
     "□" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -452,6 +459,7 @@
       }
     },
     "おやよう かんり がめん" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -924,6 +932,9 @@
         }
       }
     },
+    "ほごしゃ かんり がめん" : {
+
+    },
     "ボタンをおして もんだいをやろう！" : {
       "localizations" : {
         "en" : {
@@ -1038,6 +1049,7 @@
       }
     },
     "もんだい" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

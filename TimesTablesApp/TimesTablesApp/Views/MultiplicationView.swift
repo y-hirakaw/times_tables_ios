@@ -59,13 +59,14 @@ struct MultiplicationView: View {
     }
 
     private let gradientBackground = LinearGradient(
-        colors: [Color.blue.opacity(0.3), Color.purple.opacity(0.2)],
+        colors: [Color.themePrimary.opacity(0.3), Color.themePrimaryLight.opacity(0.2)],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
 
     private let buttonColors: [Color] = [
-        .blue, .green, .orange, .pink, .purple, .red, .yellow, .indigo, .mint
+        .themePrimary, .themeSecondary, .themeWarning, .themePrimaryLight, 
+        .themePrimaryDark, .themeError, .themeGold, .themeInfo, .themeSecondaryLight
     ]
 
     var body: some View {
@@ -75,7 +76,7 @@ struct MultiplicationView: View {
                     .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: 20) {
+                    VStack(spacing: Spacing.spacing20) {
                         pointsCard
 
                         if let question = viewState.question {
@@ -109,8 +110,8 @@ struct MultiplicationView: View {
                     Button {
                         viewState.showParentDashboard()
                     } label: {
-                        Label("おやよう かんり がめん", systemImage: "person.circle")
-                            .foregroundColor(.indigo)
+                        Label("ほごしゃ かんり がめん", systemImage: "person.circle")
+                            .foregroundColor(.themePrimary)
                     }
                 }
             }
@@ -146,21 +147,16 @@ struct MultiplicationView: View {
         }) {
             HStack {
                 Image(systemName: "star.fill")
-                    .foregroundColor(.yellow)
-                    .font(.title)
+                    .foregroundColor(.themeGold)
+                    .font(.themeTitle2)
 
                 Text("ポイント: \(viewState.getCurrentPoints())")
-                    .font(.title3)
-                    .bold()
-                    .foregroundColor(.indigo)
+                    .font(.themeTitle3)
+                    .foregroundColor(.themeGray800)
             }
             .frame(maxWidth: .infinity)
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.white.opacity(0.7))
-                    .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
-            )
+            .padding(Spacing.spacing16)
+            .cardStyle()
         }
         .sheet(isPresented: $showingPointsHistory) {
             NavigationStack {
@@ -179,42 +175,29 @@ struct MultiplicationView: View {
     }
 
     private var timerView: some View {
-        VStack(spacing: 5) {
+        VStack(spacing: Spacing.spacing8) {
             HStack {
                 Image(systemName: "timer")
                     .foregroundColor(timerColor)
 
                 Text("のこり時間: \(String(format: "%.1f", viewState.remainingTime))秒")
-                    .font(.headline)
+                    .font(.themeSubheadline)
                     .foregroundColor(timerColor)
             }
 
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 8)
-                    .cornerRadius(4)
-
-                Rectangle()
-                    .fill(timerColor)
-                    .frame(width: max(0, CGFloat(viewState.remainingTime / 10.0) * UIScreen.main.bounds.width * 0.85))
-                    .frame(height: 8)
-                    .cornerRadius(4)
-                    .animation(.linear(duration: 0.1), value: viewState.remainingTime)
-            }
+            ProgressBar(progress: viewState.remainingTime / 10.0)
         }
-        .padding(.horizontal)
-        .padding(.bottom, 5)
+        .padding(.horizontal, Spacing.spacing16)
+        .padding(.bottom, Spacing.spacing8)
     }
 
     private var timerColor: Color {
         if viewState.remainingTime > 5.0 {
-            return .green
+            return .themeSecondary
         } else if viewState.remainingTime > 2.0 {
-            return .orange
+            return .themeWarning
         } else {
-            return .red
+            return .themeError
         }
     }
 
@@ -227,127 +210,43 @@ struct MultiplicationView: View {
     }
 
     private func standardQuestionView(_ question: MultiplicationQuestion) -> some View {
-        VStack(spacing: 15) {
-            Text("もんだい")
-                .font(.headline)
-                .foregroundColor(.secondary)
-
-            HStack(spacing: 20) {
-                Text("\(question.firstNumber)")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.blue)
-                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
-
-                Text("×")
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(.indigo)
-
-                Text("\(question.secondNumber)")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.purple)
-                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
-
-                Text("=")
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(.indigo)
-
-                Text("?")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.orange)
-                    .scaleEffect(animateQuestion ? 1.3 : 1.0)
-            }
-            .padding()
-            .onAppear {
-                withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                    self.animateQuestion = true
-                }
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white.opacity(0.9))
-                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
-        )
+        QuestionCard(question: "\(question.firstNumber) × \(question.secondNumber) = ?", 
+                    timeRemaining: Int(viewState.remainingTime))
     }
 
     private func holePunchQuestionView(_ question: MultiplicationQuestion) -> some View {
-        VStack(spacing: 15) {
-            Text("もんだい")
-                .font(.headline)
-                .foregroundColor(.secondary)
-
-            HStack(spacing: 20) {
-                Text("\(question.firstNumber)")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.blue)
-                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
-
-                Text("×")
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(.indigo)
-
-                Text("□")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.purple)
-                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
-
-                Text("=")
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(.indigo)
-
-                Text("\(question.firstNumber * question.secondNumber)")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.orange)
-                    .scaleEffect(animateQuestion ? 1.1 : 1.0)
-            }
-            .padding()
-            .onAppear {
-                withAnimation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                    self.animateQuestion = true
-                }
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white.opacity(0.9))
-                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
-        )
+        QuestionCard(question: "\(question.firstNumber) × □ = \(question.firstNumber * question.secondNumber)", 
+                    timeRemaining: Int(viewState.remainingTime))
     }
 
     private var startPrompt: some View {
-        VStack {
+        VStack(spacing: Spacing.spacing16) {
             Image(systemName: "lightbulb.fill")
                 .font(.system(size: 40))
-                .foregroundColor(.yellow)
-                .padding()
+                .foregroundColor(.themeGold)
+                .padding(Spacing.spacing16)
                 .background(
                     Circle()
-                        .fill(Color.white.opacity(0.8))
-                        .shadow(color: .black.opacity(0.1), radius: 5)
+                        .fill(Color.white)
+                        .shadow(color: Color.black.opacity(ShadowStyle.small.opacity), 
+                               radius: ShadowStyle.small.radius, 
+                               x: ShadowStyle.small.x, 
+                               y: ShadowStyle.small.y)
                 )
 
             Text("ボタンをおして もんだいをやろう！")
-                .font(.title2)
-                .bold()
-                .foregroundColor(.indigo)
+                .font(.themeTitle2)
+                .foregroundColor(.themeGray800)
                 .multilineTextAlignment(.center)
-                .padding()
+                .padding(.horizontal, Spacing.spacing16)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 16)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white.opacity(0.9))
-                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
-        )
+        .padding(.vertical, Spacing.spacing16)
+        .cardStyle()
     }
 
     private var answerChoicesGrid: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.spacing16) {
             ForEach(Array(viewState.answerChoices.enumerated()), id: \.element) { index, choice in
                 Button(action: {
                     selectedAnswer = choice
@@ -374,55 +273,26 @@ struct MultiplicationView: View {
                     }
                 }) {
                     Text("\(choice)")
-                        .font(.system(size: 28, weight: .bold))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 70)
-                        .foregroundColor(.white)
-                        .background(
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(
-                                    buttonColors[index % buttonColors.count]
-                                        .opacity(viewState.isAnswering ? 0.5 : 0.9)
-                                )
-                                .shadow(color: .black.opacity(0.15), radius: 5, x: 0, y: 3)
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.white.opacity(0.6), lineWidth: 2)
-                        )
-                        .scaleEffect(selectedAnswer == choice ? 0.95 : 1.0)
+                        .answerButtonStyle(isSelected: selectedAnswer == choice)
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .disabled(viewState.isAnswering)
-                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewState.isAnswering)
             }
         }
-        .padding(.vertical)
+        .padding(.vertical, Spacing.spacing16)
     }
 
     private var resultMessageView: some View {
-        Text(LocalizedStringKey(viewState.resultMessage))
-            .font(.title3)
-            .bold()
-            .padding()
-            .frame(maxWidth: .infinity)
+        let isError = viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
+        
+        return Text(LocalizedStringKey(viewState.resultMessage))
+            .font(.themeTitle3)
             .foregroundColor(.white)
+            .padding(Spacing.spacing16)
+            .frame(maxWidth: .infinity)
             .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .fill(
-                        viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
-                        ? Color.red.opacity(0.8)
-                        : Color.green.opacity(0.7)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(
-                                viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
-                                ? Color.red
-                                : Color.green,
-                                lineWidth: viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ") ? 4 : 3
-                            )
-                    )
+                RoundedRectangle(cornerRadius: CornerRadius.large)
+                    .fill(isError ? Color.themeError : Color.themeSecondary)
             )
             .overlay(
                 Group {
@@ -433,52 +303,34 @@ struct MultiplicationView: View {
                     }
                 }
             )
-            .scaleEffect(
-                (animateCorrect || animateWrong) ? 1.05 : 1.0
-            )
-            .animation(.spring(response: 0.3), value: animateCorrect || animateWrong)
-            .shadow(
-                color: viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ") ? .red.opacity(0.5) : .green.opacity(0.3),
-                radius: 5, x: 0, y: 2
-            )
+            .scaleEffect((animateCorrect || animateWrong) ? 1.05 : 1.0)
+            .animation(AnimationStyle.springBouncy, value: animateCorrect || animateWrong)
+            .shadow(color: Color.black.opacity(ShadowStyle.medium.opacity),
+                   radius: ShadowStyle.medium.radius,
+                   x: ShadowStyle.medium.x,
+                   y: ShadowStyle.medium.y)
     }
 
     private var controlButtons: some View {
-        VStack(spacing: 15) {
-            HStack(spacing: 20) {
+        VStack(spacing: Spacing.spacing16) {
+            HStack(spacing: Spacing.spacing20) {
                 Button(action: { viewState.startSequentialMode() }) {
                     HStack {
                         Image(systemName: "arrow.right")
                         Text("だんじゅんばん もんだい")
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.teal.opacity(0.8))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                    )
+                    .primaryButtonStyle()
                 }
                 .disabled(viewState.isAnswering)
             }
             
-            HStack(spacing: 20) {
+            HStack(spacing: Spacing.spacing20) {
                 Button(action: { viewState.generateRandomQuestion() }) {
                     HStack {
                         Image(systemName: "dice.fill")
                         Text("ランダム もんだい")
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.blue.opacity(0.8))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                    )
+                    .primaryButtonStyle()
                 }
                 .disabled(viewState.isAnswering)
 
@@ -487,34 +339,18 @@ struct MultiplicationView: View {
                         Image(systemName: "list.number")
                         Text("だんで もんだい")
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.purple.opacity(0.8))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                    )
+                    .primaryButtonStyle()
                 }
                 .disabled(viewState.isAnswering)
             }
             
-            HStack(spacing: 20) {
+            HStack(spacing: Spacing.spacing20) {
                 Button(action: { viewState.generateHolePunchQuestion() }) {
                     HStack {
                         Image(systemName: "questionmark.square.fill")
                         Text("むしくい もんだい")
                     }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.cyan.opacity(0.8))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                    )
+                    .primaryButtonStyle()
                 }
                 .disabled(viewState.isAnswering)
             }
@@ -619,7 +455,7 @@ struct MultiplicationView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("あなたのにがてな もんだい:")
                         .font(.headline)
-                        .foregroundColor(.indigo)
+                        .foregroundColor(.themePrimary)
                         .padding(.horizontal)
 
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -673,7 +509,7 @@ struct MultiplicationView: View {
                     Text("だんを えらんでね")
                         .font(.title2)
                         .bold()
-                        .foregroundColor(.indigo)
+                        .foregroundColor(.themePrimary)
                         .padding()
                     
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {

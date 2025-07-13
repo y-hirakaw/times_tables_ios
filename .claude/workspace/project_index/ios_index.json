@@ -1,0 +1,58 @@
+{
+  "platform": "iOS",
+  "views": [
+    "MultiplicationView",
+    "StatsView",
+    "ParentDashboardView",
+    "ParentAccessView",
+    "PointHistoryView",
+    "PointsEarnedHistoryView",
+    "PointsSpendingHistoryView",
+    "PointsSummaryView",
+    "PointsInputView",
+    "WrongAnswerView",
+    "ConfettiView",
+    "MultiplicationTableStatsView",
+    "ProficiencyRatioView",
+    "ProficiencyPieChart",
+    "ProficiencyListView",
+    "ImprovedQuestionsListView",
+    "WeeklyTrendView",
+    "WeeklyDifficultQuestionChart",
+    "QuestionSummaryView",
+    "GraphTypeSelector"
+  ],
+  "models": [
+    "DifficultQuestion",
+    "UserPoints",
+    "PointHistory",
+    "PointSpending",
+    "AnswerTimeRecord",
+    "MultiplicationQuestion"
+  ],
+  "viewStates": [
+    "MultiplicationViewState",
+    "MultiplicationTableStatsViewState"
+  ],
+  "navigation": {
+    "root": "TabView",
+    "tabs": [
+      "MultiplicationView (Quiz)",
+      "StatsView (Learning Statistics)"
+    ]
+  },
+  "features": [
+    "Multiplication quiz with multiple modes (random, sequential, fill-in-blank)",
+    "Point system with earning and spending tracking",
+    "Parent dashboard with PIN protection",
+    "Learning statistics and proficiency tracking",
+    "Difficult question tracking and adaptive learning",
+    "Answer time recording and analysis",
+    "Sound feedback for correct/incorrect answers",
+    "Weekly trend analysis and charts",
+    "Confetti animation for achievements",
+    "Japanese and English localization"
+  ],
+  "persistence": "SwiftData",
+  "architecture": "SVVS"
+}

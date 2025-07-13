@@ -5,7 +5,7 @@ struct GraphTypeSelector: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
+            HStack(spacing: Spacing.spacing16) {
                 Button {
                     selectedChartType = 0
                 } label: {
@@ -13,16 +13,19 @@ struct GraphTypeSelector: View {
                         Image(systemName: "chart.pie.fill")
                             .font(.system(size: 24))
                         Text("とくい・にがて")
-                            .font(.subheadline)
+                            .font(.themeSubheadline)
                     }
                     .frame(width: 110)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, Spacing.spacing12)
                     .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(selectedChartType == 0 ? Color.blue.opacity(0.8) : Color.white.opacity(0.8))
-                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                        RoundedRectangle(cornerRadius: CornerRadius.large)
+                            .fill(selectedChartType == 0 ? Color.themePrimary : Color.white)
+                            .shadow(color: Color.black.opacity(ShadowStyle.small.opacity),
+                                   radius: ShadowStyle.small.radius,
+                                   x: ShadowStyle.small.x,
+                                   y: ShadowStyle.small.y)
                     )
-                    .foregroundColor(selectedChartType == 0 ? .white : .blue)
+                    .foregroundColor(selectedChartType == 0 ? .white : .themePrimary)
                 }
                 
                 Button {
@@ -32,16 +35,19 @@ struct GraphTypeSelector: View {
                         Image(systemName: "chart.bar.fill")
                             .font(.system(size: 24))
                         Text("にがての すうじ")
-                            .font(.subheadline)
+                            .font(.themeSubheadline)
                     }
                     .frame(width: 110)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, Spacing.spacing12)
                     .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(selectedChartType == 1 ? Color.blue.opacity(0.8) : Color.white.opacity(0.8))
-                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                        RoundedRectangle(cornerRadius: CornerRadius.large)
+                            .fill(selectedChartType == 1 ? Color.themePrimary : Color.white)
+                            .shadow(color: Color.black.opacity(ShadowStyle.small.opacity),
+                                   radius: ShadowStyle.small.radius,
+                                   x: ShadowStyle.small.x,
+                                   y: ShadowStyle.small.y)
                     )
-                    .foregroundColor(selectedChartType == 1 ? .white : .blue)
+                    .foregroundColor(selectedChartType == 1 ? .white : .themePrimary)
                 }
                 
                 Button {
@@ -51,19 +57,22 @@ struct GraphTypeSelector: View {
                         Image(systemName: "chart.xyaxis.line")
                             .font(.system(size: 24))
                         Text("だんごと")
-                            .font(.subheadline)
+                            .font(.themeSubheadline)
                     }
                     .frame(width: 110)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, Spacing.spacing12)
                     .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(selectedChartType == 2 ? Color.blue.opacity(0.8) : Color.white.opacity(0.8))
-                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                        RoundedRectangle(cornerRadius: CornerRadius.large)
+                            .fill(selectedChartType == 2 ? Color.themePrimary : Color.white)
+                            .shadow(color: Color.black.opacity(ShadowStyle.small.opacity),
+                                   radius: ShadowStyle.small.radius,
+                                   x: ShadowStyle.small.x,
+                                   y: ShadowStyle.small.y)
                     )
-                    .foregroundColor(selectedChartType == 2 ? .white : .blue)
+                    .foregroundColor(selectedChartType == 2 ? .white : .themePrimary)
                 }
             }
-            .padding(.horizontal, 5)
+            .padding(.horizontal, Spacing.spacing8)
         }
     }
 }

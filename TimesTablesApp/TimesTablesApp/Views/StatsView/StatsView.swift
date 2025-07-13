@@ -11,7 +11,7 @@ struct StatsView: View {
     
     // カラーテーマ
     private let gradientBackground = LinearGradient(
-        colors: [Color.blue.opacity(0.3), Color.purple.opacity(0.2)],
+        colors: [Color.themePrimary.opacity(0.3), Color.themePrimaryLight.opacity(0.2)],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
@@ -24,14 +24,14 @@ struct StatsView: View {
                     .ignoresSafeArea()
                 
                 ScrollView {
-                    VStack(spacing: 20) {
+                    VStack(spacing: Spacing.spacing20) {
                         // 問題解答のサマリー表示
                         QuestionSummaryView()
                         
                         // グラフタイプ切り替えボタン
                         GraphTypeSelector(selectedChartType: $selectedChartType)
-                            .padding(.horizontal)
-                            .padding(.top, 10)
+                            .padding(.horizontal, Spacing.spacing16)
+                            .padding(.top, Spacing.spacing8)
                         
                         if selectedChartType == 0 {
                             // とくい・にがて比率のビュー
@@ -44,7 +44,7 @@ struct StatsView: View {
                             MultiplicationTableStatsView()
                         }
                     }
-                    .padding(.vertical)
+                    .padding(.vertical, Spacing.spacing16)
                 }
             }
             .navigationTitle("がくしゅう とうけい")
@@ -52,8 +52,8 @@ struct StatsView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("がくしゅう とうけい")
-                        .font(.headline)
-                        .foregroundColor(.indigo)
+                        .font(.themeTitle3)
+                        .foregroundColor(.themePrimary)
                 }
             }
         }

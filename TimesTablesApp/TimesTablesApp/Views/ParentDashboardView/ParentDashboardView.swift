@@ -16,31 +16,31 @@ struct ParentDashboardView: View {
     @State private var selectedTab = 0
     
     var body: some View {
-        VStack {
+        VStack(spacing: Spacing.spacing16) {
             // ヘッダー
             HStack {
                 Button(action: {
                     dismiss()
                 }) {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.gray)
+                        .font(.themeTitle2)
+                        .foregroundColor(.themeGray500)
                 }
                 
                 Spacer()
                 
                 Text("親用管理画面")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .font(.themeLargeTitle)
+                    .foregroundColor(.themePrimaryText)
                 
                 Spacer()
                 
                 // バランスを取るための空のスペースを確保
                 Image(systemName: "xmark.circle.fill")
-                    .font(.title2)
+                    .font(.themeTitle2)
                     .foregroundColor(.clear)
             }
-            .padding()
+            .padding(Spacing.spacing16)
             
             // ポイント情報
             PointsSummaryView()
@@ -51,7 +51,7 @@ struct ParentDashboardView: View {
                 Text("消費履歴").tag(1)
             }
             .pickerStyle(SegmentedPickerStyle())
-            .padding(.horizontal)
+            .padding(.horizontal, Spacing.spacing16)
             
             // 履歴表示エリア
             TabView(selection: $selectedTab) {
@@ -70,15 +70,11 @@ struct ParentDashboardView: View {
                 showingPointsInput = true
             }) {
                 Label("ポイント消費", systemImage: "minus.circle")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .primaryButtonStyle()
             }
-            .padding()
+            .padding(Spacing.spacing16)
         }
-        .padding()
+        .padding(Spacing.spacing16)
         .sheet(isPresented: $showingPointsInput) {
             PointsInputView(
                 pointsToSpend: $pointsToSpend,
