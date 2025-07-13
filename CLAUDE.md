@@ -81,3 +81,30 @@ xcodebuild -scheme TimesTablesApp -configuration Release build
 4. Learning statistics and analytics
 5. Sound feedback and animations
 6. Difficulty tracking and adaptive learning
+7. **Phase 2A Features (2025-07-13)**:
+   - Progress visualization (九九マスターマップ, mastery levels)
+   - Daily challenges with streak tracking
+   - Parent-child communication (text/voice messages)
+   - Localization support (Japanese/English)
+
+## Development Lessons Learned (2025-07-13)
+
+### SwiftData Best Practices
+- **Property Naming**: Avoid reserved words like `description` - use descriptive alternatives like `achievementDescription`
+- **Initialization Order**: Initialize all stored properties before setting computed/derived properties
+- **Model Relationships**: Use UUID-based relationships rather than direct object references for better data integrity
+
+### SVVS Pattern Implementation
+- **ViewState Design**: Always mark ViewState classes with @MainActor for UI thread safety
+- **Data Flow**: Maintain unidirectional data flow from ViewState → Store → Model
+- **Error Handling**: Implement comprehensive error handling in ViewState methods
+
+### Localization Strategy
+- **NSLocalizedString Usage**: Apply to all user-facing strings in ViewState and Model layers
+- **String Management**: Organize Localizable.xcstrings with clear comments for context
+- **Testing**: Verify localization works across all supported languages before deployment
+
+### UI/UX Optimization
+- **Layout Efficiency**: Prioritize frequently-used actions at top of scrollable views
+- **Compact Design**: Use minimal spacing and smaller components for child-friendly interfaces
+- **Accessibility**: Consider VoiceOver and other accessibility features from initial design phase

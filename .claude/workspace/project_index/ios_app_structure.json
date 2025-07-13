@@ -12,7 +12,11 @@
       "AnswerTimeRecord.swift": "Recording answer time statistics",
       "MultiplicationQuestion.swift": "Core multiplication question model",
       "PointHistory.swift": "Point earning history tracking",
-      "PointSpending.swift": "Point spending history tracking"
+      "PointSpending.swift": "Point spending history tracking",
+      "DailyChallenge.swift": "Daily challenge goals and tracking (Phase 2A)",
+      "MasteryProgress.swift": "Multiplication table mastery progress tracking (Phase 2A)",
+      "Message.swift": "Parent-child communication messages (Phase 2A)",
+      "Achievement.swift": "Achievement tracking and sharing (Phase 2A)"
     }
   },
   
@@ -46,6 +50,13 @@
       "PointsSummaryView.swift": "Points summary dashboard",
       "PINManager.swift": "PIN management utilities",
       "DateUtils.swift": "Date utility functions"
+    },
+    "progress_visualization": {
+      "MultiplicationMasterMapView.swift": "九九マスターマップ visual progress display (Phase 2A)",
+      "DailyChallengeView.swift": "Daily challenge tracking and streak display (Phase 2A)"
+    },
+    "communication": {
+      "ChildMessageView.swift": "Child's message interface for parent communication (Phase 2A)"
     }
   },
   
@@ -53,7 +64,9 @@
     "description": "State management classes (require @MainActor for tests)",
     "files": {
       "MultiplicationViewState.swift": "State management for main multiplication view",
-      "MultiplicationTableStatsViewState.swift": "State management for statistics view"
+      "MultiplicationTableStatsViewState.swift": "State management for statistics view",
+      "ProgressVisualizationViewState.swift": "State management for progress visualization (Phase 2A)",
+      "CommunicationViewState.swift": "State management for parent-child communication (Phase 2A)"
     }
   },
   
@@ -111,7 +124,13 @@
     "statistics": "Learning analytics and progress tracking",
     "audio_feedback": "Sound effects for correct/incorrect answers",
     "adaptive_learning": "Difficulty tracking and question adaptation",
-    "localization": "Japanese (primary) and English support"
+    "localization": "Japanese (primary) and English support",
+    "phase_2a_features": {
+      "progress_visualization": "九九マスターマップ with 4-level mastery system (86% threshold)",
+      "daily_challenges": "Daily goal setting with streak tracking and weekly history",
+      "parent_child_communication": "Text/voice messaging between parent and child",
+      "achievements": "Achievement tracking and sharing system"
+    }
   },
   
   "dependencies": {
