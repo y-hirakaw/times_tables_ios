@@ -9,6 +9,7 @@ struct MultiplicationView: View {
     @Environment(\.soundManager) private var soundManager
     @State private var showingPointsHistory = false
     @State private var showingQuestionSolving = false
+    @State private var showingChildMessages = false
 
     private let gradientBackground = LinearGradient(
         colors: [Color.themePrimary.opacity(0.3), Color.themePrimaryLight.opacity(0.2)],
@@ -28,36 +29,54 @@ struct MultiplicationView: View {
                     .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: Spacing.spacing20) {
-                        pointsCard
-
-                        if viewState.question != nil {
-                            // 問題が生成されたら専用画面に遷移することを表示
-                            VStack(spacing: Spacing.spacing16) {
-                                Image(systemName: "arrow.up")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.themePrimary)
-                                
-                                Text("問題画面が開きます")
-                                    .font(.themeTitle2)
-                                    .foregroundColor(.themeGray800)
+                    VStack(spacing: Spacing.spacing16) {
+                        // ポイントとメイン操作ボタンを最上部に配置
+                        VStack(spacing: Spacing.spacing12) {
+                            pointsCard
+                            
+                            if viewState.question != nil {
+                                // 問題が生成されたら専用画面に遷移することを表示
+                                VStack(spacing: Spacing.spacing12) {
+                                    Image(systemName: "arrow.up")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.themePrimary)
+                                    
+                                    Text("問題画面が開きます")
+                                        .font(.themeSubheadline)
+                                        .foregroundColor(.themeGray800)
+                                }
+                                .padding(Spacing.spacing16)
+                                .cardStyle()
+                            } else {
+                                compactStartPrompt
                             }
-                            .padding(Spacing.spacing32)
-                            .cardStyle()
-                        } else {
-                            startPrompt
+                            
+                            controlButtons
                         }
-
-
-                        controlButtons
-                        soundToggleButton
-                        difficultQuestionsView
+                        
+                        // 進捗可視化システムをコンパクト表示
+                        compactProgressSection
+                        
+                        // その他の要素
+                        VStack(spacing: Spacing.spacing12) {
+                            soundToggleButton
+                            difficultQuestionsView
+                        }
                     }
                     .padding()
                 }
             }
             .navigationTitle("九九ティブ")
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showingChildMessages = true
+                    } label: {
+                        Label("メッセージ", systemImage: "message.circle")
+                            .foregroundColor(.themePrimary)
+                    }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         viewState.showParentDashboard()
@@ -91,7 +110,38 @@ struct MultiplicationView: View {
             .fullScreenCover(isPresented: $showingQuestionSolving) {
                 QuestionSolvingView(viewState: viewState)
             }
+            .sheet(isPresented: $showingChildMessages) {
+                ChildMessageView()
+            }
         }
+    }
+    
+    private var compactProgressSection: some View {
+        VStack(spacing: Spacing.spacing12) {
+            // デイリーチャレンジをコンパクト表示
+            DailyChallengeView()
+                .cardStyle()
+            
+            // 九九マスターマップをコンパクト表示
+            MultiplicationMasterMapView()
+                .cardStyle()
+                .id("MasterMap_\(viewState.getCurrentPoints())") // データ更新時に再描画
+        }
+    }
+    
+    private var compactStartPrompt: some View {
+        HStack {
+            Image(systemName: "lightbulb.fill")
+                .font(.system(size: 24))
+                .foregroundColor(.themeGold)
+            
+            Text("ボタンをおして もんだいをやろう！")
+                .font(.themeSubheadline)
+                .foregroundColor(.themeGray800)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, Spacing.spacing12)
+        .cardStyle()
     }
 
     private var pointsCard: some View {

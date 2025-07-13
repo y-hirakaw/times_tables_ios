@@ -14,6 +14,7 @@ struct ParentDashboardView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var selectedTab = 0
+    @State private var showingParentMessages = false
     
     var body: some View {
         VStack(spacing: Spacing.spacing16) {
@@ -44,6 +45,30 @@ struct ParentDashboardView: View {
             
             // ポイント情報
             PointsSummaryView()
+            
+            // メッセージボタン
+            Button(action: {
+                showingParentMessages = true
+            }) {
+                HStack {
+                    Image(systemName: "message.circle.fill")
+                    Text("お子様とのメッセージ")
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(
+                    LinearGradient(
+                        colors: [.blue, .purple],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .padding(.horizontal, Spacing.spacing16)
             
             // タブ選択
             Picker("履歴タイプ", selection: $selectedTab) {
@@ -88,6 +113,9 @@ struct ParentDashboardView: View {
             Button("OK") {}
         } message: {
             Text(alertMessage)
+        }
+        .sheet(isPresented: $showingParentMessages) {
+            ParentMessageView()
         }
     }
     

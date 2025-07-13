@@ -37,6 +37,9 @@ final class MultiplicationViewState: ObservableObject {
     private var userPoints: [UserPoints] = []
     private var modelContext: ModelContext?
     
+    // 進捗可視化システムとの連携
+    private var progressViewState: ProgressVisualizationViewState?
+    
     init() {
         // 初期化時はモデルコンテキストなしで開始
         // updateModelContext で後から設定される
@@ -56,6 +59,14 @@ final class MultiplicationViewState: ObservableObject {
         loadData()
         // ModelContextを更新したら再度ユーザーポイントを確認
         ensureUserPointsExists()
+        
+        // 進捗可視化システムにも同じコンテキストを設定
+        if progressViewState == nil {
+            progressViewState = ProgressVisualizationViewState()
+        }
+        if let dataStore = DataStore.shared as DataStore? {
+            progressViewState?.setDataStore(dataStore)
+        }
     }
     
     /// データをロードする
@@ -191,6 +202,15 @@ final class MultiplicationViewState: ObservableObject {
         
         // 回答時間を記録（時間切れは10秒固定）
         recordAnswerTime(for: question, answerTime: 10.0, isCorrect: false, isTimeout: true)
+        
+        // MasteryProgressを直接更新（時間切れは不正解として扱う）
+        if let modelContext = modelContext {
+            let leftTableProgress = MasteryProgress.getProgress(for: question.firstNumber, context: modelContext)
+            leftTableProgress.updateWithResult(isCorrect: false, context: modelContext)
+            
+            let rightTableProgress = MasteryProgress.getProgress(for: question.secondNumber, context: modelContext)
+            rightTableProgress.updateWithResult(isCorrect: false, context: modelContext)
+        }
         
         // 少し待ってから新しい問題を生成
         Task {
@@ -370,6 +390,21 @@ final class MultiplicationViewState: ObservableObject {
                 try? modelContext?.save()
             }
             
+            // 進捗可視化システムに結果を通知
+            let questionId = "\(question.firstNumber)x\(question.secondNumber)"
+            progressViewState?.updateProgressAfterAnswer(questionId: questionId, isCorrect: true)
+            
+            // MasteryProgressを直接更新
+            if let modelContext = modelContext {
+                let leftTableProgress = MasteryProgress.getProgress(for: question.firstNumber, context: modelContext)
+                leftTableProgress.updateWithResult(isCorrect: true, context: modelContext)
+                print("正解: \(question.firstNumber)の段を更新 - 総問題数: \(leftTableProgress.totalProblems), 正解数: \(leftTableProgress.correctProblems)")
+                
+                let rightTableProgress = MasteryProgress.getProgress(for: question.secondNumber, context: modelContext)
+                rightTableProgress.updateWithResult(isCorrect: true, context: modelContext)
+                print("正解: \(question.secondNumber)の段を更新 - 総問題数: \(rightTableProgress.totalProblems), 正解数: \(rightTableProgress.correctProblems)")
+            }
+            
             // 次の問題を準備
             if isSequentialMode && selectedTable != nil {
                 // 順番問題の場合は次の問題へ
@@ -414,6 +449,21 @@ final class MultiplicationViewState: ObservableObject {
             
             // 回答時間を記録（不正解）
             recordAnswerTime(for: question, answerTime: answerTime, isCorrect: false)
+            
+            // 進捗可視化システムに結果を通知
+            let questionId = "\(question.firstNumber)x\(question.secondNumber)"
+            progressViewState?.updateProgressAfterAnswer(questionId: questionId, isCorrect: false)
+            
+            // MasteryProgressを直接更新
+            if let modelContext = modelContext {
+                let leftTableProgress = MasteryProgress.getProgress(for: question.firstNumber, context: modelContext)
+                leftTableProgress.updateWithResult(isCorrect: false, context: modelContext)
+                print("不正解: \(question.firstNumber)の段を更新 - 総問題数: \(leftTableProgress.totalProblems), 正解数: \(leftTableProgress.correctProblems)")
+                
+                let rightTableProgress = MasteryProgress.getProgress(for: question.secondNumber, context: modelContext)
+                rightTableProgress.updateWithResult(isCorrect: false, context: modelContext)
+                print("不正解: \(question.secondNumber)の段を更新 - 総問題数: \(rightTableProgress.totalProblems), 正解数: \(rightTableProgress.correctProblems)")
+            }
             
             // 最新の苦手問題データを読み込み
             loadData()

@@ -1,0 +1,307 @@
+//
+//  ParentMessageView.swift
+//  TimesTablesApp
+//
+//  Created by Claude Code on 2025/07/13.
+//
+
+import SwiftUI
+
+/// 親用メッセージ管理ビュー
+struct ParentMessageView: View {
+    @Environment(\.dataStore) private var dataStore
+    @Environment(\.dismiss) private var dismiss
+    @State private var communicationViewState = CommunicationViewState()
+    @State private var messageText = ""
+    @State private var showingTemplates = false
+    @State private var isRecording = false
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 0) {
+                // メッセージ一覧
+                messagesList
+                
+                Divider()
+                
+                // メッセージ入力エリア
+                messageInputArea
+            }
+            .navigationTitle("メッセージ")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("閉じる") {
+                        dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("テンプレート") {
+                        showingTemplates = true
+                    }
+                }
+            }
+            .onAppear {
+                communicationViewState.setDataStore(dataStore)
+                // 親向けメッセージを既読にする
+                communicationViewState.markAllMessagesAsRead(for: .parent)
+            }
+            .sheet(isPresented: $showingTemplates) {
+                templateSelectionView
+            }
+        }
+    }
+    
+    private var messagesList: some View {
+        ScrollView {
+            LazyVStack(spacing: 12) {
+                if communicationViewState.messages.isEmpty {
+                    VStack(spacing: 16) {
+                        Image(systemName: "message.circle")
+                            .font(.system(size: 50))
+                            .foregroundColor(.gray)
+                        
+                        Text("まだメッセージがありません")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        
+                        Text("お子様とのコミュニケーションを始めましょう")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.top, 50)
+                } else {
+                    ForEach(communicationViewState.messages) { message in
+                        MessageBubbleView(
+                            message: message,
+                            isFromParent: message.sender == .parent,
+                            communicationViewState: communicationViewState
+                        )
+                    }
+                }
+            }
+            .padding()
+        }
+    }
+    
+    private var messageInputArea: some View {
+        VStack(spacing: 12) {
+            // テキスト入力
+            HStack {
+                TextField("メッセージを入力...", text: $messageText, axis: .vertical)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .lineLimit(1...4)
+                
+                Button(action: sendTextMessage) {
+                    Image(systemName: "paperplane.fill")
+                        .foregroundColor(.blue)
+                        .font(.title2)
+                }
+                .disabled(messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            }
+            
+            // 音声録音・クイックアクション
+            HStack {
+                // 音声録音ボタン
+                Button(action: toggleRecording) {
+                    HStack {
+                        Image(systemName: isRecording ? "stop.circle.fill" : "mic.circle.fill")
+                        Text(isRecording ? "録音停止" : "音声録音")
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(isRecording ? .red : .blue)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color(.systemGray6))
+                    .clipShape(Capsule())
+                }
+                
+                Spacer()
+                
+                // 録音時間表示
+                if isRecording {
+                    Text(String(format: "%.1fs", communicationViewState.recordingDuration))
+                        .font(.subheadline)
+                        .foregroundColor(.red)
+                        .fontWeight(.medium)
+                }
+            }
+        }
+        .padding()
+        .background(Color(.systemGray6))
+    }
+    
+    private var templateSelectionView: some View {
+        NavigationView {
+            List {
+                Section("よく使うメッセージ") {
+                    ForEach(communicationViewState.getEncouragementTemplates(), id: \.self) { template in
+                        Button(action: {
+                            communicationViewState.sendQuickReply(template)
+                            showingTemplates = false
+                        }) {
+                            Text(template)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("テンプレート選択")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("閉じる") {
+                        showingTemplates = false
+                    }
+                }
+            }
+        }
+    }
+    
+    private func sendTextMessage() {
+        let content = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !content.isEmpty else { return }
+        
+        communicationViewState.sendTextMessage(content: content, sender: .parent)
+        messageText = ""
+    }
+    
+    private func toggleRecording() {
+        if isRecording {
+            communicationViewState.stopRecording()
+            isRecording = false
+        } else {
+            communicationViewState.startRecording()
+            isRecording = true
+        }
+    }
+}
+
+/// メッセージバブルビュー
+private struct MessageBubbleView: View {
+    let message: Message
+    let isFromParent: Bool
+    let communicationViewState: CommunicationViewState
+    
+    var body: some View {
+        HStack {
+            if isFromParent {
+                Spacer(minLength: 50)
+            }
+            
+            VStack(alignment: isFromParent ? .trailing : .leading, spacing: 4) {
+                // メッセージ内容
+                VStack(alignment: .leading, spacing: 8) {
+                    // メッセージタイプアイコン
+                    if message.messageType != .text {
+                        HStack {
+                            Image(systemName: iconForMessageType(message.messageType))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            Text(message.messageType.displayName)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                    // メッセージテキスト
+                    Text(message.content)
+                        .font(.subheadline)
+                        .foregroundColor(isFromParent ? .white : .primary)
+                    
+                    // 音声再生ボタン
+                    if message.messageType == .audio {
+                        Button(action: {
+                            communicationViewState.playAudio(from: message)
+                        }) {
+                            HStack {
+                                Image(systemName: "play.circle.fill")
+                                Text("再生")
+                            }
+                            .font(.caption)
+                            .foregroundColor(isFromParent ? .white.opacity(0.8) : .blue)
+                        }
+                    }
+                    
+                    // 学習データ表示
+                    if let sessionData = message.sessionData {
+                        studyDataView(sessionData)
+                    }
+                }
+                .padding(12)
+                .background(
+                    isFromParent ? Color.blue : Color(.systemGray5)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                
+                // タイムスタンプ
+                Text(formatTimestamp(message.timestamp))
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            
+            if !isFromParent {
+                Spacer(minLength: 50)
+            }
+        }
+        .onTapGesture {
+            if !message.isRead && !isFromParent {
+                communicationViewState.markMessageAsRead(message)
+            }
+        }
+    }
+    
+    private func studyDataView(_ sessionData: StudySessionData) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Divider()
+                .background(isFromParent ? Color.white.opacity(0.3) : Color.gray.opacity(0.3))
+            
+            HStack {
+                Text("問題数: \(sessionData.totalProblems)")
+                Spacer()
+                Text("正解率: \(Int(sessionData.correctRate * 100))%")
+            }
+            .font(.caption)
+            .foregroundColor(isFromParent ? .white.opacity(0.8) : .secondary)
+            
+            if !sessionData.newMasteries.isEmpty {
+                Text("新マスター: \(sessionData.newMasteries.map { "\($0)の段" }.joined(separator: ", "))")
+                    .font(.caption)
+                    .foregroundColor(isFromParent ? .white.opacity(0.8) : .secondary)
+            }
+        }
+    }
+    
+    private func iconForMessageType(_ type: MessageType) -> String {
+        switch type {
+        case .text:
+            return "message"
+        case .audio:
+            return "mic.fill"
+        case .studyReport:
+            return "chart.bar.fill"
+        case .achievement:
+            return "star.fill"
+        }
+    }
+    
+    private func formatTimestamp(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ja_JP")
+        
+        if Calendar.current.isDateInToday(date) {
+            formatter.dateFormat = "HH:mm"
+        } else {
+            formatter.dateFormat = "M/d HH:mm"
+        }
+        
+        return formatter.string(from: date)
+    }
+}
+
+#Preview {
+    ParentMessageView()
+        .environment(\.dataStore, DataStore.shared)
+}
