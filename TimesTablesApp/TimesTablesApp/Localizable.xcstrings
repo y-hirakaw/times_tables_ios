@@ -78,6 +78,16 @@
         }
       }
     },
+    "%lld × %lld = ?" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld × %2$lld = ?"
+          }
+        }
+      }
+    },
     "%lld × %lld のもんだい" : {
       "localizations" : {
         "en" : {
@@ -90,6 +100,16 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld × %2$lld のもんだい"
+          }
+        }
+      }
+    },
+    "%lld × □ = %lld" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld × □ = %2$lld"
           }
         }
       }
@@ -1049,7 +1069,6 @@
       }
     },
     "もんだい" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1090,6 +1109,7 @@
       }
     },
     "もんだいを やめる" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1098,6 +1118,9 @@
           }
         }
       }
+    },
+    "やめる" : {
+
     },
     "ようび" : {
       "localizations" : {
@@ -1201,6 +1224,9 @@
           }
         }
       }
+    },
+    "問題画面が開きます" : {
+
     },
     "基本ポイント" : {
       "localizations" : {

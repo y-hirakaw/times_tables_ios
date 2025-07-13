@@ -7,11 +7,8 @@ struct MultiplicationView: View {
     @StateObject private var viewState = MultiplicationViewState()
     @Environment(\.dataStore) private var dataStore
     @Environment(\.soundManager) private var soundManager
-    @State private var animateCorrect = false
-    @State private var animateWrong = false
-    @State private var animateQuestion = false
-    @State private var selectedAnswer: Int? = nil
     @State private var showingPointsHistory = false
+    @State private var showingQuestionSolving = false
 
     private let gradientBackground = LinearGradient(
         colors: [Color.themePrimary.opacity(0.3), Color.themePrimaryLight.opacity(0.2)],
@@ -34,31 +31,23 @@ struct MultiplicationView: View {
                     VStack(spacing: Spacing.spacing20) {
                         pointsCard
 
-                        if let question = viewState.question {
-                            questionView(question)
-                                .onAppear {
-                                    // 新しい問題が表示されたら選択状態をリセット
-                                    selectedAnswer = nil
-                                }
-                                .onChange(of: question.identifier) { _, _ in
-                                    // 問題が変更されたら選択状態をリセット
-                                    selectedAnswer = nil
-                                }
+                        if viewState.question != nil {
+                            // 問題が生成されたら専用画面に遷移することを表示
+                            VStack(spacing: Spacing.spacing16) {
+                                Image(systemName: "arrow.up")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.themePrimary)
+                                
+                                Text("問題画面が開きます")
+                                    .font(.themeTitle2)
+                                    .foregroundColor(.themeGray800)
+                            }
+                            .padding(Spacing.spacing32)
+                            .cardStyle()
                         } else {
                             startPrompt
                         }
 
-                        if !viewState.resultMessage.isEmpty {
-                            resultMessageView
-                        }
-
-                        if viewState.question != nil && viewState.isTimerRunning {
-                            timerView
-                        }
-
-                        if viewState.question != nil {
-                            answerChoicesGrid
-                        }
 
                         controlButtons
                         soundToggleButton
@@ -84,6 +73,12 @@ struct MultiplicationView: View {
                 // 最新データを読み込み
                 viewState.refreshData()
             }
+            .onChange(of: viewState.question) { _, newQuestion in
+                // 問題が生成されたら専用画面を表示
+                if newQuestion != nil {
+                    showingQuestionSolving = true
+                }
+            }
             .sheet(isPresented: $viewState.showingPINAuth) {
                 ParentAccessView(isAuthenticated: $viewState.isAuthenticated)
             }
@@ -92,6 +87,9 @@ struct MultiplicationView: View {
             }
             .fullScreenCover(isPresented: $viewState.isAuthenticated) {
                 ParentDashboardView()
+            }
+            .fullScreenCover(isPresented: $showingQuestionSolving) {
+                QuestionSolvingView(viewState: viewState)
             }
         }
     }
@@ -129,50 +127,6 @@ struct MultiplicationView: View {
         }
     }
 
-    private var timerView: some View {
-        VStack(spacing: Spacing.spacing8) {
-            HStack {
-                Image(systemName: "timer")
-                    .foregroundColor(timerColor)
-
-                Text("のこり時間: \(String(format: "%.1f", viewState.remainingTime))秒")
-                    .font(.themeSubheadline)
-                    .foregroundColor(timerColor)
-            }
-
-            ProgressBar(progress: viewState.remainingTime / 10.0)
-        }
-        .padding(.horizontal, Spacing.spacing16)
-        .padding(.bottom, Spacing.spacing8)
-    }
-
-    private var timerColor: Color {
-        if viewState.remainingTime > 5.0 {
-            return .themeSecondary
-        } else if viewState.remainingTime > 2.0 {
-            return .themeWarning
-        } else {
-            return .themeError
-        }
-    }
-
-    private func questionView(_ question: MultiplicationQuestion) -> some View {
-        if viewState.isHolePunchMode {
-            return AnyView(holePunchQuestionView(question))
-        } else {
-            return AnyView(standardQuestionView(question))
-        }
-    }
-
-    private func standardQuestionView(_ question: MultiplicationQuestion) -> some View {
-        QuestionCard(question: "\(question.firstNumber) × \(question.secondNumber) = ?", 
-                    timeRemaining: Int(viewState.remainingTime))
-    }
-
-    private func holePunchQuestionView(_ question: MultiplicationQuestion) -> some View {
-        QuestionCard(question: "\(question.firstNumber) × □ = \(question.firstNumber * question.secondNumber)", 
-                    timeRemaining: Int(viewState.remainingTime))
-    }
 
     private var startPrompt: some View {
         VStack(spacing: Spacing.spacing16) {
@@ -200,89 +154,6 @@ struct MultiplicationView: View {
         .cardStyle()
     }
 
-    private var answerChoicesGrid: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.spacing16) {
-            ForEach(Array(viewState.answerChoices.enumerated()), id: \.element) { index, choice in
-                Button(action: {
-                    selectedAnswer = choice
-                    viewState.checkAnswer(selectedAnswer: choice)
-
-                    // 正解判定（虫食い問題の場合は secondNumber が正解）
-                    let isCorrect: Bool
-                    if let question = viewState.question {
-                        if viewState.isHolePunchMode {
-                            isCorrect = choice == question.secondNumber
-                        } else {
-                            isCorrect = choice == question.answer
-                        }
-                    } else {
-                        isCorrect = false
-                    }
-                    
-                    if isCorrect {
-                        soundManager.play(.correct)
-                        
-                        animateCorrect = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.feedbackAnimationDuration) {
-                            animateCorrect = false
-                        }
-                        
-                        // 正解時は少し遅れて選択状態をリセット
-                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.correctAnswerDisplayDuration) {
-                            selectedAnswer = nil
-                        }
-                    } else {
-                        soundManager.play(.wrong)
-                        
-                        animateWrong = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.feedbackAnimationDuration) {
-                            animateWrong = false
-                        }
-                        
-                        // 不正解時も少し遅れて選択状態をリセット
-                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.incorrectAnswerDisplayDuration) {
-                            selectedAnswer = nil
-                        }
-                    }
-                }) {
-                    Text("\(choice)")
-                        .answerButtonStyle(isSelected: selectedAnswer == choice)
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .disabled(viewState.isAnswering)
-            }
-        }
-        .padding(.vertical, Spacing.spacing16)
-    }
-
-    private var resultMessageView: some View {
-        let isError = viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
-        
-        return Text(LocalizedStringKey(viewState.resultMessage))
-            .font(.themeTitle3)
-            .foregroundColor(.white)
-            .padding(Spacing.spacing16)
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: CornerRadius.large)
-                    .fill(isError ? Color.themeError : Color.themeSecondary)
-            )
-            .overlay(
-                Group {
-                    if animateCorrect {
-                        ConfettiView()
-                    } else if animateWrong {
-                        WrongAnswerView()
-                    }
-                }
-            )
-            .scaleEffect((animateCorrect || animateWrong) ? 1.05 : 1.0)
-            .animation(AnimationStyle.springBouncy, value: animateCorrect || animateWrong)
-            .shadow(color: Color.black.opacity(ShadowStyle.medium.opacity),
-                   radius: ShadowStyle.medium.radius,
-                   x: ShadowStyle.medium.x,
-                   y: ShadowStyle.medium.y)
-    }
 
     private var controlButtons: some View {
         VStack(spacing: Spacing.spacing16) {
@@ -369,29 +240,6 @@ struct MultiplicationView: View {
                             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
                     )
                 }
-            }
-            
-            // 停止ボタン - 問題が表示されているときのみ表示
-            if viewState.question != nil {
-                Button(action: { 
-                    viewState.cancelQuestion()
-                    selectedAnswer = nil
-                }) {
-                    HStack {
-                        Image(systemName: "stop.circle.fill")
-                        Text("もんだいを やめる")
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.red.opacity(0.8))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                    )
-                }
-                .disabled(viewState.isAnswering)
             }
         }
     }
