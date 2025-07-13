@@ -23,7 +23,7 @@ final class MultiplicationViewState: ObservableObject {
     @Published var isHolePunchMode = false
     
     // タイマー関連の状態
-    @Published var remainingTime: Double = 10.0 // 10秒の制限時間
+    @Published var remainingTime: Double = GameConstants.Timer.questionTimeLimit
     @Published var isTimerRunning: Bool = false
     private var timerCancellable: AnyCancellable?
     private var questionStartTime: Date?
@@ -35,14 +35,11 @@ final class MultiplicationViewState: ObservableObject {
     // SwiftDataの参照
     private var difficultQuestions: [DifficultQuestion] = []
     private var userPoints: [UserPoints] = []
-    private var modelContext: ModelContext
+    private var modelContext: ModelContext?
     
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
-        // ユーザーポイントが存在することを確認（先に実行）
-        ensureUserPointsExists()
-        // その他のデータをロード
-        loadData()
+    init() {
+        // 初期化時はモデルコンテキストなしで開始
+        // updateModelContext で後から設定される
     }
     
     deinit {
@@ -63,6 +60,8 @@ final class MultiplicationViewState: ObservableObject {
     
     /// データをロードする
     private func loadData() {
+        guard let modelContext = modelContext else { return }
+        
         do {
             // DifficultQuestionsをロード
             let difficultDescriptor = FetchDescriptor<DifficultQuestion>()
@@ -83,6 +82,8 @@ final class MultiplicationViewState: ObservableObject {
     
     /// ユーザーポイントが存在することを確認し、なければ作成
     func ensureUserPointsExists() {
+        guard let modelContext = modelContext else { return }
+        
         let descriptor = FetchDescriptor<UserPoints>()
         do {
             let fetchedPoints = try modelContext.fetch(descriptor)
@@ -233,14 +234,15 @@ final class MultiplicationViewState: ObservableObject {
         )
         
         // SwiftDataに保存
-        modelContext.insert(record)
-        try? modelContext.save()
+        modelContext?.insert(record)
+        try? modelContext?.save()
     }
     
     /// 問題の平均回答時間を取得する
     /// - Parameter questionId: 問題識別子
     /// - Returns: 平均回答時間（秒）、なければnil
     func getAverageAnswerTime(for questionId: String) -> Double? {
+        guard let modelContext = modelContext else { return nil }
         return AnswerTimeRecord.getAverageTimeForQuestion(questionId, context: modelContext)
     }
     
@@ -361,7 +363,7 @@ final class MultiplicationViewState: ObservableObject {
             // 苦手問題に正解した場合、正解カウントを増やす
             if let difficultQuestion = findDifficultQuestion(for: question) {
                 difficultQuestion.increaseCorrectCount()
-                try? modelContext.save()
+                try? modelContext?.save()
             }
             
             // 次の問題を準備
@@ -398,11 +400,13 @@ final class MultiplicationViewState: ObservableObject {
             resultMessage = "不正解！正解は \(correctAnswer) です。もう一度チャレンジしてね。"
             
             // 間違えた問題を記録
-            DifficultQuestion.recordIncorrectAnswer(
-                firstNumber: question.firstNumber,
-                secondNumber: question.secondNumber,
-                context: modelContext
-            )
+            if let modelContext = modelContext {
+                DifficultQuestion.recordIncorrectAnswer(
+                    firstNumber: question.firstNumber,
+                    secondNumber: question.secondNumber,
+                    context: modelContext
+                )
+            }
             
             // 回答時間を記録（不正解）
             recordAnswerTime(for: question, answerTime: answerTime, isCorrect: false)
@@ -436,6 +440,7 @@ final class MultiplicationViewState: ObservableObject {
     /// - Parameter limit: 取得する最大数
     /// - Returns: 回答時間記録の配列
     func getRecentAnswerTimeRecords(limit: Int = 10) -> [AnswerTimeRecord] {
+        guard let modelContext = modelContext else { return [] }
         return AnswerTimeRecord.getRecentRecords(limit: limit, context: modelContext)
     }
     
@@ -443,12 +448,14 @@ final class MultiplicationViewState: ObservableObject {
     /// - Parameter days: 過去何日分を取得するか
     /// - Returns: 日付と平均回答時間のタプル配列
     func getDailyAverageAnswerTimes(days: Int = 7) -> [(date: Date, average: Double)] {
+        guard let modelContext = modelContext else { return [] }
         return AnswerTimeRecord.getDailyAverages(days: days, context: modelContext)
     }
     
     /// 全問題の平均回答時間を取得する
     /// - Returns: 問題IDと平均回答時間の辞書
     func getAllAverageAnswerTimes() -> [String: Double] {
+        guard let modelContext = modelContext else { return [:] }
         return AnswerTimeRecord.getAverageAnswerTimes(context: modelContext)
     }
     
@@ -479,7 +486,7 @@ final class MultiplicationViewState: ObservableObject {
             // resultMessageはcheckAnswer内で設定するので、ここでは不要
         }
         
-        try? modelContext.save()
+        try? modelContext?.save()
         // ポイント更新後にデータを再読み込み
         refreshData()
     }
@@ -496,11 +503,11 @@ final class MultiplicationViewState: ObservableObject {
                 firstNumber: question.firstNumber,
                 secondNumber: question.secondNumber
             )
-            modelContext.insert(newDifficultQuestion)
+            modelContext?.insert(newDifficultQuestion)
             difficultQuestions.append(newDifficultQuestion)
         }
         // 変更を保存
-        try? modelContext.save()
+        try? modelContext?.save()
     }
     
     /// 問題に正解した記録を更新する
@@ -518,11 +525,11 @@ final class MultiplicationViewState: ObservableObject {
             // 正解で始まるので不正解カウントを0にして正解カウントを1に設定
             newDifficultQuestion.incorrectCount = 0
             newDifficultQuestion.correctCount = 1
-            modelContext.insert(newDifficultQuestion)
+            modelContext?.insert(newDifficultQuestion)
             difficultQuestions.append(newDifficultQuestion)
         }
         // 変更を保存
-        try? modelContext.save()
+        try? modelContext?.save()
     }
     
     /// 指定された問題に対応する苦手問題の記録を検索する
@@ -707,6 +714,6 @@ final class MultiplicationViewState: ObservableObject {
         }
         
         points.addPoints(amount, context: modelContext)
-        try? modelContext.save()
+        try? modelContext?.save()
     }
 }

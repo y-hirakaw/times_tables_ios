@@ -51,15 +51,15 @@ struct AnswerButtonStyle: ViewModifier {
     }
     
     var foregroundColor: Color {
-        if let isCorrect = isCorrect {
+        if let correct = isCorrect {
             return .white
         }
         return isSelected ? .white : .themeGray700
     }
     
     var backgroundColor: Color {
-        if let isCorrect = isCorrect {
-            return isCorrect ? .themeSecondary : .themeError
+        if let correct = isCorrect {
+            return correct ? .themeSecondary : .themeError
         }
         return isSelected ? .themePrimary : .themeGray200
     }

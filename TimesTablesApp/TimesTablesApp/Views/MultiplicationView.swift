@@ -4,59 +4,14 @@ import AVFoundation
 
 /// メインの九九チャレンジ画面を表示するView
 struct MultiplicationView: View {
-    @StateObject private var viewState: MultiplicationViewState
-    @Environment(\.modelContext) private var modelContext
+    @StateObject private var viewState = MultiplicationViewState()
+    @Environment(\.dataStore) private var dataStore
+    @Environment(\.soundManager) private var soundManager
     @State private var animateCorrect = false
     @State private var animateWrong = false
     @State private var animateQuestion = false
     @State private var selectedAnswer: Int? = nil
-    @State private var soundEnabled = true
     @State private var showingPointsHistory = false
-    private let correctSoundPlayer: AVAudioPlayer?
-    private let wrongSoundPlayer: AVAudioPlayer?
-
-    init() {
-        let schema = Schema([
-            DifficultQuestion.self,
-            UserPoints.self,
-            PointHistory.self,
-            PointSpending.self,
-            AnswerTimeRecord.self
-        ])
-        let tempConfig = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        let tempContainer = try! ModelContainer(for: schema, configurations: [tempConfig])
-        let tempContext = ModelContext(tempContainer)
-        
-        // モデルコンテキストで必要なデータを事前に作成
-        let pointsDescriptor = FetchDescriptor<UserPoints>()
-        do {
-            let points = try tempContext.fetch(pointsDescriptor)
-            if points.isEmpty {
-                let newPoints = UserPoints(totalEarnedPoints: 0, availablePoints: 0)
-                tempContext.insert(newPoints)
-                try tempContext.save()
-            }
-        } catch {
-            print("初期ポイントデータの作成に失敗: \(error)")
-        }
-        
-        _viewState = StateObject(wrappedValue: MultiplicationViewState(modelContext: tempContext))
-
-        // サウンド初期化
-        if let correctSoundURL = Bundle.main.url(forResource: "Quiz-Correct_Answer02-2", withExtension: "mp3") {
-            correctSoundPlayer = try? AVAudioPlayer(contentsOf: correctSoundURL)
-            correctSoundPlayer?.prepareToPlay()
-        } else {
-            correctSoundPlayer = nil
-        }
-
-        if let wrongSoundURL = Bundle.main.url(forResource: "Quiz-Wrong_Buzzer02-3", withExtension: "mp3") {
-            wrongSoundPlayer = try? AVAudioPlayer(contentsOf: wrongSoundURL)
-            wrongSoundPlayer?.prepareToPlay()
-        } else {
-            wrongSoundPlayer = nil
-        }
-    }
 
     private let gradientBackground = LinearGradient(
         colors: [Color.themePrimary.opacity(0.3), Color.themePrimaryLight.opacity(0.2)],
@@ -81,6 +36,14 @@ struct MultiplicationView: View {
 
                         if let question = viewState.question {
                             questionView(question)
+                                .onAppear {
+                                    // 新しい問題が表示されたら選択状態をリセット
+                                    selectedAnswer = nil
+                                }
+                                .onChange(of: question.identifier) { _, _ in
+                                    // 問題が変更されたら選択状態をリセット
+                                    selectedAnswer = nil
+                                }
                         } else {
                             startPrompt
                         }
@@ -116,18 +79,10 @@ struct MultiplicationView: View {
                 }
             }
             .onAppear {
-                // メインのModelContextを使ってデータを更新
-                viewState.updateModelContext(modelContext)
-                // userPointsの存在を確認して初期化
-                viewState.ensureUserPointsExists()
+                // DataStoreのコンテキストを設定
+                viewState.updateModelContext(dataStore.context)
                 // 最新データを読み込み
                 viewState.refreshData()
-                
-                // 画面が表示されるたびにポイント表示を最新化
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    _ = viewState.getCurrentPoints()
-                    viewState.objectWillChange.send()
-                }
             }
             .sheet(isPresented: $viewState.showingPINAuth) {
                 ParentAccessView(isAuthenticated: $viewState.isAuthenticated)
@@ -252,23 +207,41 @@ struct MultiplicationView: View {
                     selectedAnswer = choice
                     viewState.checkAnswer(selectedAnswer: choice)
 
-                    if let question = viewState.question, choice == question.answer {
-                        if soundEnabled {
-                            correctSoundPlayer?.play()
-                        }
-
-                        animateCorrect = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                            animateCorrect = false
+                    // 正解判定（虫食い問題の場合は secondNumber が正解）
+                    let isCorrect: Bool
+                    if let question = viewState.question {
+                        if viewState.isHolePunchMode {
+                            isCorrect = choice == question.secondNumber
+                        } else {
+                            isCorrect = choice == question.answer
                         }
                     } else {
-                        if soundEnabled {
-                            wrongSoundPlayer?.play()
+                        isCorrect = false
+                    }
+                    
+                    if isCorrect {
+                        soundManager.play(.correct)
+                        
+                        animateCorrect = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.feedbackAnimationDuration) {
+                            animateCorrect = false
                         }
-
+                        
+                        // 正解時は少し遅れて選択状態をリセット
+                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.correctAnswerDisplayDuration) {
+                            selectedAnswer = nil
+                        }
+                    } else {
+                        soundManager.play(.wrong)
+                        
                         animateWrong = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.feedbackAnimationDuration) {
                             animateWrong = false
+                        }
+                        
+                        // 不正解時も少し遅れて選択状態をリセット
+                        DispatchQueue.main.asyncAfter(deadline: .now() + GameConstants.Animation.incorrectAnswerDisplayDuration) {
+                            selectedAnswer = nil
                         }
                     }
                 }) {
@@ -400,7 +373,10 @@ struct MultiplicationView: View {
             
             // 停止ボタン - 問題が表示されているときのみ表示
             if viewState.question != nil {
-                Button(action: { viewState.cancelQuestion() }) {
+                Button(action: { 
+                    viewState.cancelQuestion()
+                    selectedAnswer = nil
+                }) {
                     HStack {
                         Image(systemName: "stop.circle.fill")
                         Text("もんだいを やめる")
@@ -422,27 +398,27 @@ struct MultiplicationView: View {
 
     private var soundToggleButton: some View {
         Button(action: {
-            soundEnabled.toggle()
-            if soundEnabled {
-                correctSoundPlayer?.play()
-            }
+            soundManager.toggleSound()
         }) {
             HStack {
-                Image(systemName: soundEnabled ? "speaker.wave.3.fill" : "speaker.slash.fill")
-                Text(soundEnabled ? "効果音 ON" : "効果音 OFF")
+                Image(systemName: soundManager.isEnabled ? "speaker.wave.3.fill" : "speaker.slash.fill")
+                Text(soundManager.isEnabled ? "効果音 ON" : "効果音 OFF")
             }
-            .font(.headline)
-            .foregroundColor(soundEnabled ? .blue : .gray)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 12)
+            .font(.themeSubheadline)
+            .foregroundColor(soundManager.isEnabled ? .themePrimary : .themeGray500)
+            .padding(.vertical, Spacing.spacing8)
+            .padding(.horizontal, Spacing.spacing12)
             .background(
                 Capsule()
                     .fill(Color.white.opacity(0.8))
-                    .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+                    .shadow(color: Color.black.opacity(ShadowStyle.small.opacity),
+                           radius: ShadowStyle.small.radius,
+                           x: ShadowStyle.small.x,
+                           y: ShadowStyle.small.y)
             )
             .overlay(
                 Capsule()
-                    .stroke(soundEnabled ? Color.blue.opacity(0.5) : Color.gray.opacity(0.3), lineWidth: 1)
+                    .stroke(soundManager.isEnabled ? Color.themePrimary.opacity(0.5) : Color.themeGray300, lineWidth: 1)
             )
         }
     }
