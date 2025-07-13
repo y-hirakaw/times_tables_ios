@@ -285,8 +285,8 @@ final class MultiplicationViewState: ObservableObject {
         // 正解を含む選択肢のリストを作成
         var choices = [question.answer]
         
-        // 選択肢の数をランダムに決定（6〜8個）
-        let numberOfChoices = Int.random(in: 6...8)
+        // 選択肢の数を9個固定に設定
+        let numberOfChoices = GameConstants.AnswerChoices.fixedChoices
         
         // 正解の近辺の数値と他のランダムな数値を追加
         while choices.count < numberOfChoices {
@@ -294,12 +294,12 @@ final class MultiplicationViewState: ObservableObject {
             
             // 50%の確率で近い値、50%の確率で完全なランダム値
             if Bool.random() {
-                // 正解の近辺の値（±10の範囲）
-                let offset = Int.random(in: -10...10)
+                // 正解の近辺の値
+                let offset = Int.random(in: GameConstants.AnswerChoices.nearbyRange)
                 randomChoice = max(1, question.answer + offset) // 1未満にならないようにする
             } else {
-                // 完全なランダム値（1〜100の範囲）
-                randomChoice = Int.random(in: 1...100)
+                // 完全なランダム値
+                randomChoice = Int.random(in: GameConstants.AnswerChoices.randomRange)
             }
             
             // 重複を避ける
@@ -693,8 +693,8 @@ final class MultiplicationViewState: ObservableObject {
         // 虫食い問題では、正解は2番目の数（secondNumber）
         var choices = [question.secondNumber]
         
-        // 選択肢の数をランダムに決定（6〜8個）
-        let numberOfChoices = Int.random(in: 6...8)
+        // 選択肢の数を9個固定に設定
+        let numberOfChoices = GameConstants.AnswerChoices.fixedChoices
         
         // 1〜9の範囲の数字から選択肢を作成
         while choices.count < numberOfChoices {

@@ -13,10 +13,8 @@ struct GameConstants {
     
     // MARK: - Answer Choices Settings
     struct AnswerChoices {
-        /// 選択肢の最小数
-        static let minChoices = 6
-        /// 選択肢の最大数
-        static let maxChoices = 8
+        /// 選択肢の固定数
+        static let fixedChoices = 9
         /// 正解に近い値の範囲
         static let nearbyRange = -10...10
         /// ランダム値の範囲
