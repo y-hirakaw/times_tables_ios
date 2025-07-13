@@ -185,7 +185,7 @@ final class MultiplicationViewState: ObservableObject {
         
         // 通常モードと虫食い問題モードで正解が異なる
         let correctAnswer = isHolePunchMode ? question.secondNumber : question.answer
-        resultMessage = "時間切れ！正解は \(correctAnswer) です。"
+        resultMessage = String(format: NSLocalizedString("時間切れ！正解は %lld です。", comment: "Time up message"), correctAnswer)
         
         recordIncorrectAnswer(for: question)
         
@@ -355,7 +355,11 @@ final class MultiplicationViewState: ObservableObject {
             
             // 解答時間のフィードバック
             let timeMessage = String(format: "%.1f", answerTime)
-            resultMessage = "正解！ +\(isDifficult ? "ボーナス" : "1")ポイント (時間: \(timeMessage)秒)"
+            if isDifficult {
+                resultMessage = String(format: NSLocalizedString("正解！ +ボーナスポイント (時間: %@秒)", comment: "Correct answer with bonus points"), timeMessage)
+            } else {
+                resultMessage = String(format: NSLocalizedString("正解！ +1ポイント (時間: %@秒)", comment: "Correct answer with basic points"), timeMessage)
+            }
             
             // 正解時間を記録
             recordAnswerTime(for: question, answerTime: answerTime, isCorrect: true)
@@ -397,7 +401,7 @@ final class MultiplicationViewState: ObservableObject {
         } else {
             // 不正解の場合
             let correctAnswer = isHolePunchMode ? question.secondNumber : question.answer
-            resultMessage = "不正解！正解は \(correctAnswer) です。もう一度チャレンジしてね。"
+            resultMessage = String(format: NSLocalizedString("不正解！正解は %lld です。もう一度チャレンジしてね。", comment: "Incorrect answer message"), correctAnswer)
             
             // 間違えた問題を記録
             if let modelContext = modelContext {
@@ -619,7 +623,7 @@ final class MultiplicationViewState: ObservableObject {
         // 最後の問題（9）まで解き終わったかチェック
         if currentSequentialNumber > 9 {
             // 順番モード終了
-            resultMessage = "おめでとう！\(table)の だんを すべて クリアしました！"
+            resultMessage = String(format: NSLocalizedString("おめでとう！%lldの だんを すべて クリアしました！", comment: "Sequential mode completion message"), table)
             question = nil
             stopTimer()
             isSequentialMode = false

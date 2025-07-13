@@ -135,7 +135,14 @@
       }
     },
     "%lld秒" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld sec"
+          }
+        }
+      }
     },
     "※PINコードを忘れると管理画面へアクセスできなくなります。\n忘れないようにメモを取るなどの対策をしてください。" : {
       "localizations" : {
@@ -474,6 +481,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your difficult questions:"
+          }
+        }
+      }
+    },
+    "おめでとう！%lldの だんを すべて クリアしました！" : {
+      "comment" : "Sequential mode completion message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Congratulations! You've cleared all %lld times table!"
           }
         }
       }
@@ -953,7 +971,14 @@
       }
     },
     "ほごしゃ かんり がめん" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parent Dashboard"
+          }
+        }
+      }
     },
     "ボタンをおして もんだいをやろう！" : {
       "localizations" : {
@@ -1120,7 +1145,14 @@
       }
     },
     "やめる" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit"
+          }
+        }
+      }
     },
     "ようび" : {
       "localizations" : {
@@ -1149,6 +1181,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Random Question"
+          }
+        }
+      }
+    },
+    "不正解！正解は %lld です。もう一度チャレンジしてね。" : {
+      "comment" : "Incorrect answer message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect! The correct answer is %lld. Try again!"
           }
         }
       }
@@ -1226,7 +1269,14 @@
       }
     },
     "問題画面が開きます" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Question screen will open"
+          }
+        }
+      }
     },
     "基本ポイント" : {
       "localizations" : {
@@ -1264,6 +1314,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "History type"
+          }
+        }
+      }
+    },
+    "時間切れ！正解は %lld です。" : {
+      "comment" : "Time up message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time's up! The correct answer is %lld."
+          }
+        }
+      }
+    },
+    "正解！ +%@ポイント (時間: %@秒)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct! +%@ points (time: %@ sec)"
+          }
+        }
+      }
+    },
+    "正解！ +1ポイント (時間: %@秒)" : {
+      "comment" : "Correct answer with basic points",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct! +1 point (time: %@ sec)"
+          }
+        }
+      }
+    },
+    "正解！ +ボーナスポイント (時間: %@秒)" : {
+      "comment" : "Correct answer with bonus points",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct! +Bonus points (time: %@ sec)"
           }
         }
       }
