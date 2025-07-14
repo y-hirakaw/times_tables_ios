@@ -27,17 +27,17 @@ struct ParentMessageView: View {
                 // メッセージ入力エリア
                 messageInputArea
             }
-            .navigationTitle("メッセージ")
+            .navigationTitle(NSLocalizedString("メッセージ", comment: "Message"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("閉じる") {
+                    Button(NSLocalizedString("閉じる", comment: "Close")) {
                         dismiss()
                     }
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("テンプレート") {
+                    Button(NSLocalizedString("テンプレート", comment: "Template")) {
                         showingTemplates = true
                     }
                 }
@@ -62,11 +62,11 @@ struct ParentMessageView: View {
                             .font(.system(size: 50))
                             .foregroundColor(.gray)
                         
-                        Text("まだメッセージがありません")
+                        Text(NSLocalizedString("まだメッセージがありません", comment: "No messages yet"))
                             .font(.headline)
                             .foregroundColor(.secondary)
                         
-                        Text("お子様とのコミュニケーションを始めましょう")
+                        Text(NSLocalizedString("お子様とのコミュニケーションを始めましょう", comment: "Let's start communicating with your child"))
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
@@ -90,7 +90,7 @@ struct ParentMessageView: View {
         VStack(spacing: 12) {
             // テキスト入力
             HStack {
-                TextField("メッセージを入力...", text: $messageText, axis: .vertical)
+                TextField(NSLocalizedString("メッセージを入力...", comment: "Enter message..."), text: $messageText, axis: .vertical)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .lineLimit(1...4)
                 
@@ -108,7 +108,7 @@ struct ParentMessageView: View {
                 Button(action: toggleRecording) {
                     HStack {
                         Image(systemName: isRecording ? "stop.circle.fill" : "mic.circle.fill")
-                        Text(isRecording ? "録音停止" : "音声録音")
+                        Text(isRecording ? NSLocalizedString("録音停止", comment: "Stop Recording") : NSLocalizedString("音声録音", comment: "Voice Recording"))
                     }
                     .font(.subheadline)
                     .foregroundColor(isRecording ? .red : .blue)
@@ -136,7 +136,7 @@ struct ParentMessageView: View {
     private var templateSelectionView: some View {
         NavigationView {
             List {
-                Section("よく使うメッセージ") {
+                Section(NSLocalizedString("よく使うメッセージ", comment: "Frequently Used Messages")) {
                     ForEach(communicationViewState.getEncouragementTemplates(), id: \.self) { template in
                         Button(action: {
                             communicationViewState.sendQuickReply(template)
@@ -148,11 +148,11 @@ struct ParentMessageView: View {
                     }
                 }
             }
-            .navigationTitle("テンプレート選択")
+            .navigationTitle(NSLocalizedString("テンプレート選択", comment: "Select Template"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("閉じる") {
+                    Button(NSLocalizedString("閉じる", comment: "Close")) {
                         showingTemplates = false
                     }
                 }
@@ -218,7 +218,7 @@ private struct MessageBubbleView: View {
                         }) {
                             HStack {
                                 Image(systemName: "play.circle.fill")
-                                Text("再生")
+                                Text(NSLocalizedString("再生", comment: "Play"))
                             }
                             .font(.caption)
                             .foregroundColor(isFromParent ? .white.opacity(0.8) : .blue)
@@ -259,15 +259,15 @@ private struct MessageBubbleView: View {
                 .background(isFromParent ? Color.white.opacity(0.3) : Color.gray.opacity(0.3))
             
             HStack {
-                Text("問題数: \(sessionData.totalProblems)")
+                Text(NSLocalizedString("問題数: %lld", comment: "Problems: %lld").replacingOccurrences(of: "%lld", with: "\(sessionData.totalProblems)"))
                 Spacer()
-                Text("正解率: \(Int(sessionData.correctRate * 100))%")
+                Text(NSLocalizedString("正解率: %lld%%", comment: "Accuracy rate: %lld%%").replacingOccurrences(of: "%lld", with: "\(Int(sessionData.correctRate * 100))"))
             }
             .font(.caption)
             .foregroundColor(isFromParent ? .white.opacity(0.8) : .secondary)
             
             if !sessionData.newMasteries.isEmpty {
-                Text("新マスター: \(sessionData.newMasteries.map { "\($0)の段" }.joined(separator: ", "))")
+                Text(NSLocalizedString("新マスター: %@", comment: "New Master: %@").replacingOccurrences(of: "%@", with: sessionData.newMasteries.map { NSLocalizedString("%lldの だん", comment: "%lld times table").replacingOccurrences(of: "%lld", with: "\($0)") }.joined(separator: ", ")))
                     .font(.caption)
                     .foregroundColor(isFromParent ? .white.opacity(0.8) : .secondary)
             }

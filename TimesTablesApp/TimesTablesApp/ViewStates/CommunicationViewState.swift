@@ -332,14 +332,14 @@ class CommunicationViewState: NSObject {
     /// 親から子への励ましメッセージテンプレート
     func getEncouragementTemplates() -> [String] {
         return [
-            "がんばったね！",
-            "すごいじゃない！",
-            "よくできました！",
-            "その ちょうしで がんばって！",
-            "まいにち べんきょうして えらいね！",
-            "だんだん じょうずに なってるよ！",
-            "つぎも がんばろうね！",
-            "とても じょうずですよ！"
+            NSLocalizedString("がんばったね！", comment: "You did great!"),
+            NSLocalizedString("すごいじゃない！", comment: "That's amazing!"),
+            NSLocalizedString("よくできました！", comment: "Well done!"),
+            NSLocalizedString("その ちょうしで がんばって！", comment: "Keep up that good work!"),
+            NSLocalizedString("まいにち べんきょうして えらいね！", comment: "Great job studying every day!"),
+            NSLocalizedString("だんだん じょうずに なってるよ！", comment: "You're getting better and better!"),
+            NSLocalizedString("つぎも がんばろうね！", comment: "Let's keep working hard!"),
+            NSLocalizedString("とても じょうずですよ！", comment: "You're doing very well!")
         ]
     }
     
