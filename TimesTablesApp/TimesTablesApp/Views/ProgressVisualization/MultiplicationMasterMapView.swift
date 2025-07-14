@@ -253,29 +253,29 @@ private struct TableDetailView: View {
                     if let progress = progress {
                         StatisticRowView(
                             icon: "checkmark.circle.fill",
-                            title: "せいかいりつ",
+                            title: NSLocalizedString("せいかいりつ", comment: "Accuracy rate"),
                             value: "\(Int(progress.correctRate * 100))%",
                             color: color
                         )
                         
                         StatisticRowView(
                             icon: "questionmark.circle.fill",
-                            title: "といた もんだい",
-                            value: "\(progress.totalProblems)もん",
+                            title: NSLocalizedString("といた もんだい", comment: "Problems solved"),
+                            value: "\(progress.totalProblems)" + NSLocalizedString("もん", comment: "problems unit"),
                             color: color
                         )
                         
                         if progress.masteryLevel != .master {
                             StatisticRowView(
                                 icon: "target",
-                                title: "マスターまで",
-                                value: "あと\(progress.problemsToMaster)もん",
+                                title: NSLocalizedString("マスターまで", comment: "Until master"),
+                                value: NSLocalizedString("あと", comment: "remaining") + "\(progress.problemsToMaster)" + NSLocalizedString("もん", comment: "problems unit"),
                                 color: color
                             )
                         }
                     } else {
                         // データがない場合の表示
-                        Text("まだこの段の問題を\nといていません")
+                        Text(NSLocalizedString("まだこの段の問題を\nといていません", comment: "No problems solved for this table yet"))
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)

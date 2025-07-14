@@ -102,6 +102,12 @@
     },
     "%lld × %lld = ?" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld × %2$lld = ?"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
@@ -128,6 +134,12 @@
     },
     "%lld × □ = %lld" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld × □ = %2$lld"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
@@ -138,6 +150,12 @@
     },
     "%lld/%lld" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld/%2$lld"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
@@ -1453,7 +1471,14 @@
       }
     },
     "まだこの段の問題を\nといていません" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No problems solved\nfor this table yet"
+          }
+        }
+      }
     },
     "まだメッセージがありません" : {
       "localizations" : {
@@ -2087,6 +2112,51 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Great job! %lld problems have improved!"
+          }
+        }
+      }
+    }
+    },
+    "あと" : {
+      "comment" : "remaining",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "といた もんだい" : {
+      "comment" : "Problems solved",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problems solved"
+          }
+        }
+      }
+    },
+    "マスターまで" : {
+      "comment" : "Until master",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Until master"
+          }
+        }
+      }
+    },
+    "もん" : {
+      "comment" : "problems unit",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " problems"
           }
         }
       }
