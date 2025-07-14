@@ -32,6 +32,24 @@
         "Proficiency analysis",
         "Chart data preparation"
       ]
+    },
+    "ProgressVisualizationViewState": {
+      "manages": "Progress visualization and mastery tracking",
+      "interactions": [
+        "Mastery level calculations",
+        "Daily challenge tracking",
+        "Streak management",
+        "Achievement progress"
+      ]
+    },
+    "CommunicationViewState": {
+      "manages": "Parent-child communication state",
+      "interactions": [
+        "Message sending/receiving",
+        "Study report generation",
+        "Voice message handling",
+        "Message history management"
+      ]
     }
   },
   
@@ -55,6 +73,22 @@
     "PointSpending": {
       "operations": ["log_spending", "retrieve_history"],
       "used_by": ["ParentDashboard", "PointsSpendingHistoryView"]
+    },
+    "DailyChallenge": {
+      "operations": ["set_daily_goal", "track_progress", "calculate_streak"],
+      "used_by": ["DailyChallengeView", "ProgressVisualizationViewState"]
+    },
+    "MasteryProgress": {
+      "operations": ["update_mastery_level", "calculate_overall_progress"],
+      "used_by": ["MultiplicationMasterMapView", "ProgressVisualizationViewState"]
+    },
+    "Message": {
+      "operations": ["send_message", "retrieve_history", "mark_as_read"],
+      "used_by": ["ChildMessageView", "ParentMessageView", "CommunicationViewState"]
+    },
+    "Achievement": {
+      "operations": ["unlock_achievement", "share_achievement"],
+      "used_by": ["ProgressVisualizationViewState", "StudyReportView"]
     }
   },
   

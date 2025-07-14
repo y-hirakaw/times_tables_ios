@@ -7,13 +7,23 @@
 
 import SwiftUI
 
+/// テーブル選択のためのIdentifiableな構造体
+struct TableSelection: Identifiable {
+    let id: Int
+    let table: Int
+    
+    init(table: Int) {
+        self.id = table
+        self.table = table
+    }
+}
+
 /// 九九マスターマップのビュー
 /// 1〜9の段を島や城で視覚的に表現
 struct MultiplicationMasterMapView: View {
     @Environment(\.dataStore) private var dataStore
     @State private var progressViewState = ProgressVisualizationViewState()
-    @State private var selectedTable: Int? = nil
-    @State private var showingDetail = false
+    @State private var selectedTable: TableSelection? = nil
     
     private let columns = [
         GridItem(.flexible()),
@@ -41,8 +51,8 @@ struct MultiplicationMasterMapView: View {
                 }
             }
             
-            // データがロード中またはデータが不完全な場合はローディング表示
-            if progressViewState.isLoading || progressViewState.masteryProgress.count < 9 {
+            // データがロード中の場合はローディング表示
+            if progressViewState.isLoading {
                 VStack {
                     ProgressView()
                         .scaleEffect(1.2)
@@ -61,8 +71,7 @@ struct MultiplicationMasterMapView: View {
                             progressViewState: progressViewState
                         )
                         .onTapGesture {
-                            selectedTable = table
-                            showingDetail = true
+                            selectedTable = TableSelection(table: table)
                         }
                     }
                 }
@@ -87,13 +96,13 @@ struct MultiplicationMasterMapView: View {
             // プルして更新
             progressViewState.refreshAllData()
         }
-        .sheet(isPresented: $showingDetail) {
-            if let table = selectedTable {
-                TableDetailView(
-                    table: table,
-                    progressViewState: progressViewState
-                )
-            }
+        .sheet(item: $selectedTable) { tableSelection in
+            TableDetailView(
+                table: tableSelection.table,
+                progressViewState: progressViewState
+            )
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
         }
     }
 }
@@ -200,17 +209,19 @@ private struct CompactTableIslandView: View {
 /// 段の詳細ビュー
 private struct TableDetailView: View {
     let table: Int
-    let progressViewState: ProgressVisualizationViewState
+    @Bindable var progressViewState: ProgressVisualizationViewState
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                let progress = progressViewState.getProgressFor(table: table)
-                let (title, subtitle, color) = progressViewState.getDisplayDataFor(table: table)
-                
-                // ヘッダー
-                VStack {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    // モーダル表示時にデータを再取得
+                    let progress = progressViewState.getProgressFor(table: table)
+                    let (title, subtitle, color) = progressViewState.getDisplayDataFor(table: table)
+                    
+                    // ヘッダー
+                    VStack {
                     ZStack {
                         Circle()
                             .fill(color.opacity(0.2))
@@ -238,8 +249,8 @@ private struct TableDetailView: View {
                 }
                 
                 // 統計情報
-                if let progress = progress {
-                    VStack(spacing: 16) {
+                VStack(spacing: 16) {
+                    if let progress = progress {
                         StatisticRowView(
                             icon: "checkmark.circle.fill",
                             title: "せいかいりつ",
@@ -262,15 +273,23 @@ private struct TableDetailView: View {
                                 color: color
                             )
                         }
+                    } else {
+                        // データがない場合の表示
+                        Text("まだこの段の問題を\nといていません")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding()
                     }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
+                .padding()
+                .background(Color(.systemGray6))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
                 
-                Spacer()
+                    Spacer()
+                }
+                .padding()
             }
-            .padding()
             .navigationTitle("\(table)のだん")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

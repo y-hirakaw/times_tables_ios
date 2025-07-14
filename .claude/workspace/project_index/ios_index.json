@@ -20,7 +20,13 @@
     "WeeklyTrendView",
     "WeeklyDifficultQuestionChart",
     "QuestionSummaryView",
-    "GraphTypeSelector"
+    "GraphTypeSelector",
+    "MultiplicationMasterMapView",
+    "DailyChallengeView",
+    "ChildMessageView",
+    "ParentMessageView",
+    "StudyReportView",
+    "QuestionSolvingView"
   ],
   "models": [
     "DifficultQuestion",
@@ -28,11 +34,17 @@
     "PointHistory",
     "PointSpending",
     "AnswerTimeRecord",
-    "MultiplicationQuestion"
+    "MultiplicationQuestion",
+    "DailyChallenge",
+    "MasteryProgress",
+    "Message",
+    "Achievement"
   ],
   "viewStates": [
     "MultiplicationViewState",
-    "MultiplicationTableStatsViewState"
+    "MultiplicationTableStatsViewState",
+    "ProgressVisualizationViewState",
+    "CommunicationViewState"
   ],
   "navigation": {
     "root": "TabView",
@@ -51,7 +63,11 @@
     "Sound feedback for correct/incorrect answers",
     "Weekly trend analysis and charts",
     "Confetti animation for achievements",
-    "Japanese and English localization"
+    "Japanese and English localization",
+    "Progress visualization (九九マスターマップ) with mastery levels",
+    "Daily challenges with streak tracking",
+    "Parent-child communication (text/voice messages)",
+    "Achievement system and sharing"
   ],
   "persistence": "SwiftData",
   "architecture": "SVVS"

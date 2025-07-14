@@ -59,6 +59,25 @@ class ProgressVisualizationViewState {
             // 習熟度進捗を更新
             masteryProgress = MasteryProgress.getAllProgress(context: dataStore.context)
             
+            // データが不足している場合は、1-9の段すべてのデータを確保
+            if masteryProgress.count < 9 {
+                var progressDict: [Int: MasteryProgress] = [:]
+                for progress in masteryProgress {
+                    progressDict[progress.multiplicationTable] = progress
+                }
+                
+                // 不足している段のダミーデータを作成（表示用）
+                for table in 1...9 {
+                    if progressDict[table] == nil {
+                        let dummyProgress = MasteryProgress(multiplicationTable: table)
+                        masteryProgress.append(dummyProgress)
+                    }
+                }
+                
+                // 段番号順にソート
+                masteryProgress.sort { $0.multiplicationTable < $1.multiplicationTable }
+            }
+            
             // 今日のチャレンジを取得
             todayChallenge = DailyChallenge.getTodaysChallenge(context: dataStore.context)
             
