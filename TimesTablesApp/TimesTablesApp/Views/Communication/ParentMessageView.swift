@@ -14,7 +14,6 @@ struct ParentMessageView: View {
     @State private var communicationViewState = CommunicationViewState()
     @State private var messageText = ""
     @State private var showingTemplates = false
-    @State private var isRecording = false
     
     var body: some View {
         NavigationView {
@@ -102,32 +101,6 @@ struct ParentMessageView: View {
                 .disabled(messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
             
-            // 音声録音・クイックアクション
-            HStack {
-                // 音声録音ボタン
-                Button(action: toggleRecording) {
-                    HStack {
-                        Image(systemName: isRecording ? "stop.circle.fill" : "mic.circle.fill")
-                        Text(isRecording ? NSLocalizedString("録音停止", comment: "Stop Recording") : NSLocalizedString("音声録音", comment: "Voice Recording"))
-                    }
-                    .font(.subheadline)
-                    .foregroundColor(isRecording ? .red : .blue)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(Color(.systemGray6))
-                    .clipShape(Capsule())
-                }
-                
-                Spacer()
-                
-                // 録音時間表示
-                if isRecording {
-                    Text(String(format: "%.1fs", communicationViewState.recordingDuration))
-                        .font(.subheadline)
-                        .foregroundColor(.red)
-                        .fontWeight(.medium)
-                }
-            }
         }
         .padding()
         .background(Color(.systemGray6))
@@ -168,15 +141,6 @@ struct ParentMessageView: View {
         messageText = ""
     }
     
-    private func toggleRecording() {
-        if isRecording {
-            communicationViewState.stopRecording()
-            isRecording = false
-        } else {
-            communicationViewState.startRecording()
-            isRecording = true
-        }
-    }
 }
 
 /// メッセージバブルビュー
@@ -211,19 +175,6 @@ private struct MessageBubbleView: View {
                         .font(.subheadline)
                         .foregroundColor(isFromParent ? .white : .primary)
                     
-                    // 音声再生ボタン
-                    if message.messageType == .audio {
-                        Button(action: {
-                            communicationViewState.playAudio(from: message)
-                        }) {
-                            HStack {
-                                Image(systemName: "play.circle.fill")
-                                Text(NSLocalizedString("再生", comment: "Play"))
-                            }
-                            .font(.caption)
-                            .foregroundColor(isFromParent ? .white.opacity(0.8) : .blue)
-                        }
-                    }
                     
                     // 学習データ表示
                     if let sessionData = message.sessionData {
@@ -278,8 +229,6 @@ private struct MessageBubbleView: View {
         switch type {
         case .text:
             return "message"
-        case .audio:
-            return "mic.fill"
         case .studyReport:
             return "chart.bar.fill"
         case .achievement:

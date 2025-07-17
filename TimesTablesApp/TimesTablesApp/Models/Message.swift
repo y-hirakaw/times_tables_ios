@@ -26,7 +26,6 @@ enum MessageSender: String, CaseIterable, Codable {
 /// メッセージのタイプを示す列挙型
 enum MessageType: String, CaseIterable, Codable {
     case text = "text"                    // テキストメッセージ
-    case audio = "audio"                  // 音声メッセージ
     case studyReport = "study_report"     // 学習報告
     case achievement = "achievement"      // 達成報告
     
@@ -34,8 +33,6 @@ enum MessageType: String, CaseIterable, Codable {
         switch self {
         case .text:
             return "メッセージ"
-        case .audio:
-            return "おんせい"
         case .studyReport:
             return "がんばりほうこく"
         case .achievement:
@@ -59,8 +56,6 @@ class Message {
     /// メッセージの内容（テキスト）
     var content: String
     
-    /// 音声ファイルのパス（音声メッセージの場合）
-    var audioFilePath: String?
     
     /// メッセージ送信日時
     var timestamp: Date
@@ -89,7 +84,6 @@ class Message {
         sender: MessageSender,
         messageType: MessageType,
         content: String,
-        audioFilePath: String? = nil,
         achievementId: UUID? = nil,
         sessionData: StudySessionData? = nil
     ) {
@@ -97,7 +91,6 @@ class Message {
         self.sender = sender
         self.messageType = messageType
         self.content = content
-        self.audioFilePath = audioFilePath
         self.timestamp = Date()
         self.isRead = false
         self.achievementId = achievementId
@@ -235,14 +228,12 @@ extension Message {
     /// 親からの励ましメッセージを作成
     static func createParentMessage(
         content: String,
-        audioFilePath: String? = nil,
         context: ModelContext
     ) -> Message {
         let message = Message(
             sender: .parent,
-            messageType: audioFilePath != nil ? .audio : .text,
-            content: content,
-            audioFilePath: audioFilePath
+            messageType: .text,
+            content: content
         )
         
         context.insert(message)

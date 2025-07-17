@@ -746,6 +746,7 @@
       }
     },
     "きく" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1087,6 +1088,7 @@
       }
     },
     "ていし" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1916,6 +1918,7 @@
     },
     "再生" : {
       "comment" : "Play",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2213,17 +2216,6 @@
         }
       }
     },
-    "録音停止" : {
-      "comment" : "Stop Recording",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stop Recording"
-          }
-        }
-      }
-    },
     "閉じる" : {
       "comment" : "Close",
       "localizations" : {
@@ -2242,17 +2234,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mistakes:"
-          }
-        }
-      }
-    },
-    "音声録音" : {
-      "comment" : "Voice Recording",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Voice Recording"
           }
         }
       }

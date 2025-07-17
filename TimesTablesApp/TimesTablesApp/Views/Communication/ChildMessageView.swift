@@ -228,23 +228,6 @@ private struct ChildMessageBubbleView: View {
                         .font(.subheadline)
                         .foregroundColor(.primary)
                     
-                    // 音声再生ボタン
-                    if message.messageType == .audio {
-                        Button(action: {
-                            communicationViewState.playAudio(from: message)
-                        }) {
-                            HStack {
-                                Image(systemName: communicationViewState.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                                Text(communicationViewState.isPlaying ? "ていし" : "きく")
-                            }
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(Color.blue.opacity(0.1))
-                            .clipShape(Capsule())
-                        }
-                    }
                 }
                 
                 Spacer()
@@ -269,8 +252,6 @@ private struct ChildMessageBubbleView: View {
         switch type {
         case .text:
             return "message"
-        case .audio:
-            return "speaker.wave.2.fill"
         case .studyReport:
             return "chart.bar.fill"
         case .achievement:
