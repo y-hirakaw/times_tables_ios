@@ -133,6 +133,9 @@ struct MultiplicationView: View {
         .onAppear {
             // レベルシステムをviewStateに設定
             viewState.setLevelSystem(levelSystem)
+            
+            // レベルシステムの初期データを取得
+            levelSystem.fetchUserLevel()
         }
     }
     

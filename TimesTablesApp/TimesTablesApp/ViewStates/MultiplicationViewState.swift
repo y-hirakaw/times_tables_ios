@@ -134,8 +134,17 @@ final class MultiplicationViewState: ObservableObject {
         if userPoints.isEmpty {
             ensureUserPointsExists()
         }
-        if let points = userPoints.first?.availablePoints {
-            return points
+        
+        // 最新のデータを取得
+        guard let modelContext = modelContext else { return 0 }
+        let descriptor = FetchDescriptor<UserPoints>()
+        do {
+            let fetchedPoints = try modelContext.fetch(descriptor)
+            if let points = fetchedPoints.first {
+                return points.availablePoints
+            }
+        } catch {
+            print("ポイント取得エラー: \(error)")
         }
         return 0
     }
@@ -780,5 +789,11 @@ final class MultiplicationViewState: ObservableObject {
         
         points.addPoints(amount, context: modelContext)
         try? modelContext?.save()
+        
+        // ポイント更新後にデータを再読み込み
+        refreshData()
+        
+        // UIに更新を通知
+        objectWillChange.send()
     }
 }
