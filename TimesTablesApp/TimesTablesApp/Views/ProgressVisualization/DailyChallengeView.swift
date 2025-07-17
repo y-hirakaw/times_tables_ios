@@ -22,7 +22,7 @@ struct DailyChallengeView: View {
                     .foregroundColor(.blue)
                     .font(.headline)
                 
-                Text("きょうのチャレンジ")
+                Text(NSLocalizedString("daily_challenge_title", comment: "きょうのチャレンジ"))
                     .font(.subheadline)
                     .fontWeight(.bold)
                 
@@ -46,19 +46,19 @@ struct DailyChallengeView: View {
             if let challenge = progressViewState.todayChallenge {
                 // コンパクトプログレスバー
                 VStack(spacing: 6) {
-                    ProgressView(value: Double(challenge.completedProblems), total: Double(challenge.targetProblems))
+                    ProgressView(value: challenge.progress)
                         .progressViewStyle(LinearProgressViewStyle(tint: challenge.isCompleted ? .green : .blue))
                         .frame(height: 6)
                     
                     // コンパクトステータスメッセージ
                     if challenge.isCompleted {
-                        Text("きょうのもくひょう たっせい！")
+                        Text(NSLocalizedString("daily_challenge_completed", comment: "きょうのもくひょう たっせい！"))
                             .font(.caption)
                             .foregroundColor(.green)
                             .fontWeight(.medium)
                     } else {
                         let remaining = challenge.targetProblems - challenge.completedProblems
-                        Text("あと \(remaining)もん がんばろう！")
+                        Text(String(format: NSLocalizedString("daily_challenge_remaining", comment: "あと %ldもん がんばろう！"), remaining))
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -83,10 +83,10 @@ struct DailyChallengeView: View {
                 showCelebration = true
             }
         }
-        .alert("おめでとう！", isPresented: $showCelebration) {
-            Button("ありがとう！") { }
+        .alert(NSLocalizedString("daily_challenge_congratulations", comment: "おめでとう！"), isPresented: $showCelebration) {
+            Button(NSLocalizedString("daily_challenge_thanks", comment: "ありがとう！")) { }
         } message: {
-            Text("きょうのチャレンジをたっせいしました！\nすばらしいです！")
+            Text(NSLocalizedString("daily_challenge_completed_message", comment: "きょうのチャレンジをたっせいしました！\nすばらしいです！"))
         }
     }
 }
@@ -101,7 +101,7 @@ private struct StreakDisplayView: View {
                 .foregroundColor(.orange)
                 .font(.title3)
             
-            Text("れんぞく \(streak)にち")
+            Text(String(format: NSLocalizedString("daily_challenge_streak", comment: "れんぞく %ldにち"), streak))
                 .font(.subheadline)
                 .fontWeight(.medium)
             
@@ -132,7 +132,7 @@ private struct WeeklyHistoryView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("さいきんの がんばり")
+            Text(NSLocalizedString("daily_challenge_recent_efforts", comment: "さいきんの がんばり"))
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .foregroundColor(.secondary)

@@ -32,6 +32,12 @@ class DailyChallenge {
     /// チャレンジ作成日時
     var createdAt: Date
     
+    /// プログレス率（0.0〜1.0）
+    var progress: Double {
+        guard targetProblems > 0 else { return 0.0 }
+        return min(1.0, max(0.0, Double(completedProblems) / Double(targetProblems)))
+    }
+    
     init(date: Date, targetProblems: Int, completedProblems: Int = 0, streakCount: Int = 0) {
         self.date = Calendar.current.startOfDay(for: date)
         self.targetProblems = targetProblems

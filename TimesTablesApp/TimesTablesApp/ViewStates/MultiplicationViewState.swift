@@ -40,6 +40,14 @@ final class MultiplicationViewState: ObservableObject {
     // 進捗可視化システムとの連携
     private var progressViewState: ProgressVisualizationViewState?
     
+    // レベルシステムとの連携
+    private var levelSystem: LevelSystemViewState?
+    
+    // レベルシステムを設定
+    func setLevelSystem(_ levelSystem: LevelSystemViewState) {
+        self.levelSystem = levelSystem
+    }
+    
     init() {
         // 初期化時はモデルコンテキストなしで開始
         // updateModelContext で後から設定される
@@ -372,6 +380,9 @@ final class MultiplicationViewState: ObservableObject {
             
             // ポイント追加
             addPoint(amount: pointsToAdd, reason: "問題正解")
+            
+            // レベルシステムの更新
+            levelSystem?.updateLevelWithPoints()
             
             // 解答時間のフィードバック
             let timeMessage = String(format: "%.1f", answerTime)

@@ -84,6 +84,16 @@
         }
       }
     },
+    "%lld / %lld" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld / %2$lld"
+          }
+        }
+      }
+    },
     "%lld × %lld" : {
       "localizations" : {
         "en" : {
@@ -147,6 +157,9 @@
           }
         }
       }
+    },
+    "%lld EXP" : {
+
     },
     "%lld/%lld" : {
       "localizations" : {
@@ -351,6 +364,142 @@
         }
       }
     },
+    "daily_challenge_completed" : {
+      "comment" : "きょうのもくひょう たっせい！",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today's goal achieved!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "きょうのもくひょう たっせい！"
+          }
+        }
+      }
+    },
+    "daily_challenge_completed_message" : {
+      "comment" : "きょうのチャレンジをたっせいしました！\nすばらしいです！",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You completed today's challenge!\nWonderful!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "きょうのチャレンジをたっせいしました！\nすばらしいです！"
+          }
+        }
+      }
+    },
+    "daily_challenge_congratulations" : {
+      "comment" : "おめでとう！",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Congratulations!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "おめでとう！"
+          }
+        }
+      }
+    },
+    "daily_challenge_recent_efforts" : {
+      "comment" : "さいきんの がんばり",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Efforts"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "さいきんの がんばり"
+          }
+        }
+      }
+    },
+    "daily_challenge_remaining" : {
+      "comment" : "あと %ldもん がんばろう！",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ld more problems to go!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あと %ldもん がんばろう！"
+          }
+        }
+      }
+    },
+    "daily_challenge_streak" : {
+      "comment" : "れんぞく %ldにち",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ld days in a row"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "れんぞく %ldにち"
+          }
+        }
+      }
+    },
+    "daily_challenge_thanks" : {
+      "comment" : "ありがとう！",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thank you!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ありがとう！"
+          }
+        }
+      }
+    },
+    "daily_challenge_title" : {
+      "comment" : "きょうのチャレンジ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today's Challenge"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "きょうのチャレンジ"
+          }
+        }
+      }
+    },
     "Incorrect: %lld" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -381,6 +530,291 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不正解。もう一度挑戦してください。"
+          }
+        }
+      }
+    },
+    "level_current_level" : {
+      "comment" : "現在のレベル",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Level"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在のレベル"
+          }
+        }
+      }
+    },
+    "level_current_title" : {
+      "comment" : "現在の称号",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Title"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の称号"
+          }
+        }
+      }
+    },
+    "level_experience" : {
+      "comment" : "経験値",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experience"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "経験値"
+          }
+        }
+      }
+    },
+    "level_experience_progress" : {
+      "comment" : "経験値",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experience"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "経験値"
+          }
+        }
+      }
+    },
+    "level_next_exp" : {
+      "comment" : "あと%lldでレベルアップ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld more to level up"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あと%lldでレベルアップ"
+          }
+        }
+      }
+    },
+    "level_next_exp_detail" : {
+      "comment" : "次のレベルまであと%lldポイント",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld points to next level"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次のレベルまであと%lldポイント"
+          }
+        }
+      }
+    },
+    "level_title_apprentice" : {
+      "comment" : "九九れんしゅうせい",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apprentice"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九れんしゅうせい"
+          }
+        }
+      }
+    },
+    "level_title_beginner" : {
+      "comment" : "九九みならい",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beginner"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九みならい"
+          }
+        }
+      }
+    },
+    "level_title_expert" : {
+      "comment" : "九九めいじん",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expert"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九めいじん"
+          }
+        }
+      }
+    },
+    "level_title_grandmaster" : {
+      "comment" : "九九グランドマスター",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grandmaster"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九グランドマスター"
+          }
+        }
+      }
+    },
+    "level_title_legend" : {
+      "comment" : "九九レジェンド",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legend"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九レジェンド"
+          }
+        }
+      }
+    },
+    "level_title_master" : {
+      "comment" : "九九マスター",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Master"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九マスター"
+          }
+        }
+      }
+    },
+    "level_title_practitioner" : {
+      "comment" : "九九じゅくれんしゃ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Practitioner"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九じゅくれんしゃ"
+          }
+        }
+      }
+    },
+    "level_up_continue" : {
+      "comment" : "続ける",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "続ける"
+          }
+        }
+      }
+    },
+    "level_up_history" : {
+      "comment" : "レベルアップ履歴",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level Up History"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レベルアップ履歴"
+          }
+        }
+      }
+    },
+    "level_up_message" : {
+      "comment" : "レベルアップ！",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level Up!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レベルアップ！"
+          }
+        }
+      }
+    },
+    "Lv.%lld" : {
+
+    },
+    "Lv.%lld → Lv.%lld" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lv.%1$lld → Lv.%2$lld"
           }
         }
       }
@@ -610,6 +1044,7 @@
       }
     },
     "ありがとう！" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -776,17 +1211,8 @@
         }
       }
     },
-    "きょうのチャレンジ" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today's Challenge"
-          }
-        }
-      }
-    },
     "きょうのチャレンジをたっせいしました！\nすばらしいです！" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -797,6 +1223,7 @@
       }
     },
     "きょうのもくひょう たっせい！" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -858,6 +1285,7 @@
       }
     },
     "さいきんの がんばり" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -5,6 +5,7 @@ import AVFoundation
 /// メインの九九チャレンジ画面を表示するView
 struct MultiplicationView: View {
     @StateObject private var viewState = MultiplicationViewState()
+    @StateObject private var levelSystem = LevelSystemViewState()
     @Environment(\.dataStore) private var dataStore
     @Environment(\.soundManager) private var soundManager
     @State private var showingPointsHistory = false
@@ -32,6 +33,7 @@ struct MultiplicationView: View {
                     VStack(spacing: Spacing.spacing16) {
                         // ポイントとメイン操作ボタンを最上部に配置
                         VStack(spacing: Spacing.spacing12) {
+                            // ポイント表示
                             pointsCard
                             
                             if viewState.question != nil {
@@ -114,10 +116,32 @@ struct MultiplicationView: View {
                 ChildMessageView()
             }
         }
+        .overlay(
+            // レベルアップアニメーション
+            Group {
+                if levelSystem.isLevelingUp, let levelUpInfo = levelSystem.levelUpInfo {
+                    LevelUpAnimationView(
+                        levelUpInfo: levelUpInfo,
+                        isPresented: Binding<Bool>(
+                            get: { levelSystem.isLevelingUp },
+                            set: { levelSystem.isLevelingUp = $0 }
+                        )
+                    )
+                }
+            }
+        )
+        .onAppear {
+            // レベルシステムをviewStateに設定
+            viewState.setLevelSystem(levelSystem)
+        }
     }
     
     private var compactProgressSection: some View {
         VStack(spacing: Spacing.spacing12) {
+            // レベル表示
+            LevelDisplayView()
+                .cardStyle()
+            
             // デイリーチャレンジをコンパクト表示
             DailyChallengeView()
                 .cardStyle()
@@ -132,7 +156,7 @@ struct MultiplicationView: View {
     private var compactStartPrompt: some View {
         HStack {
             Image(systemName: "lightbulb.fill")
-                .font(.system(size: 24))
+                .font(.system(size: 20))
                 .foregroundColor(.themeGold)
             
             Text("ボタンをおして もんだいをやろう！")
@@ -140,7 +164,7 @@ struct MultiplicationView: View {
                 .foregroundColor(.themeGray800)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, Spacing.spacing12)
+        .padding(.vertical, Spacing.spacing8)
         .cardStyle()
     }
 
@@ -158,7 +182,8 @@ struct MultiplicationView: View {
                     .foregroundColor(.themeGray800)
             }
             .frame(maxWidth: .infinity)
-            .padding(Spacing.spacing16)
+            .padding(.vertical, Spacing.spacing8)
+            .padding(.horizontal, Spacing.spacing16)
             .cardStyle()
         }
         .sheet(isPresented: $showingPointsHistory) {

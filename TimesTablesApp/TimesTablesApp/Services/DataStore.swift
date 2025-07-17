@@ -19,7 +19,8 @@ final class DataStore: ObservableObject {
             DailyChallenge.self,
             MasteryProgress.self,
             Message.self,
-            Achievement.self
+            Achievement.self,
+            UserLevel.self
         ])
         
         let configuration = ModelConfiguration(
@@ -55,6 +56,9 @@ final class DataStore: ObservableObject {
         
         // 今日のデイリーチャレンジを確保
         _ = DailyChallenge.getTodaysChallenge(context: context)
+        
+        // ユーザーレベルの初期化
+        ensureUserLevelData()
     }
     
     /// 習熟度進捗データの初期化と既存データからの再計算
@@ -68,6 +72,31 @@ final class DataStore: ObservableObject {
             }
         } catch {
             print("習熟度進捗データの初期化に失敗: \(error)")
+        }
+    }
+    
+    /// ユーザーレベルデータの初期化
+    private func ensureUserLevelData() {
+        let levelDescriptor = FetchDescriptor<UserLevel>()
+        do {
+            let existingLevel = try context.fetch(levelDescriptor)
+            if existingLevel.isEmpty {
+                // 既存のポイントデータから初期レベルを計算
+                let pointsDescriptor = FetchDescriptor<UserPoints>()
+                if let userPoints = try context.fetch(pointsDescriptor).first {
+                    let userLevel = UserLevel()
+                    _ = userLevel.updateExperience(userPoints.totalEarnedPoints)
+                    context.insert(userLevel)
+                    try context.save()
+                } else {
+                    // ポイントデータがない場合は新規作成
+                    let userLevel = UserLevel()
+                    context.insert(userLevel)
+                    try context.save()
+                }
+            }
+        } catch {
+            print("ユーザーレベルデータの初期化に失敗: \(error)")
         }
     }
     
