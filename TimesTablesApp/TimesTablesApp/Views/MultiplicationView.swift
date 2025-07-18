@@ -6,9 +6,9 @@ import AVFoundation
 struct MultiplicationView: View {
     @StateObject private var viewState = MultiplicationViewState()
     @StateObject private var levelSystem = LevelSystemViewState()
-    @StateObject private var badgeSystem = BadgeSystemViewState()
     @Environment(\.dataStore) private var dataStore
     @Environment(\.soundManager) private var soundManager
+    @StateObject private var badgeSystem: BadgeSystemViewState = BadgeSystemViewState(dataStore: DataStore.shared)
     @State private var showingPointsHistory = false
     @State private var showingQuestionSolving = false
     @State private var showingChildMessages = false
@@ -138,7 +138,7 @@ struct MultiplicationView: View {
             }
             .sheet(isPresented: $showingBadgeCollection) {
                 NavigationView {
-                    BadgeCollectionView()
+                    BadgeCollectionView(badgeSystem: badgeSystem)
                 }
             }
         }

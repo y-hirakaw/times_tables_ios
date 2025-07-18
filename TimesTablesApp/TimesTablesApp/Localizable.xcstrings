@@ -277,12 +277,6 @@
         }
       }
     },
-    "correct_basic_points" : {
-      "comment" : "正解！ +%dポイント (時間: %@秒)"
-    },
-    "correct_bonus_points" : {
-      "comment" : "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)"
-    },
     "Correct!" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -299,30 +293,6 @@
           }
         }
       }
-    },
-    "daily_challenge_completed" : {
-      "comment" : "きょうのもくひょう たっせい！"
-    },
-    "daily_challenge_completed_message" : {
-      "comment" : "きょうのチャレンジをたっせいしました！\nすばらしいです！"
-    },
-    "daily_challenge_congratulations" : {
-      "comment" : "おめでとう！"
-    },
-    "daily_challenge_recent_efforts" : {
-      "comment" : "さいきんの がんばり"
-    },
-    "daily_challenge_remaining" : {
-      "comment" : "あと %ldもん がんばろう！"
-    },
-    "daily_challenge_streak" : {
-      "comment" : "れんぞく %ldにち"
-    },
-    "daily_challenge_thanks" : {
-      "comment" : "ありがとう！"
-    },
-    "daily_challenge_title" : {
-      "comment" : "きょうのチャレンジ"
     },
     "Incorrect: %lld" : {
       "extractionState" : "stale",
@@ -357,33 +327,6 @@
           }
         }
       }
-    },
-    "level_current_level" : {
-      "comment" : "現在のレベル"
-    },
-    "level_current_title" : {
-      "comment" : "現在の称号"
-    },
-    "level_experience" : {
-      "comment" : "経験値"
-    },
-    "level_experience_progress" : {
-      "comment" : "経験値"
-    },
-    "level_next_exp" : {
-      "comment" : "あと%lldでレベルアップ"
-    },
-    "level_next_exp_detail" : {
-      "comment" : "次のレベルまであと%lldポイント"
-    },
-    "level_up_continue" : {
-      "comment" : "続ける"
-    },
-    "level_up_history" : {
-      "comment" : "レベルアップ履歴"
-    },
-    "level_up_message" : {
-      "comment" : "レベルアップ！"
     },
     "Lv.%lld" : {
 
@@ -529,9 +472,6 @@
     "あと" : {
       "comment" : "remaining"
     },
-    "あと %lldもん がんばろう！" : {
-      "comment" : "More problems to go"
-    },
     "あなたのにがてな もんだい:" : {
 
     },
@@ -598,12 +538,6 @@
     "がんばったね！" : {
       "comment" : "You did great!"
     },
-    "がんばってる" : {
-      "comment" : "Intermediate level"
-    },
-    "がんばってる！" : {
-      "comment" : "Intermediate level display"
-    },
     "がんばりレポート" : {
 
     },
@@ -646,9 +580,6 @@
         }
       }
     },
-    "きょうも がんばろう！" : {
-      "comment" : "Let's do our best today"
-    },
     "グラフの せつめい" : {
 
     },
@@ -674,9 +605,6 @@
     },
     "すごいじゃない！" : {
       "comment" : "That's amazing!"
-    },
-    "すべての だん を マスター！ すごいね！" : {
-      "comment" : "All tables mastered message"
     },
     "せいかい" : {
 
@@ -764,6 +692,9 @@
           }
         }
       }
+    },
+    "テストバッジ" : {
+
     },
     "テンプレート" : {
       "comment" : "Template"
@@ -927,12 +858,6 @@
     "まいにち べんきょうして えらいね！" : {
       "comment" : "Great job studying every day!"
     },
-    "マスター" : {
-      "comment" : "Master level"
-    },
-    "マスター✨" : {
-      "comment" : "Master level display"
-    },
     "マスターまで" : {
       "comment" : "Until master"
     },
@@ -986,15 +911,6 @@
     "メッセージを入力..." : {
       "comment" : "Enter message..."
     },
-    "もうすこし" : {
-      "comment" : "Advanced level"
-    },
-    "もうすこし！" : {
-      "comment" : "Advanced level display"
-    },
-    "もうすこしで かんぺき だね！" : {
-      "comment" : "Almost perfect message"
-    },
     "もん" : {
       "comment" : "problems unit"
     },
@@ -1046,12 +962,6 @@
           }
         }
       }
-    },
-    "れんしゅうちゅう" : {
-      "comment" : "Beginner level\nBeginner level display"
-    },
-    "れんぞく %lldにち" : {
-      "comment" : "Consecutive days streak"
     },
     "不正解！正解は %lld です。もう一度チャレンジしてね。" : {
       "comment" : "Incorrect answer message"

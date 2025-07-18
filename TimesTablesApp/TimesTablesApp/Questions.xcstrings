@@ -20,7 +20,6 @@
     },
     "correct_basic_points" : {
       "comment" : "正解！ +%dポイント (時間: %@秒)",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -38,7 +37,6 @@
     },
     "correct_bonus_points" : {
       "comment" : "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -68,7 +66,6 @@
     },
     "あと %lldもん がんばろう！" : {
       "comment" : "More problems to go",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -136,7 +133,6 @@
     },
     "すべての だん を マスター！ すごいね！" : {
       "comment" : "All tables mastered message",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -492,7 +488,6 @@
     },
     "もうすこしで かんぺき だね！" : {
       "comment" : "Almost perfect message",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

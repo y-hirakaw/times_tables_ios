@@ -3,7 +3,8 @@ import SwiftData
 import SwiftUI
 
 /// バッジの種類を定義する列挙型
-enum BadgeType: String, Codable, CaseIterable {
+enum BadgeType: String, Codable, CaseIterable, Identifiable {
+    var id: String { rawValue }
     // 連続正解系
     case streak10 = "streak_10"
     case streak20 = "streak_20"

@@ -3,7 +3,6 @@
   "strings" : {
     "daily_challenge_completed" : {
       "comment" : "きょうのもくひょう たっせい！",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -21,7 +20,6 @@
     },
     "daily_challenge_completed_message" : {
       "comment" : "きょうのチャレンジをたっせいしました！\nすばらしいです！",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -39,7 +37,6 @@
     },
     "daily_challenge_congratulations" : {
       "comment" : "おめでとう！",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -57,7 +54,6 @@
     },
     "daily_challenge_recent_efforts" : {
       "comment" : "さいきんの がんばり",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -75,7 +71,6 @@
     },
     "daily_challenge_remaining" : {
       "comment" : "あと %ldもん がんばろう！",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -93,7 +88,6 @@
     },
     "daily_challenge_streak" : {
       "comment" : "れんぞく %ldにち",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -111,7 +105,6 @@
     },
     "daily_challenge_thanks" : {
       "comment" : "ありがとう！",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -129,7 +122,6 @@
     },
     "daily_challenge_title" : {
       "comment" : "きょうのチャレンジ",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -147,7 +139,6 @@
     },
     "level_current_level" : {
       "comment" : "現在のレベル",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -165,7 +156,6 @@
     },
     "level_current_title" : {
       "comment" : "現在の称号",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -183,7 +173,6 @@
     },
     "level_experience" : {
       "comment" : "経験値",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -201,7 +190,6 @@
     },
     "level_experience_progress" : {
       "comment" : "経験値",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -219,7 +207,6 @@
     },
     "level_next_exp" : {
       "comment" : "あと%lldでレベルアップ",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -237,7 +224,6 @@
     },
     "level_next_exp_detail" : {
       "comment" : "次のレベルまであと%lldポイント",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -381,7 +367,6 @@
     },
     "level_up_continue" : {
       "comment" : "続ける",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -399,7 +384,6 @@
     },
     "level_up_history" : {
       "comment" : "レベルアップ履歴",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -417,7 +401,6 @@
     },
     "level_up_message" : {
       "comment" : "レベルアップ！",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -435,7 +418,6 @@
     },
     "がんばってる" : {
       "comment" : "Intermediate level",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -447,7 +429,6 @@
     },
     "がんばってる！" : {
       "comment" : "Intermediate level display",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -457,9 +438,11 @@
         }
       }
     },
+    "きょうも がんばろう！" : {
+      "comment" : "Let's do our best today"
+    },
     "マスター" : {
       "comment" : "Master level",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -471,7 +454,6 @@
     },
     "マスター✨" : {
       "comment" : "Master level display",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -483,7 +465,6 @@
     },
     "もうすこし" : {
       "comment" : "Advanced level",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -495,7 +476,6 @@
     },
     "もうすこし！" : {
       "comment" : "Advanced level display",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -507,7 +487,6 @@
     },
     "れんしゅうちゅう" : {
       "comment" : "Beginner level\nBeginner level display",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -519,7 +498,6 @@
     },
     "れんぞく %lldにち" : {
       "comment" : "Consecutive days streak",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

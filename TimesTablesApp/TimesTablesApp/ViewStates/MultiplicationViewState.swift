@@ -412,9 +412,9 @@ final class MultiplicationViewState: ObservableObject {
             // 解答時間のフィードバック
             let timeMessage = String(format: "%.1f", answerTime)
             if isDifficult {
-                resultMessage = String(format: NSLocalizedString("correct_bonus_points", comment: "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)"), pointsToAdd, timeMessage)
+                resultMessage = String(format: NSLocalizedString("correct_bonus_points", tableName: "Questions", comment: "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)"), pointsToAdd, timeMessage)
             } else {
-                resultMessage = String(format: NSLocalizedString("correct_basic_points", comment: "正解！ +%dポイント (時間: %@秒)"), pointsToAdd, timeMessage)
+                resultMessage = String(format: NSLocalizedString("correct_basic_points", tableName: "Questions", comment: "正解！ +%dポイント (時間: %@秒)"), pointsToAdd, timeMessage)
             }
             
             // 正解時間を記録

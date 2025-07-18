@@ -20,7 +20,8 @@ final class DataStore: ObservableObject {
             MasteryProgress.self,
             Message.self,
             Achievement.self,
-            UserLevel.self
+            UserLevel.self,
+            UserBadge.self
         ])
         
         let configuration = ModelConfiguration(

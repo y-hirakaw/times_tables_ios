@@ -15,7 +15,7 @@ struct LevelSystemTests {
         #expect(userLevel.currentLevel == 1)
         #expect(userLevel.currentExperience == 0)
         #expect(userLevel.totalExperience == 0)
-        #expect(userLevel.currentTitle == NSLocalizedString("level_title_beginner", comment: "九九みならい"))
+        #expect(userLevel.currentTitle == NSLocalizedString("level_title_beginner", tableName: "Gamification", comment: "九九みならい"))
         #expect(userLevel.levelUpHistory.isEmpty)
     }
     
@@ -100,13 +100,13 @@ struct LevelSystemTests {
         let userLevel = UserLevel()
         
         // 各レベルの称号を確認
-        #expect(userLevel.getTitleForLevel(1) == NSLocalizedString("level_title_beginner", comment: "九九みならい"))
-        #expect(userLevel.getTitleForLevel(6) == NSLocalizedString("level_title_apprentice", comment: "九九れんしゅうせい"))
-        #expect(userLevel.getTitleForLevel(11) == NSLocalizedString("level_title_practitioner", comment: "九九じゅくれんしゃ"))
-        #expect(userLevel.getTitleForLevel(21) == NSLocalizedString("level_title_expert", comment: "九九めいじん"))
-        #expect(userLevel.getTitleForLevel(31) == NSLocalizedString("level_title_master", comment: "九九マスター"))
-        #expect(userLevel.getTitleForLevel(41) == NSLocalizedString("level_title_grandmaster", comment: "九九グランドマスター"))
-        #expect(userLevel.getTitleForLevel(50) == NSLocalizedString("level_title_legend", comment: "九九レジェンド"))
+        #expect(userLevel.getTitleForLevel(1) == NSLocalizedString("level_title_beginner", tableName: "Gamification", comment: "九九みならい"))
+        #expect(userLevel.getTitleForLevel(6) == NSLocalizedString("level_title_apprentice", tableName: "Gamification", comment: "九九れんしゅうせい"))
+        #expect(userLevel.getTitleForLevel(11) == NSLocalizedString("level_title_practitioner", tableName: "Gamification", comment: "九九じゅくれんしゃ"))
+        #expect(userLevel.getTitleForLevel(21) == NSLocalizedString("level_title_expert", tableName: "Gamification", comment: "九九めいじん"))
+        #expect(userLevel.getTitleForLevel(31) == NSLocalizedString("level_title_master", tableName: "Gamification", comment: "九九マスター"))
+        #expect(userLevel.getTitleForLevel(41) == NSLocalizedString("level_title_grandmaster", tableName: "Gamification", comment: "九九グランドマスター"))
+        #expect(userLevel.getTitleForLevel(50) == NSLocalizedString("level_title_legend", tableName: "Gamification", comment: "九九レジェンド"))
     }
     
     /// レベル進捗計算をテスト
@@ -139,6 +139,6 @@ struct LevelSystemTests {
         #expect(levelSystem.currentLevelProgress <= 1.0)
         
         // 称号の確認
-        #expect(levelSystem.currentTitle == NSLocalizedString("level_title_beginner", comment: "九九みならい"))
+        #expect(levelSystem.currentTitle == NSLocalizedString("level_title_beginner", tableName: "Gamification", comment: "九九みならい"))
     }
 }

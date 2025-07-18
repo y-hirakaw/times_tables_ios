@@ -2,7 +2,7 @@ import SwiftUI
 
 /// バッジ一覧を表示するView
 struct BadgeCollectionView: View {
-    @StateObject private var badgeSystem = BadgeSystemViewState()
+    @ObservedObject var badgeSystem: BadgeSystemViewState
     @State private var selectedBadge: BadgeType?
     @State private var showingDetail = false
     
@@ -26,7 +26,9 @@ struct BadgeCollectionView: View {
                         )
                         .onTapGesture {
                             selectedBadge = badgeType
-                            showingDetail = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                                showingDetail = true
+                            }
                         }
                     }
                 }
@@ -37,13 +39,26 @@ struct BadgeCollectionView: View {
         .background(Color(.systemGroupedBackground))
         .navigationTitle("バッジコレクション")
         .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("テストバッジ") {
+                    badgeSystem.debugEarnTestBadge()
+                    // バッジ獲得後にリストを再読み込み
+                    badgeSystem.fetchEarnedBadges()
+                }
+                .font(.caption)
+            }
+        }
         .onAppear {
             badgeSystem.fetchEarnedBadges()
+            // 既読化は手動で行う（自動では行わない）
+            // badgeSystem.markBadgesAsRead()
         }
-        .sheet(isPresented: $showingDetail) {
-            if let badge = selectedBadge {
-                BadgeDetailView(badgeType: badge, isEarned: badgeSystem.earnedBadges.contains { $0.badgeType == badge.rawValue })
-            }
+        .sheet(item: Binding<BadgeType?>(
+            get: { showingDetail ? selectedBadge : nil },
+            set: { _ in showingDetail = false }
+        )) { badge in
+            BadgeDetailView(badgeType: badge, isEarned: badgeSystem.earnedBadges.contains { $0.badgeType == badge.rawValue })
         }
     }
     
@@ -272,7 +287,7 @@ struct BadgeNotificationView: View {
 struct BadgeDisplayView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BadgeCollectionView()
+            BadgeCollectionView(badgeSystem: BadgeSystemViewState())
         }
     }
 }

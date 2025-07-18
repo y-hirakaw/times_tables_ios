@@ -180,16 +180,16 @@ class ProgressVisualizationViewState {
         
         switch level {
         case .beginner:
-            subtitle = NSLocalizedString("れんしゅうちゅう", comment: "Beginner level display")
+            subtitle = NSLocalizedString("れんしゅうちゅう", tableName: "Gamification", comment: "Beginner level display")
             color = .red
         case .intermediate:
-            subtitle = NSLocalizedString("がんばってる！", comment: "Intermediate level display")
+            subtitle = NSLocalizedString("がんばってる！", tableName: "Gamification", comment: "Intermediate level display")
             color = .orange
         case .advanced:
-            subtitle = NSLocalizedString("もうすこし！", comment: "Advanced level display")
+            subtitle = NSLocalizedString("もうすこし！", tableName: "Gamification", comment: "Advanced level display")
             color = .blue
         case .master:
-            subtitle = NSLocalizedString("マスター✨", comment: "Master level display")
+            subtitle = NSLocalizedString("マスター✨", tableName: "Gamification", comment: "Master level display")
             color = .green
         }
         
@@ -199,15 +199,15 @@ class ProgressVisualizationViewState {
     /// 励ましメッセージを生成
     func getEncouragementMessage() -> String {
         if masterCount == 9 {
-            return NSLocalizedString("すべての だん を マスター！ すごいね！", comment: "All tables mastered message")
+            return NSLocalizedString("すべての だん を マスター！ すごいね！", tableName: "Questions", comment: "All tables mastered message")
         } else if masterCount >= 6 {
-            return NSLocalizedString("もうすこしで かんぺき だね！", comment: "Almost perfect message")
+            return NSLocalizedString("もうすこしで かんぺき だね！", tableName: "Questions", comment: "Almost perfect message")
         } else if currentStreak >= 3 {
-            return String(format: NSLocalizedString("れんぞく %lldにち", comment: "Consecutive days streak"), currentStreak) + NSLocalizedString(" がんばってるね！", comment: "Keep it up message")
+            return String(format: NSLocalizedString("れんぞく %lldにち", tableName: "Gamification", comment: "Consecutive days streak"), currentStreak) + NSLocalizedString(" がんばってるね！", comment: "Keep it up message")
         } else if let (table, problems) = getNextMasterCandidate() {
-            return String(format: NSLocalizedString("%lldのだん", comment: "Times table number"), table) + NSLocalizedString(" まで ", comment: " until ") + String(format: NSLocalizedString("あと %lldもん がんばろう！", comment: "More problems to go"), problems)
+            return String(format: NSLocalizedString("%lldのだん", comment: "Times table number"), table) + NSLocalizedString(" まで ", comment: " until ") + String(format: NSLocalizedString("あと %lldもん がんばろう！", tableName: "Questions", comment: "More problems to go"), problems)
         } else {
-            return NSLocalizedString("きょうも がんばろう！", comment: "Let's do our best today")
+            return NSLocalizedString("きょうも がんばろう！", tableName: "Gamification", comment: "Let's do our best today")
         }
     }
     

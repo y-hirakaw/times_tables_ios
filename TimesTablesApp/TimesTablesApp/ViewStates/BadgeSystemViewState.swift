@@ -14,8 +14,28 @@ class BadgeSystemViewState: ObservableObject {
     private var fastAnswerCount = 0
     private var superFastAnswerCount = 0
     
+    // 永続化用のキー
+    private let currentStreakKey = "BadgeSystem_CurrentStreak"
+    private let fastAnswerCountKey = "BadgeSystem_FastAnswerCount"
+    private let superFastAnswerCountKey = "BadgeSystem_SuperFastAnswerCount"
+    
     init(dataStore: DataStore? = nil) {
         self.dataStore = dataStore ?? DataStore.shared
+        loadPersistedData()
+    }
+    
+    /// 永続化されたデータを読み込む
+    private func loadPersistedData() {
+        currentStreak = UserDefaults.standard.integer(forKey: currentStreakKey)
+        fastAnswerCount = UserDefaults.standard.integer(forKey: fastAnswerCountKey)
+        superFastAnswerCount = UserDefaults.standard.integer(forKey: superFastAnswerCountKey)
+    }
+    
+    /// データを永続化する
+    private func persistData() {
+        UserDefaults.standard.set(currentStreak, forKey: currentStreakKey)
+        UserDefaults.standard.set(fastAnswerCount, forKey: fastAnswerCountKey)
+        UserDefaults.standard.set(superFastAnswerCount, forKey: superFastAnswerCountKey)
     }
     
     /// 獲得済みバッジを取得
@@ -32,7 +52,7 @@ class BadgeSystemViewState: ObservableObject {
     }
     
     /// バッジを獲得
-    private func earnBadge(_ type: BadgeType) {
+    func earnBadge(_ type: BadgeType) {
         // 既に獲得済みかチェック
         if earnedBadges.contains(where: { $0.badgeType == type.rawValue }) {
             return
@@ -85,15 +105,19 @@ class BadgeSystemViewState: ObservableObject {
         currentStreak += 1
         checkStreakBadges()
         
-        // 速度系カウント
+        // 速度系カウント（3秒以内）
         if answerTime <= 3.0 {
             fastAnswerCount += 1
             checkSpeedBadges()
         }
+        // 超高速（2秒以内）
         if answerTime <= 2.0 {
             superFastAnswerCount += 1
             checkLightningBadges()
         }
+        
+        // データを永続化
+        persistData()
         
         // 問題数達成チェック
         checkProblemCountBadges(totalProblems)
@@ -195,6 +219,7 @@ class BadgeSystemViewState: ObservableObject {
     /// 不正解時の処理
     func handleIncorrectAnswer() {
         currentStreak = 0
+        persistData()
     }
     
     /// 獲得済みバッジの数
@@ -211,5 +236,10 @@ class BadgeSystemViewState: ObservableObject {
     var progressPercentage: Double {
         guard totalBadgeCount > 0 else { return 0 }
         return Double(earnedBadgeCount) / Double(totalBadgeCount) * 100
+    }
+    
+    /// デバッグ用：テストバッジを強制的に獲得
+    func debugEarnTestBadge() {
+        earnBadge(.streak10)
     }
 }

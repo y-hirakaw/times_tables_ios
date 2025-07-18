@@ -33,7 +33,7 @@ struct LevelDisplayView: View {
             // 経験値バー
             VStack(spacing: 4) {
                 HStack {
-                    Text(NSLocalizedString("level_experience", comment: "経験値"))
+                    Text(NSLocalizedString("level_experience", tableName: "Gamification", comment: "経験値"))
                         .font(.system(size: 10))
                         .foregroundColor(.secondary)
                     
@@ -49,7 +49,7 @@ struct LevelDisplayView: View {
                     .accentColor(.blue)
                 
                 if levelSystem.experienceToNextLevel > 0 {
-                    Text(String(format: NSLocalizedString("level_next_exp", comment: "あと%lldでレベルアップ"), levelSystem.experienceToNextLevel))
+                    Text(String(format: NSLocalizedString("level_next_exp", tableName: "Gamification", comment: "あと%lldでレベルアップ"), levelSystem.experienceToNextLevel))
                         .font(.system(size: 10))
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -77,7 +77,7 @@ struct LevelDetailView: View {
             // ヘッダー
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(NSLocalizedString("level_current_level", comment: "現在のレベル"))
+                    Text(NSLocalizedString("level_current_level", tableName: "Gamification", comment: "現在のレベル"))
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -95,7 +95,7 @@ struct LevelDetailView: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text(NSLocalizedString("level_current_title", comment: "現在の称号"))
+                    Text(NSLocalizedString("level_current_title", tableName: "Gamification", comment: "現在の称号"))
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -109,7 +109,7 @@ struct LevelDetailView: View {
             // 経験値プログレス
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(NSLocalizedString("level_experience_progress", comment: "経験値"))
+                    Text(NSLocalizedString("level_experience_progress", tableName: "Gamification", comment: "経験値"))
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -125,7 +125,7 @@ struct LevelDetailView: View {
                     .accentColor(.blue)
                 
                 if levelSystem.experienceToNextLevel > 0 {
-                    Text(String(format: NSLocalizedString("level_next_exp_detail", comment: "次のレベルまであと%lldポイント"), levelSystem.experienceToNextLevel))
+                    Text(String(format: NSLocalizedString("level_next_exp_detail", tableName: "Gamification", comment: "次のレベルまであと%lldポイント"), levelSystem.experienceToNextLevel))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -134,7 +134,7 @@ struct LevelDetailView: View {
             // レベルアップ履歴
             if !levelSystem.levelUpHistory.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(NSLocalizedString("level_up_history", comment: "レベルアップ履歴"))
+                    Text(NSLocalizedString("level_up_history", tableName: "Gamification", comment: "レベルアップ履歴"))
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
@@ -195,7 +195,7 @@ struct LevelUpAnimationView: View {
                     .rotationEffect(.degrees(rotation))
                 
                 // レベルアップメッセージ
-                Text(NSLocalizedString("level_up_message", comment: "レベルアップ！"))
+                Text(NSLocalizedString("level_up_message", tableName: "Gamification", comment: "レベルアップ！"))
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -215,7 +215,7 @@ struct LevelUpAnimationView: View {
                 .opacity(opacity)
                 
                 // 閉じるボタン
-                Button(NSLocalizedString("level_up_continue", comment: "続ける")) {
+                Button(NSLocalizedString("level_up_continue", tableName: "Gamification", comment: "続ける")) {
                     isPresented = false
                 }
                 .padding(.horizontal, 24)

@@ -19,13 +19,13 @@ enum MasteryLevel: String, CaseIterable, Codable {
     var displayName: String {
         switch self {
         case .beginner:
-            return NSLocalizedString("れんしゅうちゅう", comment: "Beginner level")
+            return NSLocalizedString("れんしゅうちゅう", tableName: "Gamification", comment: "Beginner level")
         case .intermediate:
-            return NSLocalizedString("がんばってる", comment: "Intermediate level")
+            return NSLocalizedString("がんばってる", tableName: "Gamification", comment: "Intermediate level")
         case .advanced:
-            return NSLocalizedString("もうすこし", comment: "Advanced level")
+            return NSLocalizedString("もうすこし", tableName: "Gamification", comment: "Advanced level")
         case .master:
-            return NSLocalizedString("マスター", comment: "Master level")
+            return NSLocalizedString("マスター", tableName: "Gamification", comment: "Master level")
         }
     }
     
