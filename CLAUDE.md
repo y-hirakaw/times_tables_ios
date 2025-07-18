@@ -86,6 +86,11 @@ xcodebuild -scheme TimesTablesApp -configuration Release build
    - Daily challenges with streak tracking
    - Parent-child communication (text/voice messages)
    - Localization support (Japanese/English)
+8. **Phase 2B Features (2025-07-17)**:
+   - Gamification level system (Lv.1-50 with experience points)
+   - Title system with 7 different titles (九九みならい → 九九レジェンド)
+   - Level up animations and progress visualization
+   - Bonus experience for difficult problems
 
 ## Development Lessons Learned (2025-07-13)
 
@@ -108,3 +113,21 @@ xcodebuild -scheme TimesTablesApp -configuration Release build
 - **Layout Efficiency**: Prioritize frequently-used actions at top of scrollable views
 - **Compact Design**: Use minimal spacing and smaller components for child-friendly interfaces
 - **Accessibility**: Consider VoiceOver and other accessibility features from initial design phase
+
+## Development Lessons Learned (2025-07-17)
+
+### Level System Implementation
+- **Data Initialization**: Use lazy evaluation for ViewState properties to avoid initialization timing issues
+- **Localization Strategy**: Always use dynamic title generation (`getTitleForLevel`) rather than stored database values for multi-language support
+- **UI State Management**: Implement explicit `objectWillChange.send()` calls for reliable UI updates in complex data flows
+- **Experience Calculation**: Use quadratic curves (5*level² + 5*level - 10) for balanced progression that maintains engagement
+
+### SwiftData Performance Optimization
+- **Real-time Data Access**: Fetch latest data directly from ModelContext rather than relying on cached arrays for critical display values
+- **Thread Safety**: Ensure all ViewState database operations are wrapped with proper @MainActor annotations
+- **Data Synchronization**: Implement comprehensive data refresh patterns after state-changing operations
+
+### Gamification Best Practices
+- **Progression Design**: 50-level system with meaningful title progression provides long-term engagement
+- **Bonus Systems**: 2x experience for difficult problems creates balanced risk-reward mechanics
+- **Visual Feedback**: Level-up animations significantly improve user satisfaction and retention

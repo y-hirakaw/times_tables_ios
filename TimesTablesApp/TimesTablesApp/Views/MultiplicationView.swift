@@ -6,11 +6,13 @@ import AVFoundation
 struct MultiplicationView: View {
     @StateObject private var viewState = MultiplicationViewState()
     @StateObject private var levelSystem = LevelSystemViewState()
+    @StateObject private var badgeSystem = BadgeSystemViewState()
     @Environment(\.dataStore) private var dataStore
     @Environment(\.soundManager) private var soundManager
     @State private var showingPointsHistory = false
     @State private var showingQuestionSolving = false
     @State private var showingChildMessages = false
+    @State private var showingBadgeCollection = false
 
     private let gradientBackground = LinearGradient(
         colors: [Color.themePrimary.opacity(0.3), Color.themePrimaryLight.opacity(0.2)],
@@ -81,6 +83,25 @@ struct MultiplicationView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+                        showingBadgeCollection = true
+                    } label: {
+                        ZStack {
+                            Image(systemName: "medal.fill")
+                                .foregroundColor(.themeGold)
+                            
+                            // 新しいバッジがある場合は通知ドット
+                            if !badgeSystem.newBadges.isEmpty {
+                                Circle()
+                                    .fill(Color.red)
+                                    .frame(width: 10, height: 10)
+                                    .offset(x: 8, y: -8)
+                            }
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
                         viewState.showParentDashboard()
                     } label: {
                         Label("ほごしゃ かんり がめん", systemImage: "person.circle")
@@ -115,7 +136,25 @@ struct MultiplicationView: View {
             .sheet(isPresented: $showingChildMessages) {
                 ChildMessageView()
             }
+            .sheet(isPresented: $showingBadgeCollection) {
+                NavigationView {
+                    BadgeCollectionView()
+                }
+            }
         }
+        .overlay(
+            // バッジ獲得通知
+            Group {
+                if badgeSystem.showingBadgeNotification, let latestBadge = badgeSystem.latestBadge {
+                    BadgeNotificationView(
+                        badgeType: latestBadge,
+                        isPresented: $badgeSystem.showingBadgeNotification
+                    )
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .zIndex(2)
+                }
+            }
+        )
         .overlay(
             // レベルアップアニメーション
             Group {
@@ -134,8 +173,14 @@ struct MultiplicationView: View {
             // レベルシステムをviewStateに設定
             viewState.setLevelSystem(levelSystem)
             
+            // バッジシステムをviewStateに設定
+            viewState.setBadgeSystem(badgeSystem)
+            
             // レベルシステムの初期データを取得
             levelSystem.fetchUserLevel()
+            
+            // バッジシステムの初期データを取得
+            badgeSystem.fetchEarnedBadges()
         }
     }
     
@@ -153,6 +198,10 @@ struct MultiplicationView: View {
             MultiplicationMasterMapView()
                 .cardStyle()
                 .id("MasterMap_\(viewState.getCurrentPoints())") // データ更新時に再描画
+            
+            // バッジシステムをコンパクト表示
+            badgeCompactView
+                .cardStyle()
         }
     }
     
@@ -456,5 +505,57 @@ struct MultiplicationView: View {
                 }
             }
         }
+    }
+    
+    private var badgeCompactView: some View {
+        Button(action: {
+            showingBadgeCollection = true
+        }) {
+            HStack(spacing: Spacing.spacing8) {
+                Image(systemName: "medal.fill")
+                    .foregroundColor(.themeGold)
+                    .font(.system(size: 20))
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("バッジ")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.themeGray800)
+                    
+                    HStack(spacing: 4) {
+                        Text("\(badgeSystem.earnedBadgeCount)/\(badgeSystem.totalBadgeCount)")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.themePrimary)
+                        
+                        if !badgeSystem.newBadges.isEmpty {
+                            Text("NEW!")
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.red)
+                                )
+                        }
+                    }
+                }
+                
+                Spacer()
+                
+                // 最新の3つのバッジを表示
+                HStack(spacing: 4) {
+                    ForEach(Array(badgeSystem.earnedBadges.prefix(3)), id: \.badgeType) { badge in
+                        if let badgeType = badge.type {
+                            Image(systemName: badgeType.displayInfo().icon)
+                                .foregroundColor(badgeType.displayInfo().color)
+                                .font(.system(size: 16))
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, Spacing.spacing8)
+            .padding(.horizontal, Spacing.spacing12)
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }

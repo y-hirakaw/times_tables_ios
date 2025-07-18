@@ -29,7 +29,7 @@ final class UserLevel {
         self.currentLevel = 1
         self.currentExperience = 0
         self.totalExperience = 0
-        self.currentTitle = NSLocalizedString("level_title_beginner", comment: "九九みならい")
+        self.currentTitle = "九九みならい"
         self.levelUpHistory = []
         self.createdAt = Date()
         self.lastUpdated = Date()
@@ -73,21 +73,21 @@ final class UserLevel {
     func getTitleForLevel(_ level: Int) -> String {
         switch level {
         case 1...5:
-            return NSLocalizedString("level_title_beginner", comment: "九九みならい")
+            return "九九みならい"
         case 6...10:
-            return NSLocalizedString("level_title_apprentice", comment: "九九れんしゅうせい")
+            return "九九れんしゅうせい"
         case 11...20:
-            return NSLocalizedString("level_title_practitioner", comment: "九九じゅくれんしゃ")
+            return "九九じゅくれんしゃ"
         case 21...30:
-            return NSLocalizedString("level_title_expert", comment: "九九めいじん")
+            return "九九めいじん"
         case 31...40:
-            return NSLocalizedString("level_title_master", comment: "九九マスター")
+            return "九九マスター"
         case 41...49:
-            return NSLocalizedString("level_title_grandmaster", comment: "九九グランドマスター")
+            return "九九グランドマスター"
         case 50:
-            return NSLocalizedString("level_title_legend", comment: "九九レジェンド")
+            return "九九レジェンド"
         default:
-            return NSLocalizedString("level_title_beginner", comment: "九九みならい")
+            return "九九みならい"
         }
     }
     

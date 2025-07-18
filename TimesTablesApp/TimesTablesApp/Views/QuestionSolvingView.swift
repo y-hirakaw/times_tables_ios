@@ -86,6 +86,28 @@ struct QuestionSolvingView: View {
     // MARK: - 問題表示
     private func questionView(question: MultiplicationQuestion, availableHeight: CGFloat) -> some View {
         VStack(spacing: Spacing.spacing8) {
+            // 苦手問題の場合はインジケーターを表示
+            if viewState.isDifficultQuestion(question) {
+                HStack(spacing: Spacing.spacing4) {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.themeWarning)
+                        .font(.system(size: min(availableHeight * 0.12, 18)))
+                    Text("にがてもんだい！")
+                        .font(.system(size: min(availableHeight * 0.12, 18), weight: .bold))
+                        .foregroundColor(.themeWarning)
+                    Text("+2 EXP")
+                        .font(.system(size: min(availableHeight * 0.1, 16), weight: .bold))
+                        .foregroundColor(.themeWarning)
+                        .padding(.horizontal, Spacing.spacing8)
+                        .padding(.vertical, Spacing.spacing4)
+                        .background(
+                            RoundedRectangle(cornerRadius: CornerRadius.small)
+                                .fill(Color.themeWarning.opacity(0.2))
+                        )
+                }
+                .padding(.bottom, Spacing.spacing4)
+            }
+            
             Text("もんだい")
                 .font(.system(size: min(availableHeight * 0.15, 20), weight: .semibold))
                 .foregroundColor(.themeGray600)
@@ -111,6 +133,13 @@ struct QuestionSolvingView: View {
                        radius: ShadowStyle.medium.radius,
                        x: ShadowStyle.medium.x,
                        y: ShadowStyle.medium.y)
+        )
+        .overlay(
+            // 苦手問題の場合は枠線を追加
+            viewState.isDifficultQuestion(question) ?
+            RoundedRectangle(cornerRadius: CornerRadius.large)
+                .stroke(Color.themeWarning, lineWidth: 3)
+            : nil
         )
         .padding(.horizontal, Spacing.spacing16)
     }

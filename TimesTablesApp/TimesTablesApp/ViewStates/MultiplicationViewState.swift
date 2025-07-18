@@ -43,9 +43,17 @@ final class MultiplicationViewState: ObservableObject {
     // レベルシステムとの連携
     private var levelSystem: LevelSystemViewState?
     
+    // バッジシステムとの連携
+    private var badgeSystem: BadgeSystemViewState?
+    
     // レベルシステムを設定
     func setLevelSystem(_ levelSystem: LevelSystemViewState) {
         self.levelSystem = levelSystem
+    }
+    
+    // バッジシステムを設定
+    func setBadgeSystem(_ badgeSystem: BadgeSystemViewState) {
+        self.badgeSystem = badgeSystem
     }
     
     init() {
@@ -393,12 +401,20 @@ final class MultiplicationViewState: ObservableObject {
             // レベルシステムの更新
             levelSystem?.updateLevelWithPoints()
             
+            // 苦手問題ボーナスの場合、レベルシステムに追加経験値を通知
+            if isDifficult && pointsToAdd > 1 {
+                // 追加の経験値分をもう一度更新（2倍ボーナスを反映）
+                for _ in 1..<pointsToAdd {
+                    levelSystem?.updateLevelWithPoints()
+                }
+            }
+            
             // 解答時間のフィードバック
             let timeMessage = String(format: "%.1f", answerTime)
             if isDifficult {
-                resultMessage = String(format: NSLocalizedString("正解！ +ボーナスポイント (時間: %@秒)", comment: "Correct answer with bonus points"), timeMessage)
+                resultMessage = String(format: NSLocalizedString("correct_bonus_points", comment: "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)"), pointsToAdd, timeMessage)
             } else {
-                resultMessage = String(format: NSLocalizedString("正解！ +1ポイント (時間: %@秒)", comment: "Correct answer with basic points"), timeMessage)
+                resultMessage = String(format: NSLocalizedString("correct_basic_points", comment: "正解！ +%dポイント (時間: %@秒)"), pointsToAdd, timeMessage)
             }
             
             // 正解時間を記録
@@ -413,6 +429,18 @@ final class MultiplicationViewState: ObservableObject {
             // 進捗可視化システムに結果を通知
             let questionId = "\(question.firstNumber)x\(question.secondNumber)"
             progressViewState?.updateProgressAfterAnswer(questionId: questionId, isCorrect: true)
+            
+            // バッジシステムをチェック
+            if let userPoints = userPoints.first,
+               let levelSystem = levelSystem {
+                badgeSystem?.checkBadgesForCorrectAnswer(
+                    isCorrect: true,
+                    answerTime: answerTime,
+                    totalProblems: userPoints.totalEarnedPoints,
+                    currentLevel: levelSystem.currentLevel,
+                    isDifficultQuestion: isDifficult
+                )
+            }
             
             // MasteryProgressを直接更新
             if let modelContext = modelContext {
@@ -474,6 +502,9 @@ final class MultiplicationViewState: ObservableObject {
             let questionId = "\(question.firstNumber)x\(question.secondNumber)"
             progressViewState?.updateProgressAfterAnswer(questionId: questionId, isCorrect: false)
             
+            // バッジシステムに不正解を通知（連続記録リセット）
+            badgeSystem?.handleIncorrectAnswer()
+            
             // MasteryProgressを直接更新
             if let modelContext = modelContext {
                 let leftTableProgress = MasteryProgress.getProgress(for: question.firstNumber, context: modelContext)
@@ -534,7 +565,7 @@ final class MultiplicationViewState: ObservableObject {
     }
     
     /// 問題が苦手問題かどうかを判定
-    private func isDifficultQuestion(_ question: MultiplicationQuestion) -> Bool {
+    func isDifficultQuestion(_ question: MultiplicationQuestion) -> Bool {
         if let existingRecord = findDifficultQuestion(for: question) {
             return existingRecord.isDifficult
         }

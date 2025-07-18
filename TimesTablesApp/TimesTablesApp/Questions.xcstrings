@@ -1,0 +1,666 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "%lld × %lld のもんだい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problem %1$lld × %2$lld"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld × %2$lld のもんだい"
+          }
+        }
+      }
+    },
+    "correct_basic_points" : {
+      "comment" : "正解！ +%dポイント (時間: %@秒)",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct! +%d points (time: %@s)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正解！ +%dポイント (時間: %@秒)"
+          }
+        }
+      }
+    },
+    "correct_bonus_points" : {
+      "comment" : "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct! Difficult problem bonus +%d points (time: %@s)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)"
+          }
+        }
+      }
+    },
+    "あと" : {
+      "comment" : "remaining",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "あと %lldもん がんばろう！" : {
+      "comment" : "More problems to go",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld more problems to go!"
+          }
+        }
+      }
+    },
+    "あなたのにがてな もんだい:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your difficult questions:"
+          }
+        }
+      }
+    },
+    "おめでとう！%lldの だんを すべて クリアしました！" : {
+      "comment" : "Sequential mode completion message",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Congratulations! You've cleared all %lld times table!"
+          }
+        }
+      }
+    },
+    "かけ算の だんごとの せいかい・ふせいかい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct and Incorrect Answers by Times Table"
+          }
+        }
+      }
+    },
+    "こんしゅう よくなった もんだい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Improved Problems This Week"
+          }
+        }
+      }
+    },
+    "さいきん よくなった もんだいは ありません" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No recently improved problems"
+          }
+        }
+      }
+    },
+    "すべての だん を マスター！ すごいね！" : {
+      "comment" : "All tables mastered message",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastered all tables! Amazing!"
+          }
+        }
+      }
+    },
+    "せいかい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct"
+          }
+        }
+      }
+    },
+    "せいかいりつ: %lld%%" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy rate: %lld%%"
+          }
+        }
+      }
+    },
+    "だんごと" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By times table"
+          }
+        }
+      }
+    },
+    "だんごとの せいかいりつ" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy by times table"
+          }
+        }
+      }
+    },
+    "だんじゅんばん もんだい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sequential problems"
+          }
+        }
+      }
+    },
+    "だんで もんだい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problems by table"
+          }
+        }
+      }
+    },
+    "といた かず" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number solved"
+          }
+        }
+      }
+    },
+    "といた もんだい" : {
+      "comment" : "Problems solved",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problems solved"
+          }
+        }
+      }
+    },
+    "とくい・にがて" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strengths & Weaknesses"
+          }
+        }
+      }
+    },
+    "とくい・にがてな もんだいの わりあい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ratio of Strong and Weak Problems"
+          }
+        }
+      }
+    },
+    "とくい: %lldもん" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strong: %lld problems"
+          }
+        }
+      }
+    },
+    "とくいな もんだい:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strong problems:"
+          }
+        }
+      }
+    },
+    "にがて: %lldもん" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weak: %lld problems"
+          }
+        }
+      }
+    },
+    "にがてな もんだい:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult problems:"
+          }
+        }
+      }
+    },
+    "にがての すうじ" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult Numbers"
+          }
+        }
+      }
+    },
+    "にがてもんだいが %lldもん ふえています" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult problems increased by %lld"
+          }
+        }
+      }
+    },
+    "にがてもんだいが %lldもん へりました！" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult problems decreased by %lld!"
+          }
+        }
+      }
+    },
+    "にがてもんだいすう" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of difficult problems"
+          }
+        }
+      }
+    },
+    "にがてもんだいの すうの うごき" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly Trend of Difficult Problems"
+          }
+        }
+      }
+    },
+    "のこり時間: %@秒" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time left: %@ sec"
+          }
+        }
+      }
+    },
+    "ふせいかい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect"
+          }
+        }
+      }
+    },
+    "ほか %lld もん" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld more problems"
+          }
+        }
+      }
+    },
+    "マスターまで" : {
+      "comment" : "Until master",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Until master"
+          }
+        }
+      }
+    },
+    "まだ かいとうした もんだいが ありません" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No answered problems yet"
+          }
+        }
+      }
+    },
+    "まだ こたえたもんだいが ありません" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No answered problems yet"
+          }
+        }
+      }
+    },
+    "まだ といていません" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No problem yet"
+          }
+        }
+      }
+    },
+    "まだこの段の問題を\nといていません" : {
+      "comment" : "No problems solved for this table yet",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No problems solved\nfor this table yet"
+          }
+        }
+      }
+    },
+    "まちがえた かいすう: %lld" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mistakes: %lld"
+          }
+        }
+      }
+    },
+    "まちがえる りつ: %lld%%" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error rate: %lld%%"
+          }
+        }
+      }
+    },
+    "みかいとう: %lldもん" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unanswered: %lld problems"
+          }
+        }
+      }
+    },
+    "むしくい もんだい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill in the blank"
+          }
+        }
+      }
+    },
+    "もうすこしで かんぺき だね！" : {
+      "comment" : "Almost perfect message",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almost perfect!"
+          }
+        }
+      }
+    },
+    "もん" : {
+      "comment" : "problems unit",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " problems"
+          }
+        }
+      }
+    },
+    "もんだい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Question"
+          }
+        }
+      }
+    },
+    "もんだい かいとう サマリー" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problem solving summary"
+          }
+        }
+      }
+    },
+    "もんだいすう" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of problems"
+          }
+        }
+      }
+    },
+    "もんだいの できぐあい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problem Proficiency"
+          }
+        }
+      }
+    },
+    "ランダム もんだい" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random Question"
+          }
+        }
+      }
+    },
+    "不正解！正解は %lld です。もう一度チャレンジしてね。" : {
+      "comment" : "Incorrect answer message",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Incorrect! The correct answer is %lld. Try again!"
+          }
+        }
+      }
+    },
+    "最近、改善された問題はありません" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No recently improved problems"
+          }
+        }
+      }
+    },
+    "問題数: %lld" : {
+      "comment" : "Problems: %lld",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problems: %lld"
+          }
+        }
+      }
+    },
+    "問題画面が開きます" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Question screen will open"
+          }
+        }
+      }
+    },
+    "時間切れ！正解は %lld です。" : {
+      "comment" : "Time up message",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time's up! The correct answer is %lld."
+          }
+        }
+      }
+    },
+    "正解率" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy rate"
+          }
+        }
+      }
+    },
+    "正解率: %lld%%" : {
+      "comment" : "Accuracy rate: %lld%%",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy rate: %lld%%"
+          }
+        }
+      }
+    },
+    "頑張って %lld 問が改善されました！" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Great job! %lld problems have improved!"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
