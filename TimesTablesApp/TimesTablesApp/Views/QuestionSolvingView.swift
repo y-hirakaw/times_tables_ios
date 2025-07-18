@@ -44,19 +44,19 @@ struct QuestionSolvingView: View {
                             .frame(height: geometry.size.height * 0.1)
                     }
                     
-                    // 結果メッセージエリア（10%）
+                    // 結果メッセージエリア（15%）
                     if !viewState.resultMessage.isEmpty {
                         resultMessageView
-                            .frame(height: geometry.size.height * 0.1)
+                            .frame(minHeight: geometry.size.height * 0.15)
                             .padding(.horizontal, Spacing.spacing16)
                     } else {
                         Spacer()
-                            .frame(height: geometry.size.height * 0.1)
+                            .frame(height: geometry.size.height * 0.15)
                     }
                     
-                    // 回答選択肢エリア（40%）
+                    // 回答選択肢エリア（35%）
                     if viewState.question != nil {
-                        answerChoicesGrid(availableHeight: geometry.size.height * 0.4)
+                        answerChoicesGrid(availableHeight: geometry.size.height * 0.35)
                     }
                     
                     // 下部エリア（10%）
@@ -173,12 +173,15 @@ struct QuestionSolvingView: View {
     
     // MARK: - 結果メッセージ
     private var resultMessageView: some View {
-        let isError = viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ")
+        let isError = viewState.resultMessage.contains("不正解") || viewState.resultMessage.contains("時間切れ") || viewState.resultMessage.contains("まちがい") || viewState.resultMessage.contains("じかん きれ")
         
         return Text(LocalizedStringKey(viewState.resultMessage))
-            .font(.themeTitle2)
+            .font(.themeTitle3)
             .foregroundColor(.white)
-            .padding(Spacing.spacing20)
+            .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(Spacing.spacing16)
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: CornerRadius.large)

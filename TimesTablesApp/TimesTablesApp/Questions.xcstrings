@@ -24,13 +24,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Correct! +%d points (time: %@s)"
+            "value" : "Great job! +%d points\n(time: %@s)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "正解！ +%dポイント (時間: %@秒)"
+            "value" : "せいかい！ +%dポイント\n(じかん: %@びょう)"
           }
         }
       }
@@ -41,13 +41,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Correct! Difficult problem bonus +%d points (time: %@s)"
+            "value" : "Amazing! Hard problem bonus\n+%d points (time: %@s)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "正解！ 苦手問題ボーナス +%dポイント (時間: %@秒)"
+            "value" : "せいかい！ にがてもんだい ボーナス\n+%dポイント (じかん: %@びょう)"
           }
         }
       }
@@ -93,7 +93,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Congratulations! You've cleared all %lld times table!"
+            "value" : "Hooray! You finished all\n%lld times table!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "おめでとう！ %lldの だんを\nすべて クリアしました！"
           }
         }
       }
@@ -571,7 +577,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Incorrect! The correct answer is %lld. Try again!"
+            "value" : "Oops! The answer is %lld.\nTry again!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まちがい！ せいかいは %lld です。\nもう いちど がんばってね。"
           }
         }
       }
@@ -617,7 +629,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Time's up! The correct answer is %lld."
+            "value" : "Time's up! The answer is %lld."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "じかん きれ！ せいかいは %lld です。"
           }
         }
       }

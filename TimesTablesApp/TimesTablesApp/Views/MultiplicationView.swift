@@ -555,7 +555,9 @@ struct MultiplicationView: View {
             }
             .padding(.vertical, Spacing.spacing8)
             .padding(.horizontal, Spacing.spacing12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
         }
-        .buttonStyle(PlainButtonStyle())
+        .buttonStyle(.plain)
     }
 }
