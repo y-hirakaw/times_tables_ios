@@ -12,7 +12,6 @@ import SwiftUI
 struct DailyChallengeView: View {
     @Environment(\.dataStore) private var dataStore
     @State private var progressViewState = ProgressVisualizationViewState()
-    @State private var showCelebration = false
     
     var body: some View {
         VStack(spacing: 12) {
@@ -77,16 +76,6 @@ struct DailyChallengeView: View {
         }
         .onAppear {
             progressViewState.setDataStore(dataStore)
-        }
-        .onChange(of: progressViewState.todayChallenge?.isCompleted) { oldValue, newValue in
-            if newValue == true && oldValue == false {
-                showCelebration = true
-            }
-        }
-        .alert(NSLocalizedString("daily_challenge_congratulations", tableName: "Gamification", comment: "おめでとう！"), isPresented: $showCelebration) {
-            Button(NSLocalizedString("daily_challenge_thanks", tableName: "Gamification", comment: "ありがとう！")) { }
-        } message: {
-            Text(NSLocalizedString("daily_challenge_completed_message", tableName: "Gamification", comment: "きょうのチャレンジをたっせいしました！\nすばらしいです！"))
         }
     }
 }

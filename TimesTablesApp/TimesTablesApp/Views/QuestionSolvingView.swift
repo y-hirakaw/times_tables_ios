@@ -22,6 +22,13 @@ struct QuestionSolvingView: View {
                 .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
+                    // デイリーチャレンジ達成バナー
+                    if viewState.showingDailyChallengeAchievement {
+                        DailyChallengeAchievementBanner()
+                            .padding(.horizontal, Spacing.spacing16)
+                            .padding(.top, Spacing.spacing8)
+                    }
+                    
                     // 上部エリア（10%）- 中止ボタン
                     HStack {
                         Spacer()

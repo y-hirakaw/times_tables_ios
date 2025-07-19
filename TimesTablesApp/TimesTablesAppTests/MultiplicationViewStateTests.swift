@@ -24,7 +24,8 @@ final class MultiplicationViewStateTests: XCTestCase {
         let modelContext = createInMemoryModelContext()
         
         // Act
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         
         // Assert
         let userPointsDescriptor = FetchDescriptor<UserPoints>()
@@ -40,7 +41,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_ランダム問題生成が正しく動作する() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         
         // Act
         viewState.generateRandomQuestion()
@@ -57,7 +59,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_正解時に正しくポイントが加算される() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         viewState.generateRandomQuestion()
         let question = viewState.question!
         
@@ -76,7 +79,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_不正解時に正しく処理される() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         viewState.generateRandomQuestion()
         let question = viewState.question!
         let wrongAnswer = question.answer + 1 // 確実に間違う答え
@@ -111,7 +115,8 @@ final class MultiplicationViewStateTests: XCTestCase {
         modelContext.insert(difficultQuestion)
         try modelContext.save()
         
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         // データをリフレッシュして明示的に読み込む
         viewState.refreshData()
         
@@ -126,7 +131,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_チャレンジモードの切り替えが正しく動作する() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         
         // Act & Assert
         XCTAssertFalse(viewState.isChallengeModeActive, "初期状態ではオフ")
@@ -151,7 +157,8 @@ final class MultiplicationViewStateTests: XCTestCase {
         modelContext.insert(difficultQuestion)
         try modelContext.save()
         
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         
         // 明示的に苦手問題を設定して回答する
         let testQuestion = MultiplicationQuestion(firstNumber: 5, secondNumber: 6)
@@ -172,7 +179,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_問題生成時にタイマーが開始される() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         
         // Act
         viewState.generateRandomQuestion()
@@ -185,7 +193,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_回答時にタイマーが停止される() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         viewState.generateRandomQuestion()
         let question = viewState.question!
         
@@ -199,7 +208,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_正解時の回答時間が結果メッセージに表示される() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         viewState.generateRandomQuestion()
         let question = viewState.question!
         
@@ -218,7 +228,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_時間切れ処理が正しく行われる() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         viewState.generateRandomQuestion()
         
         // 現在の問題を保存
@@ -255,7 +266,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_順番モードが正しく動作する() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         
         // Act
         viewState.startSequentialMode()
@@ -269,7 +281,8 @@ final class MultiplicationViewStateTests: XCTestCase {
     func test_順番モードで段を選択すると最初の問題が表示される() async throws {
         // Arrange
         let modelContext = createInMemoryModelContext()
-        let viewState = MultiplicationViewState(modelContext: modelContext)
+        let viewState = MultiplicationViewState()
+        viewState.updateModelContext(modelContext)
         
         // Act
         viewState.startSequentialMode()

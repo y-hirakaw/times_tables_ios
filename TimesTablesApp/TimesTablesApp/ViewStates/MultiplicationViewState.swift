@@ -32,6 +32,11 @@ final class MultiplicationViewState: ObservableObject {
     @Published var showingPINAuth = false
     @Published var isAuthenticated = false
     
+    // デイリーチャレンジ達成通知関連の状態
+    @Published var showingDailyChallengeAchievement = false
+    private var dailyChallengeNotifiedToday = false
+    private var lastNotificationDate: Date? = nil
+    
     // SwiftDataの参照
     private var difficultQuestions: [DifficultQuestion] = []
     private var userPoints: [UserPoints] = []
@@ -430,6 +435,9 @@ final class MultiplicationViewState: ObservableObject {
             let questionId = "\(question.firstNumber)x\(question.secondNumber)"
             progressViewState?.updateProgressAfterAnswer(questionId: questionId, isCorrect: true)
             
+            // デイリーチャレンジ達成チェック
+            checkDailyChallengeCompletion()
+            
             // バッジシステムをチェック
             if let userPoints = userPoints.first,
                let levelSystem = levelSystem {
@@ -502,6 +510,9 @@ final class MultiplicationViewState: ObservableObject {
             let questionId = "\(question.firstNumber)x\(question.secondNumber)"
             progressViewState?.updateProgressAfterAnswer(questionId: questionId, isCorrect: false)
             
+            // デイリーチャレンジ達成チェック
+            checkDailyChallengeCompletion()
+            
             // バッジシステムに不正解を通知（連続記録リセット）
             badgeSystem?.handleIncorrectAnswer()
             
@@ -570,6 +581,39 @@ final class MultiplicationViewState: ObservableObject {
             return existingRecord.isDifficult
         }
         return false
+    }
+    
+    /// デイリーチャレンジ達成チェック
+    private func checkDailyChallengeCompletion() {
+        guard let progressViewState = progressViewState,
+              let todayChallenge = progressViewState.todayChallenge else { return }
+        
+        // 日付が変わっていたら通知状態をリセット
+        let today = Calendar.current.startOfDay(for: Date())
+        if let lastDate = lastNotificationDate {
+            let lastDateStart = Calendar.current.startOfDay(for: lastDate)
+            if today > lastDateStart {
+                dailyChallengeNotifiedToday = false
+                lastNotificationDate = nil
+            }
+        }
+        
+        // 今日既に通知済みなら何もしない
+        guard !dailyChallengeNotifiedToday else { return }
+        
+        // 今日達成したかチェック
+        if todayChallenge.isCompleted {
+            dailyChallengeNotifiedToday = true
+            lastNotificationDate = Date()
+            showingDailyChallengeAchievement = true
+            
+            // 3秒後に自動で非表示
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.showingDailyChallengeAchievement = false
+            }
+            
+            print("デイリーチャレンジ達成！バナー通知を表示")
+        }
     }
     
     /// 正解時のポイント加算
