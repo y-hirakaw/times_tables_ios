@@ -3,6 +3,7 @@
   "strings" : {
     " がんばってるね！" : {
       "comment" : "Keep it up message",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -12,8 +13,21 @@
         }
       }
     },
+    "かくとくずみ！" : {
+      "comment" : "Achieved!",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achieved!"
+          }
+        }
+      }
+    },
     "がんばったね！" : {
       "comment" : "You did great!",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -25,6 +39,7 @@
     },
     "すごいじゃない！" : {
       "comment" : "That's amazing!",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -34,19 +49,9 @@
         }
       }
     },
-    "よくできました！" : {
-      "comment" : "Well done!",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Well done!"
-          }
-        }
-      }
-    },
     "その ちょうしで がんばって！" : {
       "comment" : "Keep up that good work!",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -56,19 +61,9 @@
         }
       }
     },
-    "まいにち べんきょうして えらいね！" : {
-      "comment" : "Great job studying every day!",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Great job studying every day!"
-          }
-        }
-      }
-    },
     "だんだん じょうずに なってるよ！" : {
       "comment" : "You're getting better and better!",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -80,6 +75,7 @@
     },
     "つぎも がんばろうね！" : {
       "comment" : "Let's keep working hard!",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -89,85 +85,9 @@
         }
       }
     },
-    "とても じょうずですよ！" : {
-      "comment" : "You're doing very well!",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You're doing very well!"
-          }
-        }
-      }
-    },
-    "九九ティブ" : {
-      "comment" : "App title - Times Tables",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Times Tables"
-          }
-        }
-      }
-    },
-    "学習統計" : {
-      "comment" : "Learning Statistics",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Learning Statistics"
-          }
-        }
-      }
-    },
-    "もんだい" : {
-      "comment" : "Problem",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Problem"
-          }
-        }
-      }
-    },
-    "のこり時間: %@秒" : {
-      "comment" : "Remaining time: %@ seconds",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Time left: %@ sec"
-          }
-        }
-      }
-    },
-    "やめる" : {
-      "comment" : "Quit",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quit"
-          }
-        }
-      }
-    },
-    "閉じる" : {
-      "comment" : "Close",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        }
-      }
-    },
     "テンプレート" : {
       "comment" : "Template",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -179,6 +99,7 @@
     },
     "とじる" : {
       "comment" : "Close",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -188,24 +109,122 @@
         }
       }
     },
-    "かくとくずみ！" : {
-      "comment" : "Achieved!",
+    "とても じょうずですよ！" : {
+      "comment" : "You're doing very well!",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Achieved!"
+            "value" : "You're doing very well!"
+          }
+        }
+      }
+    },
+    "のこり時間: %@秒" : {
+      "comment" : "Remaining time: %@ seconds",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time left: %@ sec"
+          }
+        }
+      }
+    },
+    "まいにち べんきょうして えらいね！" : {
+      "comment" : "Great job studying every day!",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Great job studying every day!"
           }
         }
       }
     },
     "みかくとく" : {
       "comment" : "Not achieved",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not achieved"
+          }
+        }
+      }
+    },
+    "もんだい" : {
+      "comment" : "Problem",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Problem"
+          }
+        }
+      }
+    },
+    "やめる" : {
+      "comment" : "Quit",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit"
+          }
+        }
+      }
+    },
+    "よくできました！" : {
+      "comment" : "Well done!",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Well done!"
+          }
+        }
+      }
+    },
+    "九九ティブ" : {
+      "comment" : "App title - Times Tables",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Times Tables"
+          }
+        }
+      }
+    },
+    "学習統計" : {
+      "comment" : "Learning Statistics",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learning Statistics"
+          }
+        }
+      }
+    },
+    "閉じる" : {
+      "comment" : "Close",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
           }
         }
       }

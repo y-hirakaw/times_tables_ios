@@ -33,18 +33,8 @@
         }
       }
     },
-    "?" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "?"
-          }
-        }
-      }
-    },
     "(%lld/9)" : {
+      "comment" : "Progress indicator",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -258,7 +248,15 @@
       }
     },
     "※PINコードを忘れると管理画面へアクセスできなくなります。\n忘れないようにメモを取るなどの対策をしてください。" : {
-
+      "comment" : "PIN code warning message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "※If you forget your PIN, you won't be able to access the management screen.\nPlease take notes or other measures to remember it."
+          }
+        }
+      }
     },
     "+%lld" : {
       "localizations" : {
@@ -281,56 +279,71 @@
         }
       }
     },
-    "×" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "×"
-          }
-        }
-      }
-    },
-    "=" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "="
-          }
-        }
-      }
-    },
-    "□" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "□"
-          }
-        }
-      }
-    },
     "1つの段で正解率86%以上" : {
-      "comment" : "86% or higher accuracy in one table"
+      "comment" : "86% or higher accuracy in one table",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "86% or higher accuracy in one table"
+          }
+        }
+      }
     },
     "1つの段をマスター" : {
-      "comment" : "Mastered one times table"
+      "comment" : "Mastered one times table",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastered one times table"
+          }
+        }
+      }
     },
     "2秒以内に20問正解" : {
-      "comment" : "Answered 20 questions correctly within 2 seconds"
+      "comment" : "Answered 20 questions correctly within 2 seconds",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answered 20 questions correctly within 2 seconds"
+          }
+        }
+      }
     },
     "2秒以内正解×20" : {
-      "comment" : "Correct answers within 2 seconds x20"
+      "comment" : "Correct answers within 2 seconds x20",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct answers within 2 seconds x20"
+          }
+        }
+      }
     },
     "3秒以内に10問正解" : {
-      "comment" : "Answered 10 questions correctly within 3 seconds"
+      "comment" : "Answered 10 questions correctly within 3 seconds",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answered 10 questions correctly within 3 seconds"
+          }
+        }
+      }
     },
     "3秒以内正解×10" : {
-      "comment" : "Correct answers within 3 seconds x10"
+      "comment" : "Correct answers within 3 seconds x10",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correct answers within 3 seconds x10"
+          }
+        }
+      }
     },
     "4桁のPINコード" : {
       "comment" : "4-digit PIN code",
@@ -354,46 +367,115 @@
         }
       }
     },
-    "5回失敗したら画面を閉じる" : {
-      "extractionState" : "stale",
+    "7日連続でデイリー目標達成" : {
+      "comment" : "Achieved daily goal for 7 consecutive days",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Close after 5 failed attempts"
+            "value" : "Achieved daily goal for 7 consecutive days"
           }
         }
       }
     },
-    "7日連続でデイリー目標達成" : {
-      "comment" : "Achieved daily goal for 7 consecutive days"
-    },
     "7日連続目標達成" : {
-      "comment" : "7 consecutive days goal achievement"
+      "comment" : "7 consecutive days goal achievement",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 consecutive days goal achievement"
+          }
+        }
+      }
     },
     "10問連続で正解した" : {
-      "comment" : "Answered 10 questions correctly in a row"
+      "comment" : "Answered 10 questions correctly in a row",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answered 10 questions correctly in a row"
+          }
+        }
+      }
     },
     "10問連続正解" : {
-      "comment" : "10 consecutive correct answers"
+      "comment" : "10 consecutive correct answers",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 consecutive correct answers"
+          }
+        }
+      }
     },
     "20問連続で正解した" : {
-      "comment" : "Answered 20 questions correctly in a row"
+      "comment" : "Answered 20 questions correctly in a row",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answered 20 questions correctly in a row"
+          }
+        }
+      }
     },
     "20問連続正解" : {
-      "comment" : "20 consecutive correct answers"
+      "comment" : "20 consecutive correct answers",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "20 consecutive correct answers"
+          }
+        }
+      }
     },
     "30日連続でデイリー目標達成" : {
-      "comment" : "Achieved daily goal for 30 consecutive days"
+      "comment" : "Achieved daily goal for 30 consecutive days",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achieved daily goal for 30 consecutive days"
+          }
+        }
+      }
     },
     "30日連続目標達成" : {
-      "comment" : "30 consecutive days goal achievement"
+      "comment" : "30 consecutive days goal achievement",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 consecutive days goal achievement"
+          }
+        }
+      }
     },
     "50問連続で正解した" : {
-      "comment" : "Answered 50 questions correctly in a row"
+      "comment" : "Answered 50 questions correctly in a row",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Answered 50 questions correctly in a row"
+          }
+        }
+      }
     },
     "50問連続正解" : {
-      "comment" : "50 consecutive correct answers"
+      "comment" : "50 consecutive correct answers",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 consecutive correct answers"
+          }
+        }
+      }
     },
     "100もんたっせい" : {
       "comment" : "100 problems achievement",
@@ -407,7 +489,15 @@
       }
     },
     "100問解いた" : {
-      "comment" : "Solved 100 problems"
+      "comment" : "Solved 100 problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solved 100 problems"
+          }
+        }
+      }
     },
     "500もんたっせい" : {
       "comment" : "500 problems achievement",
@@ -421,7 +511,15 @@
       }
     },
     "500問解いた" : {
-      "comment" : "Solved 500 problems"
+      "comment" : "Solved 500 problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solved 500 problems"
+          }
+        }
+      }
     },
     "1000もんたっせい" : {
       "comment" : "1000 problems achievement",
@@ -435,89 +533,12 @@
       }
     },
     "1000問解いた" : {
-      "comment" : "Solved 1000 problems"
-    },
-    "Answer" : {
-      "extractionState" : "stale",
+      "comment" : "Solved 1000 problems",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Answer"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "答え"
-          }
-        }
-      }
-    },
-    "Check Answer" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Check Answer"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "回答を確認"
-          }
-        }
-      }
-    },
-    "Correct!" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Correct!"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正解！"
-          }
-        }
-      }
-    },
-    "Incorrect: %lld" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incorrect: %lld"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "不正解: %lld回"
-          }
-        }
-      }
-    },
-    "Incorrect. Try again." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incorrect. Try again."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "不正解。もう一度挑戦してください。"
+            "value" : "Solved 1000 problems"
           }
         }
       }
@@ -582,17 +603,6 @@
         }
       }
     },
-    "PINコードが一致しません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PIN codes do not match"
-          }
-        }
-      }
-    },
     "PINコードが正しくありません" : {
       "comment" : "Incorrect PIN code",
       "localizations" : {
@@ -615,28 +625,6 @@
         }
       }
     },
-    "PINコードは4桁の数字である必要があります" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PIN code must be 4 digits"
-          }
-        }
-      }
-    },
-    "PINコードは数字のみ使用できます" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PIN code can only contain numbers"
-          }
-        }
-      }
-    },
     "PINコードを入力してください" : {
       "comment" : "Please enter your PIN code",
       "localizations" : {
@@ -644,74 +632,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please enter your PIN code"
-          }
-        }
-      }
-    },
-    "Points: %lld" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Points: %lld"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ポイント: %lld"
-          }
-        }
-      }
-    },
-    "Press the button to generate a question" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Press the button to generate a question"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ボタンを押して問題を表示"
-          }
-        }
-      }
-    },
-    "Random Question" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Random Question"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ランダムな問題"
-          }
-        }
-      }
-    },
-    "Your difficult questions:" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your difficult questions:"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "苦手な問題:"
           }
         }
       }
@@ -755,7 +675,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "Remaining"
           }
         }
       }
@@ -767,28 +687,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your difficult problems:"
-          }
-        }
-      }
-    },
-    "あなたの苦手な問題:" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your difficult questions:"
-          }
-        }
-      }
-    },
-    "ありがとう！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Thank you!"
           }
         }
       }
@@ -837,19 +735,16 @@
         }
       }
     },
-    "おやよう かんり がめん" : {
-      "extractionState" : "stale",
+    "お子様とのコミュニケーションを始めましょう" : {
+      "comment" : "Let's start communicating with your child",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Parent Dashboard"
+            "value" : "Let's start communicating with your child"
           }
         }
       }
-    },
-    "お子様とのコミュニケーションを始めましょう" : {
-      "comment" : "Let's start communicating with your child"
     },
     "お子様とのメッセージ" : {
       "comment" : "Messages with your child",
@@ -896,12 +791,12 @@
       }
     },
     "かけ算の だんごとの せいかい・ふせいかい" : {
-      "comment" : "Correct and incorrect answers by times table",
+      "comment" : "Correct and incorrect answers by multiplication table",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Correct and incorrect answers by times table"
+            "value" : "Correct and incorrect answers by multiplication table"
           }
         }
       }
@@ -928,17 +823,6 @@
         }
       }
     },
-    "きく" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Listen"
-          }
-        }
-      }
-    },
     "キャンセル" : {
       "comment" : "Cancel",
       "localizations" : {
@@ -961,38 +845,24 @@
         }
       }
     },
-    "きょうのチャレンジをたっせいしました！\nすばらしいです！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You completed today's challenge!\nWonderful!"
-          }
-        }
-      }
-    },
-    "きょうのもくひょう たっせい！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today's goal achieved!"
-          }
-        }
-      }
-    },
     "グラフの せつめい" : {
-
+      "comment" : "Graph explanation",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Graph explanation"
+          }
+        }
+      }
     },
     "この画面ではポイント獲得履歴とポイントの消費ができます。九九に正解するとポイントが貰えますので、何ポイントで何ができるなどルールを決めて使うなどに利用してください。" : {
-      "comment" : "Points screen explanation",
+      "comment" : "Parent dashboard explanation",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "In this screen, you can view point earning history and use points. Points are earned by correctly answering multiplication problems. Please use this feature to set rules like what can be done with certain points."
+            "value" : "This screen shows point earning history and allows point spending. Points are earned by solving multiplication problems correctly. You can set rules like what can be done with how many points."
           }
         }
       }
@@ -1030,17 +900,6 @@
         }
       }
     },
-    "さいきんの がんばり" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recent Efforts"
-          }
-        }
-      }
-    },
     "しゅうかんせんし" : {
       "comment" : "Weekly Warrior",
       "localizations" : {
@@ -1053,7 +912,15 @@
       }
     },
     "すごいじゃない！" : {
-      "comment" : "That's amazing!"
+      "comment" : "That's amazing!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "That's amazing!"
+          }
+        }
+      }
     },
     "せいかい" : {
       "comment" : "Correct",
@@ -1078,7 +945,7 @@
       }
     },
     "せいかいりつ: %lld%%" : {
-      "comment" : "Accuracy rate",
+      "comment" : "Accuracy rate: %lld%%",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1111,10 +978,26 @@
       }
     },
     "その ちょうしで がんばって！" : {
-      "comment" : "Keep up that good work!"
+      "comment" : "Keep up that good work!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep up that good work!"
+          }
+        }
+      }
     },
     "たっせい シェア" : {
-
+      "comment" : "Achievement Share",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Achievement"
+          }
+        }
+      }
     },
     "だんごと" : {
       "comment" : "By Table",
@@ -1128,12 +1011,12 @@
       }
     },
     "だんごとの せいかいりつ" : {
-      "comment" : "Accuracy by table",
+      "comment" : "Accuracy by times table",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Accuracy by table"
+            "value" : "Accuracy by times table"
           }
         }
       }
@@ -1150,7 +1033,15 @@
       }
     },
     "だんだん じょうずに なってるよ！" : {
-      "comment" : "You're getting better and better!"
+      "comment" : "You're getting better and better!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're getting better and better!"
+          }
+        }
+      }
     },
     "だんで もんだい" : {
       "comment" : "Table problems",
@@ -1175,10 +1066,26 @@
       }
     },
     "だんを えらぶ" : {
-      "comment" : "Choose Times Table"
+      "comment" : "Choose Times Table",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Times Table"
+          }
+        }
+      }
     },
     "だんを えらんでね" : {
-      "comment" : "Choose a times table"
+      "comment" : "Choose a times table",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please choose a times table"
+          }
+        }
+      }
     },
     "チャレンジOFF" : {
       "comment" : "Challenge OFF",
@@ -1198,28 +1105,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Challenge ON"
-          }
-        }
-      }
-    },
-    "チャレンジモード: OFF" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Challenge Mode: OFF"
-          }
-        }
-      }
-    },
-    "チャレンジモード: ON" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Challenge Mode: ON"
           }
         }
       }
@@ -1253,17 +1138,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No data available"
-          }
-        }
-      }
-    },
-    "ていし" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stop"
           }
         }
       }
@@ -1467,16 +1341,60 @@
       }
     },
     "にがてもんだいすう" : {
-
+      "comment" : "Number of difficult problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of difficult problems"
+          }
+        }
+      }
+    },
+    "にがてもんだいすうの うごき" : {
+      "comment" : "Change in difficult problem count",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change in difficult problem count"
+          }
+        }
+      }
     },
     "にがてもんだいの すうの うごき" : {
-
+      "comment" : "Difficult problems count trends",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Difficult problems count trends"
+          }
+        }
+      }
     },
     "の だん" : {
-      "comment" : "times table"
+      "comment" : "times table",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " times table"
+          }
+        }
+      }
     },
     "のこり時間: %@秒" : {
-      "comment" : "Remaining time: %@ seconds"
+      "comment" : "Remaining time: %@ seconds",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time left: %@ sec"
+          }
+        }
+      }
     },
     "バッジ" : {
       "comment" : "Badges",
@@ -1490,10 +1408,26 @@
       }
     },
     "バッジかくとく" : {
-      "comment" : "Badge collection"
+      "comment" : "Badge collection",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Badge Collection"
+          }
+        }
+      }
     },
     "バッジかくとく！" : {
-      "comment" : "Badge earned!"
+      "comment" : "Badge earned!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Badge Earned!"
+          }
+        }
+      }
     },
     "バッジコレクション" : {
       "comment" : "Badge Collection",
@@ -1561,17 +1495,6 @@
         }
       }
     },
-    "ポイント:" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Points:"
-          }
-        }
-      }
-    },
     "ポイント: %lld" : {
       "comment" : "Points display",
       "localizations" : {
@@ -1617,16 +1540,40 @@
       }
     },
     "ポイント消費履歴はありません" : {
-
+      "comment" : "No point spending history",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No point spending history"
+          }
+        }
+      }
     },
     "ポイント獲得履歴はありません" : {
-
+      "comment" : "No point earning history",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No point earning history"
+          }
+        }
+      }
     },
     "ほか %lld もん" : {
-
+      "comment" : "Other %lld problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld other problems"
+          }
+        }
+      }
     },
     "ほごしゃ かんり がめん" : {
-      "comment" : "Parent Management Screen",
+      "comment" : "Parent management screen",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1637,12 +1584,12 @@
       }
     },
     "ほごしゃからの メッセージ" : {
-      "comment" : "Messages from parent",
+      "comment" : "Message from parent",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Messages from parent"
+            "value" : "Message from Parent"
           }
         }
       }
@@ -1653,7 +1600,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notify parent"
+            "value" : "Notify Parent"
           }
         }
       }
@@ -1664,24 +1611,24 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Send to parent"
+            "value" : "Send Notification"
           }
         }
       }
     },
     "ほごしゃのひとからの \nメッセージを まってね！" : {
-      "comment" : "Waiting for message from parent",
+      "comment" : "Wait for message from parent",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wait for a message\nfrom your parent!"
+            "value" : "Wait for message\nfrom parent!"
           }
         }
       }
     },
     "ほごしゃのひとに おしらせしよう！" : {
-      "comment" : "Let's notify your parent!",
+      "comment" : "Let's notify parent",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1692,23 +1639,23 @@
       }
     },
     "ほごしゃのひとに きょうの がんばりを おしらせしました！" : {
-      "comment" : "Notified parent about today's effort!",
+      "comment" : "Notified parent about today's effort",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notified your parent about today's effort!"
+            "value" : "Notified your parent about today's hard work!"
           }
         }
       }
     },
     "ほごしゃのひとに きょうの たっせいを おしらせしよう！" : {
-      "comment" : "Let's notify parent about today's achievement!",
+      "comment" : "Let's notify parent about today's achievements",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Let's notify your parent about today's achievement!"
+            "value" : "Let's notify your parent about today's achievements!"
           }
         }
       }
@@ -1724,30 +1671,16 @@
         }
       }
     },
-    "ボタンをおして もんだいを見よう！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Press the button to show a question!"
-          }
-        }
-      }
-    },
-    "ボタンを押して問題を表示しよう！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Press the button to show a question!"
-          }
-        }
-      }
-    },
     "まいにち べんきょうして えらいね！" : {
-      "comment" : "Great job studying every day!"
+      "comment" : "Great job studying every day!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Great job studying every day!"
+          }
+        }
+      }
     },
     "まいにちチャンピオン" : {
       "comment" : "Daily Champion",
@@ -1805,7 +1738,15 @@
       }
     },
     "まだ メッセージが ありません" : {
-
+      "comment" : "No messages yet",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No messages yet"
+          }
+        }
+      }
     },
     "まだこの段の問題を\nといていません" : {
       "comment" : "No problems solved for this table yet",
@@ -1819,30 +1760,71 @@
       }
     },
     "まだメッセージがありません" : {
-      "comment" : "No messages yet"
+      "comment" : "No messages yet",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No messages yet"
+          }
+        }
+      }
     },
-    "まちがえた かいすう:" : {
+    "まちがえ りつ: %lld%%" : {
+      "comment" : "Error rate: %lld%%",
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mistakes:"
+            "value" : "Error rate: %lld%%"
           }
         }
       }
     },
     "まちがえた かいすう: %lld" : {
-
+      "comment" : "Number of mistakes: %lld",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mistakes: %lld"
+          }
+        }
+      }
     },
     "まちがえる りつ: %lld%%" : {
-
+      "comment" : "Error rate",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error rate: %lld%%"
+          }
+        }
+      }
     },
     "みかいとう: %lldもん" : {
-
+      "comment" : "Unanswered: %lld problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unanswered: %lld"
+          }
+        }
+      }
     },
     "みかくとく" : {
-      "comment" : "Not achieved"
+      "comment" : "Not achieved",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not achieved"
+          }
+        }
+      }
     },
     "むしくい もんだい" : {
       "comment" : "Fill-in-the-blank problems",
@@ -1883,7 +1865,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : " problems"
           }
         }
       }
@@ -1905,7 +1887,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Problem Answer Summary"
+            "value" : "Problem Solving Summary"
           }
         }
       }
@@ -1932,17 +1914,6 @@
         }
       }
     },
-    "もんだいを やめる" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quit problem"
-          }
-        }
-      }
-    },
     "やめる" : {
       "comment" : "Quit",
       "localizations" : {
@@ -1955,7 +1926,15 @@
       }
     },
     "ようび" : {
-
+      "comment" : "Day of week",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day of week"
+          }
+        }
+      }
     },
     "よくできました！" : {
       "comment" : "Well done!",
@@ -1990,17 +1969,6 @@
         }
       }
     },
-    "ランダム問題" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Random Question"
-          }
-        }
-      }
-    },
     "レベル10" : {
       "comment" : "Level 10",
       "localizations" : {
@@ -2013,10 +1981,26 @@
       }
     },
     "レベル10に到達" : {
-      "comment" : "Reached Level 10"
+      "comment" : "Reached Level 10",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reached Level 10"
+          }
+        }
+      }
     },
     "レベル10到達" : {
-      "comment" : "Reach Level 10"
+      "comment" : "Reach Level 10",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reach Level 10"
+          }
+        }
+      }
     },
     "レベル25" : {
       "comment" : "Level 25",
@@ -2030,10 +2014,26 @@
       }
     },
     "レベル25に到達" : {
-      "comment" : "Reached Level 25"
+      "comment" : "Reached Level 25",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reached Level 25"
+          }
+        }
+      }
     },
     "レベル25到達" : {
-      "comment" : "Reach Level 25"
+      "comment" : "Reach Level 25",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reach Level 25"
+          }
+        }
+      }
     },
     "レベル50" : {
       "comment" : "Level 50",
@@ -2047,10 +2047,26 @@
       }
     },
     "レベル50に到達" : {
-      "comment" : "Reached Level 50"
+      "comment" : "Reached Level 50",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reached Level 50"
+          }
+        }
+      }
     },
     "レベル50到達" : {
-      "comment" : "Reach Level 50"
+      "comment" : "Reach Level 50",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reach Level 50"
+          }
+        }
+      }
     },
     "れんぞく10かい" : {
       "comment" : "10 in a row",
@@ -2096,17 +2112,6 @@
         }
       }
     },
-    "九九チャレンジ" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Times Tables Challenge"
-          }
-        }
-      }
-    },
     "九九ティブ" : {
       "comment" : "App title\nTimes Tables",
       "localizations" : {
@@ -2124,31 +2129,43 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Available points"
+            "value" : "Available Points"
           }
         }
       }
     },
     "全9段で正解率86%以上" : {
-      "comment" : "86% or higher accuracy in all 9 tables"
-    },
-    "全ての段をマスター" : {
-      "comment" : "Mastered all times tables"
-    },
-    "再生" : {
-      "comment" : "Play",
-      "extractionState" : "stale",
+      "comment" : "86% or higher accuracy in all 9 tables",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Play"
+            "value" : "86% or higher accuracy in all 9 tables"
+          }
+        }
+      }
+    },
+    "全ての段をマスター" : {
+      "comment" : "Mastered all times tables",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mastered all times tables"
           }
         }
       }
     },
     "最近、改善された問題はありません" : {
-
+      "comment" : "No recently improved problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No recently improved problems"
+          }
+        }
+      }
     },
     "効果音 OFF" : {
       "comment" : "Sound effects OFF",
@@ -2168,17 +2185,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sound ON"
-          }
-        }
-      }
-    },
-    "問題" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Question"
           }
         }
       }
@@ -2206,12 +2212,12 @@
       }
     },
     "基本ポイント" : {
-      "comment" : "Basic points",
+      "comment" : "Base points",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Basic points"
+            "value" : "Base Points"
           }
         }
       }
@@ -2244,13 +2250,21 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "History type"
+            "value" : "History Type"
           }
         }
       }
     },
     "新マスター: %@" : {
-      "comment" : "New Master: %@"
+      "comment" : "New Master: %@",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Master: %@"
+          }
+        }
+      }
     },
     "時間切れ！正解は %lld です。" : {
       "comment" : "Time up message",
@@ -2263,117 +2277,247 @@
         }
       }
     },
-    "正解！ +%@ポイント (時間: %@秒)" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Correct! +%@ points (time: %@ sec)"
-          }
-        }
-      }
-    },
-    "正解！ +1ポイント (時間: %@秒)" : {
-      "comment" : "Correct answer with basic points",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Correct! +1 point (time: %@ sec)"
-          }
-        }
-      }
-    },
-    "正解！ +ボーナスポイント (時間: %@秒)" : {
-      "comment" : "Correct answer with bonus points",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Correct! +Bonus points (time: %@ sec)"
-          }
-        }
-      }
-    },
     "正解率" : {
-
+      "comment" : "Accuracy rate",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accuracy Rate"
+          }
+        }
+      }
     },
     "正解率: %lld%%" : {
-      "comment" : "Accuracy rate: %lld%%"
-    },
-    "段" : {
-
-    },
-    "消費ポイント" : {
-
-    },
-    "消費履歴" : {
-
-    },
-    "獲得履歴" : {
-
-    },
-    "理由（おもちゃ交換など）" : {
-
-    },
-    "確認" : {
-
-    },
-    "累計100問解答" : {
-      "comment" : "Total 100 problems answered"
-    },
-    "累計500問解答" : {
-      "comment" : "Total 500 problems answered"
-    },
-    "累計1000問解答" : {
-      "comment" : "Total 1000 problems answered"
-    },
-    "累計獲得ポイント" : {
-
-    },
-    "苦手問題5つ克服" : {
-      "comment" : "Overcome 5 difficult problems"
-    },
-    "苦手問題10個克服" : {
-      "comment" : "Overcome 10 difficult problems"
-    },
-    "苦手問題を5つ克服" : {
-      "comment" : "Overcame 5 difficult problems"
-    },
-    "苦手問題を10個克服" : {
-      "comment" : "Overcame 10 difficult problems"
-    },
-    "親用管理画面" : {
-
-    },
-    "親用管理画面のセキュリティ設定" : {
-
-    },
-    "親用管理画面へのアクセス" : {
-
-    },
-    "設定" : {
-
-    },
-    "閉じる" : {
-      "comment" : "Close"
-    },
-    "間違えた回数:" : {
-      "extractionState" : "stale",
+      "comment" : "Accuracy rate: %lld%%",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mistakes:"
+            "value" : "Accuracy: %lld%%"
+          }
+        }
+      }
+    },
+    "段" : {
+      "comment" : "Times table",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Table"
+          }
+        }
+      }
+    },
+    "消費ポイント" : {
+      "comment" : "Points spent",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Points Spent"
+          }
+        }
+      }
+    },
+    "消費履歴" : {
+      "comment" : "Spending history",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spending History"
+          }
+        }
+      }
+    },
+    "獲得履歴" : {
+      "comment" : "Earning history",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Earning History"
+          }
+        }
+      }
+    },
+    "理由（おもちゃ交換など）" : {
+      "comment" : "Reason (toy exchange, etc.)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reason (toy exchange, etc.)"
+          }
+        }
+      }
+    },
+    "確認" : {
+      "comment" : "Confirm",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    },
+    "累計100問解答" : {
+      "comment" : "Total 100 problems answered",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total 100 problems answered"
+          }
+        }
+      }
+    },
+    "累計500問解答" : {
+      "comment" : "Total 500 problems answered",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total 500 problems answered"
+          }
+        }
+      }
+    },
+    "累計1000問解答" : {
+      "comment" : "Total 1000 problems answered",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total 1000 problems answered"
+          }
+        }
+      }
+    },
+    "累計獲得ポイント" : {
+      "comment" : "Total earned points",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total Earned Points"
+          }
+        }
+      }
+    },
+    "苦手問題5つ克服" : {
+      "comment" : "Overcome 5 difficult problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overcome 5 difficult problems"
+          }
+        }
+      }
+    },
+    "苦手問題10個克服" : {
+      "comment" : "Overcome 10 difficult problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overcome 10 difficult problems"
+          }
+        }
+      }
+    },
+    "苦手問題を5つ克服" : {
+      "comment" : "Overcame 5 difficult problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overcame 5 difficult problems"
+          }
+        }
+      }
+    },
+    "苦手問題を10個克服" : {
+      "comment" : "Overcame 10 difficult problems",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overcame 10 difficult problems"
+          }
+        }
+      }
+    },
+    "親用管理画面" : {
+      "comment" : "Parent management screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parent Dashboard"
+          }
+        }
+      }
+    },
+    "親用管理画面のセキュリティ設定" : {
+      "comment" : "Parent dashboard security settings",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parent Dashboard Security Settings"
+          }
+        }
+      }
+    },
+    "親用管理画面へのアクセス" : {
+      "comment" : "Access to parent dashboard",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access to Parent Dashboard"
+          }
+        }
+      }
+    },
+    "設定" : {
+      "comment" : "Settings",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "閉じる" : {
+      "comment" : "Close",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
           }
         }
       }
     },
     "頑張って %lld 問が改善されました！" : {
-
+      "comment" : "Great job! %lld problems improved",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Great job! %lld problems improved!"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
