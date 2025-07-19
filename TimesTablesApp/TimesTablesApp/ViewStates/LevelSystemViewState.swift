@@ -94,7 +94,7 @@ class LevelSystemViewState: ObservableObject {
             fetchUserLevel()
         }
         // データベースの値ではなく、現在のレベルから動的に称号を取得
-        return userLevel?.getTitleForLevel(userLevel?.currentLevel ?? 1) ?? "九九みならい"
+        return userLevel?.getTitleForLevel(userLevel?.currentLevel ?? 1) ?? NSLocalizedString("level_title_beginner", tableName: "Gamification", comment: "九九みならい")
     }
     
     /// 現在の経験値

@@ -12,7 +12,7 @@ struct GraphTypeSelector: View {
                     VStack {
                         Image(systemName: "chart.pie.fill")
                             .font(.system(size: 24))
-                        Text("とくい・にがて")
+                        Text(NSLocalizedString("とくい・にがて", comment: "Strengths & Weaknesses"))
                             .font(.themeSubheadline)
                     }
                     .frame(width: 110)
@@ -34,7 +34,7 @@ struct GraphTypeSelector: View {
                     VStack {
                         Image(systemName: "chart.bar.fill")
                             .font(.system(size: 24))
-                        Text("にがての すうじ")
+                        Text(NSLocalizedString("にがての すうじ", comment: "Difficult Numbers"))
                             .font(.themeSubheadline)
                     }
                     .frame(width: 110)
@@ -56,7 +56,7 @@ struct GraphTypeSelector: View {
                     VStack {
                         Image(systemName: "chart.xyaxis.line")
                             .font(.system(size: 24))
-                        Text("だんごと")
+                        Text(NSLocalizedString("だんごと", comment: "By Table"))
                             .font(.themeSubheadline)
                     }
                     .frame(width: 110)

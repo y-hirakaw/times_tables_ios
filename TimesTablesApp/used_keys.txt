@@ -1,0 +1,163 @@
+ がんばってるね！
+ まで 
+%@の だん
+%lldの だん
+%lldのだん
+1000もんたっせい
+1000問解いた
+100もんたっせい
+100問解いた
+10問連続で正解した
+10問連続正解
+1つの段で正解率86%以上
+1つの段をマスター
+20問連続で正解した
+20問連続正解
+2秒以内に20問正解
+2秒以内正解×20
+30日連続でデイリー目標達成
+30日連続目標達成
+3秒以内に10問正解
+3秒以内正解×10
+500もんたっせい
+500問解いた
+50問連続で正解した
+50問連続正解
+7日連続でデイリー目標達成
+7日連続目標達成
+close
+correct_basic_points
+correct_bonus_points
+daily_challenge_completed
+daily_challenge_completed_message
+daily_challenge_congratulations
+daily_challenge_recent_efforts
+daily_challenge_remaining
+daily_challenge_streak
+daily_challenge_thanks
+daily_challenge_title
+level_current_level
+level_current_title
+level_experience
+level_experience_progress
+level_next_exp
+level_next_exp_detail
+level_title_apprentice
+level_title_beginner
+level_title_expert
+level_title_grandmaster
+level_title_legend
+level_title_master
+level_title_practitioner
+level_up_continue
+level_up_history
+level_up_message
+loading_data
+multiplication_master_map
+NEW!
+table_title
+あと
+あと %lldもん がんばろう！
+あなたのにがてな もんだい:
+いなずまスピード
+おめでとう！%lldの だんを すべて クリアしました！
+お子様とのコミュニケーションを始めましょう
+がくしゅう とうけい
+かくとくじょうけん
+かくとくずみ！
+がんばったね！
+がんばってる
+がんばってる！
+きょうも がんばろう！
+こんしゅうの もんだいすう
+しゅうかんせんし
+すごいじゃない！
+すべての だん を マスター！ すごいね！
+せいかいりつ
+ぜんだんマスター
+ぜんぶの もんだいすう
+その ちょうしで がんばって！
+だんごと
+だんじゅんばん もんだい
+だんだん じょうずに なってるよ！
+だんで もんだい
+だんマスター
+だんを えらぶ
+だんを えらんでね
+チャレンジOFF
+チャレンジON
+つぎも がんばろうね！
+テンプレート
+テンプレート選択
+といた もんだい
+とくい・にがて
+とじる
+とても じょうずですよ！
+にがてこくふく
+にがてせいふく
+にがての すうじ
+の だん
+のこり時間: %@秒
+バッジ
+バッジかくとく
+バッジかくとく！
+バッジコレクション
+はやうちくん
+びょう
+へいきん じかん
+ポイント: %lld
+ボタンをおして もんだいをやろう！
+まいにち べんきょうして えらいね！
+まいにちチャンピオン
+マスター
+マスターまで
+まだ かいとうした もんだいが ありません
+まだこの段の問題を\nといていません
+まだメッセージがありません
+みかくとく
+むしくい もんだい
+メッセージ
+メッセージを入力...
+もうすこし
+もうすこし！
+もうすこしで かんぺき だね！
+もん
+もんだい
+もんだい かいとう サマリー
+やめる
+よくできました！
+よく使うメッセージ
+ランダム もんだい
+レベル10
+レベル10に到達
+レベル10到達
+レベル25
+レベル25に到達
+レベル25到達
+レベル50
+レベル50に到達
+レベル50到達
+れんしゅうちゅう
+れんぞく %lldにち
+れんぞく10かい
+れんぞく20かい
+れんぞくマスター
+学習統計
+九九ティブ
+苦手問題10個克服
+苦手問題5つ克服
+苦手問題を10個克服
+苦手問題を5つ克服
+効果音 OFF
+効果音 ON
+時間切れ！正解は %lld です。
+新マスター: %@
+正解率: %lld%%
+全9段で正解率86%以上
+全ての段をマスター
+不正解！正解は %lld です。もう一度チャレンジしてね。
+閉じる
+問題数: %lld
+累計1000問解答
+累計100問解答
+累計500問解答

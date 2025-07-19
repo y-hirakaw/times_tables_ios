@@ -6,7 +6,7 @@ struct QuestionSummaryView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Text("もんだい かいとう サマリー")
+            Text(NSLocalizedString("もんだい かいとう サマリー", comment: "Problem Answer Summary"))
                 .font(.headline)
                 .foregroundColor(.indigo)
                 .padding(.leading)
@@ -18,7 +18,7 @@ struct QuestionSummaryView: View {
                         .foregroundColor(.gray.opacity(0.5))
                         .padding()
                     
-                    Text("まだ かいとうした もんだいが ありません")
+                    Text(NSLocalizedString("まだ かいとうした もんだいが ありません", comment: "No answered problems yet"))
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
@@ -30,15 +30,15 @@ struct QuestionSummaryView: View {
                         summaryItem(
                             icon: "number.circle.fill",
                             iconColor: .blue,
-                            title: "ぜんぶの もんだいすう",
-                            value: "\(answerRecords.count)もん"
+                            title: NSLocalizedString("ぜんぶの もんだいすう", comment: "Total problems"),
+                            value: "\(answerRecords.count)" + NSLocalizedString("もん", comment: "problems unit")
                         )
                         
                         summaryItem(
                             icon: "clock.badge.checkmark.fill",
                             iconColor: .green,
-                            title: "こんしゅうの もんだいすう",
-                            value: "\(getWeeklyQuestionCount())もん"
+                            title: NSLocalizedString("こんしゅうの もんだいすう", comment: "This week's problems"),
+                            value: "\(getWeeklyQuestionCount())" + NSLocalizedString("もん", comment: "problems unit")
                         )
                     }
                     
@@ -47,14 +47,14 @@ struct QuestionSummaryView: View {
                         summaryItem(
                             icon: "checkmark.circle.fill", 
                             iconColor: .orange,
-                            title: "せいかいりつ",
+                            title: NSLocalizedString("せいかいりつ", comment: "Accuracy rate"),
                             value: "\(getCorrectPercentage())%"
                         )
                         
                         summaryItem(
                             icon: "timer", 
                             iconColor: .purple,
-                            title: "へいきん じかん",
+                            title: NSLocalizedString("へいきん じかん", comment: "Average time"),
                             value: formatTime(getAverageAnswerTime())
                         )
                     }
@@ -128,7 +128,7 @@ struct QuestionSummaryView: View {
     
     // 時間をフォーマット（秒 -> "X.X びょう"）
     private func formatTime(_ seconds: Double) -> String {
-        return String(format: "%.1f びょう", seconds)
+        return String(format: "%.1f " + NSLocalizedString("びょう", comment: "seconds unit"), seconds)
     }
 }
 

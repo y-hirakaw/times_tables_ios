@@ -37,18 +37,8 @@ struct BadgeCollectionView: View {
             .padding(.vertical)
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("バッジコレクション")
+        .navigationTitle(NSLocalizedString("バッジコレクション", comment: "Badge Collection"))
         .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("テストバッジ") {
-                    badgeSystem.debugEarnTestBadge()
-                    // バッジ獲得後にリストを再読み込み
-                    badgeSystem.fetchEarnedBadges()
-                }
-                .font(.caption)
-            }
-        }
         .onAppear {
             badgeSystem.fetchEarnedBadges()
             // 既読化は手動で行う（自動では行わない）
@@ -68,7 +58,7 @@ struct BadgeCollectionView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
-            Text("バッジかくとく")
+            Text(NSLocalizedString("バッジかくとく", comment: "Badge collection"))
                 .font(.headline)
                 .foregroundColor(.secondary)
             
@@ -170,7 +160,7 @@ struct BadgeDetailView: View {
                 
                 // 獲得条件
                 VStack(spacing: 8) {
-                    Text("かくとくじょうけん")
+                    Text(NSLocalizedString("かくとくじょうけん", comment: "Achievement conditions"))
                         .font(.headline)
                         .foregroundColor(.secondary)
                     
@@ -189,11 +179,11 @@ struct BadgeDetailView: View {
                 
                 // ステータス
                 if isEarned {
-                    Label("かくとくずみ！", systemImage: "checkmark.circle.fill")
+                    Label(NSLocalizedString("かくとくずみ！", comment: "Achieved!"), systemImage: "checkmark.circle.fill")
                         .font(.headline)
                         .foregroundColor(.green)
                 } else {
-                    Label("みかくとく", systemImage: "lock.fill")
+                    Label(NSLocalizedString("みかくとく", comment: "Not achieved"), systemImage: "lock.fill")
                         .font(.headline)
                         .foregroundColor(.secondary)
                 }
@@ -204,7 +194,7 @@ struct BadgeDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("とじる") {
+                    Button(NSLocalizedString("とじる", comment: "Close")) {
                         dismiss()
                     }
                 }
@@ -228,7 +218,7 @@ struct BadgeNotificationView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            Text("バッジかくとく！")
+            Text(NSLocalizedString("バッジかくとく！", comment: "Badge earned!"))
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.white)

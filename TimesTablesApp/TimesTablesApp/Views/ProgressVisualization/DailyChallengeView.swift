@@ -184,7 +184,7 @@ private struct WeeklyHistoryView: View {
     private func dayOfWeekString(for date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "E"
-        formatter.locale = Locale(identifier: "ja_JP")
+        formatter.locale = Locale.current
         return formatter.string(from: date)
     }
 }

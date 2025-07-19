@@ -3,7 +3,6 @@
   "strings" : {
     " がんばってるね！" : {
       "comment" : "Keep it up message",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -13,244 +12,8 @@
         }
       }
     },
-    " まで " : {
-      "comment" : " until ",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " until "
-          }
-        }
-      }
-    },
-    "（せいかいりつ 70%いじょう）" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "(Accuracy 70% or higher)"
-          }
-        }
-      }
-    },
-    "（せいかいりつ 70%みまん）" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "(Accuracy less than 70%)"
-          }
-        }
-      }
-    },
-    "%lldの だん" : {
-      "comment" : "%lld times table",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld times table"
-          }
-        }
-      }
-    },
-    "%lldのだん" : {
-      "comment" : "Times table number",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld times table"
-          }
-        }
-      }
-    },
-    "※PINコードを忘れると管理画面へアクセスできなくなります。\n忘れないようにメモを取るなどの対策をしてください。" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "※If you forget your PIN code, you will not be able to access the dashboard.\nPlease take measures such as taking notes so that you don't forget."
-          }
-        }
-      }
-    },
-    "4桁のPINコード" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "4-digit PIN code"
-          }
-        }
-      }
-    },
-    "4桁のPINコードを設定してください" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please set a 4-digit PIN code"
-          }
-        }
-      }
-    },
-    "OK" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        }
-      }
-    },
-    "PINコード (4桁)" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PIN code (4 digits)"
-          }
-        }
-      }
-    },
-    "PINコードが正しくありません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Incorrect PIN code"
-          }
-        }
-      }
-    },
-    "PINコードの確認" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm PIN code"
-          }
-        }
-      }
-    },
-    "PINコードを入力してください" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please enter your PIN code"
-          }
-        }
-      }
-    },
-    "あたらしい たっせい！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New Achievement!"
-          }
-        }
-      }
-    },
-    "あたらしいメッセージが %lldこ あります" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You have %lld new messages"
-          }
-        }
-      }
-    },
-    "あたらしく マスターしたもの" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Newly Mastered"
-          }
-        }
-      }
-    },
-    "おくりました！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sent!"
-          }
-        }
-      }
-    },
-    "おめでとう！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Congratulations!"
-          }
-        }
-      }
-    },
-    "お子様とのコミュニケーションを始めましょう" : {
-      "comment" : "Let's start communicating with your child",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Let's start communicating with your child"
-          }
-        }
-      }
-    },
-    "お子様とのメッセージ" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Messages with your child"
-          }
-        }
-      }
-    },
-    "がくしゅう とうけい" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Learning Statistics"
-          }
-        }
-      }
-    },
     "がんばったね！" : {
       "comment" : "You did great!",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -260,76 +23,8 @@
         }
       }
     },
-    "がんばりレポート" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Progress Report"
-          }
-        }
-      }
-    },
-    "キャンセル" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        }
-      }
-    },
-    "きょうの がんばり" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today's Effort"
-          }
-        }
-      }
-    },
-    "きょうも がんばろう！" : {
-      "comment" : "Let's do our best today",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Let's do our best today!"
-          }
-        }
-      }
-    },
-    "グラフの せつめい" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Graph Explanation"
-          }
-        }
-      }
-    },
-    "この画面ではポイント獲得履歴とポイントの消費ができます。九九に正解するとポイントが貰えますので、何ポイントで何ができるなどルールを決めて使うなどに利用してください。" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "In this screen, you can view point earning history and use points. Points are earned by correctly answering multiplication problems. Please use this feature to set rules like what can be done with certain points."
-          }
-        }
-      }
-    },
     "すごいじゃない！" : {
       "comment" : "That's amazing!",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -339,448 +34,8 @@
         }
       }
     },
-    "その ちょうしで がんばって！" : {
-      "comment" : "Keep up that good work!",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keep up that good work!"
-          }
-        }
-      }
-    },
-    "たっせい シェア" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Share Achievement"
-          }
-        }
-      }
-    },
-    "だんだん じょうずに なってるよ！" : {
-      "comment" : "You're getting better and better!",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You're getting better and better!"
-          }
-        }
-      }
-    },
-    "だんを えらぶ" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select times table"
-          }
-        }
-      }
-    },
-    "だんを えらんでね" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please select a times table"
-          }
-        }
-      }
-    },
-    "チャレンジOFF" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Challenge OFF"
-          }
-        }
-      }
-    },
-    "チャレンジON" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Challenge ON"
-          }
-        }
-      }
-    },
-    "つぎも がんばろうね！" : {
-      "comment" : "Let's keep working hard!",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Let's keep working hard!"
-          }
-        }
-      }
-    },
-    "データが たりません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Not enough data"
-          }
-        }
-      }
-    },
-    "データがありません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No data available"
-          }
-        }
-      }
-    },
-    "データを読み込み中..." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Loading data..."
-          }
-        }
-      }
-    },
-    "テンプレート" : {
-      "comment" : "Template",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Template"
-          }
-        }
-      }
-    },
-    "テンプレート選択" : {
-      "comment" : "Select Template",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select Template"
-          }
-        }
-      }
-    },
-    "とじる" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        }
-      }
-    },
-    "とても じょうずですよ！" : {
-      "comment" : "You're doing very well!",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You're doing very well!"
-          }
-        }
-      }
-    },
-    "の だん" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " times table"
-          }
-        }
-      }
-    },
-    "ボーナスポイント" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bonus points"
-          }
-        }
-      }
-    },
-    "ポイント: %lld" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Points: %lld"
-          }
-        }
-      }
-    },
-    "ポイントりれき" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Points history"
-          }
-        }
-      }
-    },
-    "ポイントりれきはありません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No points history"
-          }
-        }
-      }
-    },
-    "ポイント消費" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Use points"
-          }
-        }
-      }
-    },
-    "ポイント消費履歴はありません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No point usage history"
-          }
-        }
-      }
-    },
-    "ポイント獲得履歴はありません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No point earning history"
-          }
-        }
-      }
-    },
-    "ほごしゃ かんり がめん" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Parent Dashboard"
-          }
-        }
-      }
-    },
-    "ほごしゃからの メッセージ" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Message from Parent"
-          }
-        }
-      }
-    },
-    "ほごしゃに おしらせ" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notify Parent"
-          }
-        }
-      }
-    },
-    "ほごしゃに おしらせする" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Send to Parent"
-          }
-        }
-      }
-    },
-    "ほごしゃのひとからの \nメッセージを まってね！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wait for a message \nfrom your parent!"
-          }
-        }
-      }
-    },
-    "ほごしゃのひとに おしらせしよう！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Let's tell your parent!"
-          }
-        }
-      }
-    },
-    "ほごしゃのひとに きょうの がんばりを おしらせしました！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Told your parent about today's effort!"
-          }
-        }
-      }
-    },
-    "ほごしゃのひとに きょうの たっせいを おしらせしよう！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Let's tell your parent about today's achievement!"
-          }
-        }
-      }
-    },
-    "ボタンをおして もんだいをやろう！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Press the button to start!"
-          }
-        }
-      }
-    },
-    "まいにち べんきょうして えらいね！" : {
-      "comment" : "Great job studying every day!",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Great job studying every day!"
-          }
-        }
-      }
-    },
-    "まだ メッセージが ありません" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No messages yet"
-          }
-        }
-      }
-    },
-    "まだメッセージがありません" : {
-      "comment" : "No messages yet",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No messages yet"
-          }
-        }
-      }
-    },
-    "メッセージ" : {
-      "comment" : "Message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Message"
-          }
-        }
-      }
-    },
-    "メッセージを入力..." : {
-      "comment" : "Enter message...",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enter message..."
-          }
-        }
-      }
-    },
-    "やめる" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quit"
-          }
-        }
-      }
-    },
-    "ようび" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Day of week"
-          }
-        }
-      }
-    },
     "よくできました！" : {
       "comment" : "Well done!",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -790,20 +45,63 @@
         }
       }
     },
-    "よく使うメッセージ" : {
-      "comment" : "Frequently Used Messages",
-      "extractionState" : "stale",
+    "その ちょうしで がんばって！" : {
+      "comment" : "Keep up that good work!",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Frequently Used Messages"
+            "value" : "Keep up that good work!"
+          }
+        }
+      }
+    },
+    "まいにち べんきょうして えらいね！" : {
+      "comment" : "Great job studying every day!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Great job studying every day!"
+          }
+        }
+      }
+    },
+    "だんだん じょうずに なってるよ！" : {
+      "comment" : "You're getting better and better!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're getting better and better!"
+          }
+        }
+      }
+    },
+    "つぎも がんばろうね！" : {
+      "comment" : "Let's keep working hard!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's keep working hard!"
+          }
+        }
+      }
+    },
+    "とても じょうずですよ！" : {
+      "comment" : "You're doing very well!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're doing very well!"
           }
         }
       }
     },
     "九九ティブ" : {
-      "extractionState" : "stale",
+      "comment" : "App title - Times Tables",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -813,63 +111,8 @@
         }
       }
     },
-    "九九マスターマップ" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Times Tables Master Map"
-          }
-        }
-      }
-    },
-    "使用可能ポイント" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Available points"
-          }
-        }
-      }
-    },
-    "効果音 OFF" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sound OFF"
-          }
-        }
-      }
-    },
-    "効果音 ON" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sound ON"
-          }
-        }
-      }
-    },
-    "基本ポイント" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Basic points"
-          }
-        }
-      }
-    },
     "学習統計" : {
-      "extractionState" : "stale",
+      "comment" : "Learning Statistics",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -879,169 +122,90 @@
         }
       }
     },
-    "実行" : {
-      "extractionState" : "stale",
+    "もんだい" : {
+      "comment" : "Problem",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Execute"
+            "value" : "Problem"
           }
         }
       }
     },
-    "履歴タイプ" : {
-      "extractionState" : "stale",
+    "のこり時間: %@秒" : {
+      "comment" : "Remaining time: %@ seconds",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "History type"
+            "value" : "Time left: %@ sec"
           }
         }
       }
     },
-    "新マスター: %@" : {
-      "comment" : "New Master: %@",
-      "extractionState" : "stale",
+    "やめる" : {
+      "comment" : "Quit",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "New Master: %@"
-          }
-        }
-      }
-    },
-    "段" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Table"
-          }
-        }
-      }
-    },
-    "消費ポイント" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Points used"
-          }
-        }
-      }
-    },
-    "消費履歴" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Usage history"
-          }
-        }
-      }
-    },
-    "獲得履歴" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Earning history"
-          }
-        }
-      }
-    },
-    "理由（おもちゃ交換など）" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reason (e.g. toy exchange)"
-          }
-        }
-      }
-    },
-    "確認" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm"
-          }
-        }
-      }
-    },
-    "累計獲得ポイント" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Total points earned"
-          }
-        }
-      }
-    },
-    "親用管理画面" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Access to Parent Dashboard"
-          }
-        }
-      }
-    },
-    "親用管理画面のセキュリティ設定" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Parent Dashboard Security Settings"
-          }
-        }
-      }
-    },
-    "親用管理画面へのアクセス" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Access to Parent Dashboard"
-          }
-        }
-      }
-    },
-    "設定" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Set"
+            "value" : "Quit"
           }
         }
       }
     },
     "閉じる" : {
       "comment" : "Close",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
+          }
+        }
+      }
+    },
+    "テンプレート" : {
+      "comment" : "Template",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Template"
+          }
+        }
+      }
+    },
+    "とじる" : {
+      "comment" : "Close",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "かくとくずみ！" : {
+      "comment" : "Achieved!",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achieved!"
+          }
+        }
+      }
+    },
+    "みかくとく" : {
+      "comment" : "Not achieved",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not achieved"
           }
         }
       }

@@ -70,7 +70,7 @@ struct MultiplicationView: View {
                     .padding()
                 }
             }
-            .navigationTitle("九九ティブ")
+            .navigationTitle(NSLocalizedString("九九ティブ", comment: "App title"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
@@ -211,7 +211,7 @@ struct MultiplicationView: View {
                 .font(.system(size: 20))
                 .foregroundColor(.themeGold)
             
-            Text("ボタンをおして もんだいをやろう！")
+            Text(NSLocalizedString("ボタンをおして もんだいをやろう！", comment: "Press button to start"))
                 .font(.themeSubheadline)
                 .foregroundColor(.themeGray800)
         }
@@ -229,7 +229,7 @@ struct MultiplicationView: View {
                     .foregroundColor(.themeGold)
                     .font(.themeTitle2)
 
-                Text("ポイント: \(viewState.getCurrentPoints())")
+                Text(String(format: NSLocalizedString("ポイント: %lld", comment: "Points display"), viewState.getCurrentPoints()))
                     .font(.themeTitle3)
                     .foregroundColor(.themeGray800)
             }
@@ -270,7 +270,7 @@ struct MultiplicationView: View {
                                y: ShadowStyle.small.y)
                 )
 
-            Text("ボタンをおして もんだいをやろう！")
+            Text(NSLocalizedString("ボタンをおして もんだいをやろう！", comment: "Press button to start"))
                 .font(.themeTitle2)
                 .foregroundColor(.themeGray800)
                 .multilineTextAlignment(.center)
@@ -288,7 +288,7 @@ struct MultiplicationView: View {
                 Button(action: { viewState.startSequentialMode() }) {
                     HStack {
                         Image(systemName: "arrow.right")
-                        Text("だんじゅんばん もんだい")
+                        Text(NSLocalizedString("だんじゅんばん もんだい", comment: "Sequential problems"))
                     }
                     .primaryButtonStyle()
                 }
@@ -299,7 +299,7 @@ struct MultiplicationView: View {
                 Button(action: { viewState.generateRandomQuestion() }) {
                     HStack {
                         Image(systemName: "dice.fill")
-                        Text("ランダム もんだい")
+                        Text(NSLocalizedString("ランダム もんだい", comment: "Random problems"))
                     }
                     .primaryButtonStyle()
                 }
@@ -308,7 +308,7 @@ struct MultiplicationView: View {
                 Button(action: { viewState.showTableSelection() }) {
                     HStack {
                         Image(systemName: "list.number")
-                        Text("だんで もんだい")
+                        Text(NSLocalizedString("だんで もんだい", comment: "Table problems"))
                     }
                     .primaryButtonStyle()
                 }
@@ -319,7 +319,7 @@ struct MultiplicationView: View {
                 Button(action: { viewState.generateHolePunchQuestion() }) {
                     HStack {
                         Image(systemName: "questionmark.square.fill")
-                        Text("むしくい もんだい")
+                        Text(NSLocalizedString("むしくい もんだい", comment: "Fill-in-the-blank problems"))
                     }
                     .primaryButtonStyle()
                 }
@@ -330,7 +330,7 @@ struct MultiplicationView: View {
                 Button(action: { viewState.toggleChallengeMode() }) {
                     HStack {
                         Image(systemName: viewState.isChallengeModeActive ? "star.fill" : "star")
-                        Text(viewState.isChallengeModeActive ? "チャレンジON" : "チャレンジOFF")
+                        Text(viewState.isChallengeModeActive ? NSLocalizedString("チャレンジON", comment: "Challenge ON") : NSLocalizedString("チャレンジOFF", comment: "Challenge OFF"))
                     }
                     .font(.headline)
                     .foregroundColor(viewState.isChallengeModeActive ? .white : .orange)
@@ -352,7 +352,7 @@ struct MultiplicationView: View {
                 if let selectedTable = viewState.selectedTable {
                     HStack {
                         Image(systemName: "checkmark.circle.fill")
-                        Text("\(selectedTable)の だん")
+                        Text(String(format: NSLocalizedString("%@の だん", comment: "Times table of number"), "\(selectedTable)"))
                         if viewState.isSequentialMode {
                             Text("(\(viewState.currentSequentialNumber-1)/9)")
                         }
@@ -377,7 +377,7 @@ struct MultiplicationView: View {
         }) {
             HStack {
                 Image(systemName: soundManager.isEnabled ? "speaker.wave.3.fill" : "speaker.slash.fill")
-                Text(soundManager.isEnabled ? "効果音 ON" : "効果音 OFF")
+                Text(soundManager.isEnabled ? NSLocalizedString("効果音 ON", comment: "Sound effects ON") : NSLocalizedString("効果音 OFF", comment: "Sound effects OFF"))
             }
             .font(.themeSubheadline)
             .foregroundColor(soundManager.isEnabled ? .themePrimary : .themeGray500)
@@ -404,7 +404,7 @@ struct MultiplicationView: View {
         return Group {
             if (!difficultOnes.isEmpty) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("あなたのにがてな もんだい:")
+                    Text(NSLocalizedString("あなたのにがてな もんだい:", comment: "Your difficult problems:"))
                         .font(.headline)
                         .foregroundColor(.themePrimary)
                         .padding(.horizontal)
@@ -457,7 +457,7 @@ struct MultiplicationView: View {
                     .ignoresSafeArea()
                 
                 VStack(spacing: 20) {
-                    Text("だんを えらんでね")
+                    Text(NSLocalizedString("だんを えらんでね", comment: "Choose a times table"))
                         .font(.title2)
                         .bold()
                         .foregroundColor(.themePrimary)
@@ -473,7 +473,7 @@ struct MultiplicationView: View {
                                         .font(.system(size: 32, weight: .bold))
                                         .foregroundColor(.white)
                                     
-                                    Text("の だん")
+                                    Text(NSLocalizedString("の だん", comment: "times table"))
                                         .font(.headline)
                                         .foregroundColor(.white.opacity(0.9))
                                 }
@@ -495,11 +495,11 @@ struct MultiplicationView: View {
                 }
                 .padding()
             }
-            .navigationTitle("だんを えらぶ")
+            .navigationTitle(NSLocalizedString("だんを えらぶ", comment: "Choose Times Table"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("とじる") {
+                    Button(NSLocalizedString("とじる", comment: "Close")) {
                         viewState.showingTableSelection = false
                     }
                 }
@@ -517,7 +517,7 @@ struct MultiplicationView: View {
                     .font(.system(size: 20))
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("バッジ")
+                    Text(NSLocalizedString("バッジ", comment: "Badges"))
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.themeGray800)
                     
@@ -527,7 +527,7 @@ struct MultiplicationView: View {
                             .foregroundColor(.themePrimary)
                         
                         if !badgeSystem.newBadges.isEmpty {
-                            Text("NEW!")
+                            Text(NSLocalizedString("NEW!", comment: "New badge indicator"))
                                 .font(.system(size: 12, weight: .bold))
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 6)

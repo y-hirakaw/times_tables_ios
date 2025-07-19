@@ -47,11 +47,11 @@ struct StatsView: View {
                     .padding(.vertical, Spacing.spacing16)
                 }
             }
-            .navigationTitle("がくしゅう とうけい")
+            .navigationTitle(NSLocalizedString("がくしゅう とうけい", comment: "Learning Statistics"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("がくしゅう とうけい")
+                    Text(NSLocalizedString("がくしゅう とうけい", comment: "Learning Statistics"))
                         .font(.themeTitle3)
                         .foregroundColor(.themePrimary)
                 }

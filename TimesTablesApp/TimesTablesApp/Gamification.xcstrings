@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
+    "close" : {
+      "comment" : "とじる",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "とじる"
+          }
+        }
+      }
+    },
     "daily_challenge_completed" : {
       "comment" : "きょうのもくひょう たっせい！",
       "localizations" : {
@@ -241,7 +258,6 @@
     },
     "level_title_apprentice" : {
       "comment" : "九九れんしゅうせい",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -259,7 +275,6 @@
     },
     "level_title_beginner" : {
       "comment" : "九九みならい",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -277,7 +292,6 @@
     },
     "level_title_expert" : {
       "comment" : "九九めいじん",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -295,7 +309,6 @@
     },
     "level_title_grandmaster" : {
       "comment" : "九九グランドマスター",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -313,7 +326,6 @@
     },
     "level_title_legend" : {
       "comment" : "九九レジェンド",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -331,7 +343,6 @@
     },
     "level_title_master" : {
       "comment" : "九九マスター",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -349,7 +360,6 @@
     },
     "level_title_practitioner" : {
       "comment" : "九九じゅくれんしゃ",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -416,6 +426,57 @@
         }
       }
     },
+    "loading_data" : {
+      "comment" : "データを読み込み中...",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading data..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データを読み込み中..."
+          }
+        }
+      }
+    },
+    "multiplication_master_map" : {
+      "comment" : "九九マスターマップ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Times Tables Master Map"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "九九マスターマップ"
+          }
+        }
+      }
+    },
+    "table_title" : {
+      "comment" : "%ldのだん",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ld times table"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ldのだん"
+          }
+        }
+      }
+    },
     "がんばってる" : {
       "comment" : "Intermediate level",
       "localizations" : {
@@ -439,7 +500,21 @@
       }
     },
     "きょうも がんばろう！" : {
-      "comment" : "Let's do our best today"
+      "comment" : "Let's do our best today",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's do our best today!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "きょうも がんばろう！"
+          }
+        }
+      }
     },
     "マスター" : {
       "comment" : "Master level",

@@ -11,12 +11,12 @@ struct TimesTablesAppApp: App {
             TabView {
                 MultiplicationView()
                     .tabItem {
-                        Label("九九ティブ", systemImage: "person.fill.questionmark")
+                        Label(NSLocalizedString("九九ティブ", comment: "Times Tables"), systemImage: "person.fill.questionmark")
                     }
                 
                 StatsView()
                     .tabItem {
-                        Label("学習統計", systemImage: "chart.pie.fill")
+                        Label(NSLocalizedString("学習統計", comment: "Learning Statistics"), systemImage: "chart.pie.fill")
                     }
             }
             .modelContainer(DataStore.shared.container)

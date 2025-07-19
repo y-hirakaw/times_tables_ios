@@ -108,7 +108,7 @@ struct QuestionSolvingView: View {
                 .padding(.bottom, Spacing.spacing4)
             }
             
-            Text("もんだい")
+            Text(NSLocalizedString("もんだい", comment: "Problem"))
                 .font(.system(size: min(availableHeight * 0.15, 20), weight: .semibold))
                 .foregroundColor(.themeGray600)
             
@@ -150,7 +150,7 @@ struct QuestionSolvingView: View {
             HStack {
                 Image(systemName: "timer")
                     .foregroundColor(timerColor)
-                Text("のこり時間: \(String(format: "%.1f", viewState.remainingTime))秒")
+                Text(String(format: NSLocalizedString("のこり時間: %@秒", comment: "Remaining time: %@ seconds"), String(format: "%.1f", viewState.remainingTime)))
                     .font(.themeTitle3)
                     .foregroundColor(timerColor)
             }
@@ -303,7 +303,7 @@ struct QuestionSolvingView: View {
         }) {
             HStack {
                 Image(systemName: "xmark.circle.fill")
-                Text("やめる")
+                Text(NSLocalizedString("やめる", comment: "Quit"))
             }
             .font(.themeTitle3)
             .foregroundColor(.white)

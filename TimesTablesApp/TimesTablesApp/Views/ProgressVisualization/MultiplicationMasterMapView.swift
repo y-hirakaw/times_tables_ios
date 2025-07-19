@@ -35,7 +35,7 @@ struct MultiplicationMasterMapView: View {
         VStack(spacing: 12) {
             // コンパクトヘッダー
             HStack {
-                Text("九九マスターマップ")
+                Text(NSLocalizedString("multiplication_master_map", tableName: "Gamification", comment: "九九マスターマップ"))
                     .font(.headline)
                     .fontWeight(.bold)
                 
@@ -56,7 +56,7 @@ struct MultiplicationMasterMapView: View {
                 VStack {
                     ProgressView()
                         .scaleEffect(1.2)
-                    Text("データを読み込み中...")
+                    Text(NSLocalizedString("loading_data", tableName: "Gamification", comment: "データを読み込み中..."))
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .padding(.top, 8)
@@ -290,11 +290,11 @@ private struct TableDetailView: View {
                 }
                 .padding()
             }
-            .navigationTitle("\(table)のだん")
+            .navigationTitle(String(format: NSLocalizedString("table_title", tableName: "Gamification", comment: "%ldのだん"), table))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("とじる") {
+                    Button(NSLocalizedString("close", tableName: "Gamification", comment: "とじる")) {
                         dismiss()
                     }
                 }
